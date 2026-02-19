@@ -1,10 +1,11 @@
 version: 2
 
 updates:
-   - package-ecosystem: "maven"
-     schedule:
-       interval: "weekly"
-       day: "saturday"
-       time: "04:00"
-       timezone: "Europe/Berlin"
-     target-branch: "main"
+  - package-ecosystem: "maven"
+    directory: "/"          # where your pom.xml lives (root here)
+    schedule:
+      interval: "weekly"
+      day: "saturday"
+      time: "04:00"
+      timezone: "Europe/Berlin"
+    target-branch: "next"
