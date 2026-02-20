@@ -6,5 +6,7 @@ on:
 jobs:
   dependency-review:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: it-at-m/lhm_actions/action-templates/actions/action-dependency-review@691ffa2542ed7cc1c53c416d22ace9a153d5152f # v1.0.21
