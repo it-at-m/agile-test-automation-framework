@@ -4,8 +4,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>de.muenchen.ataf.java</groupId>
-        <artifactId>test-automation-framework</artifactId>
+        <groupId>de.muenchen.ataf</groupId>
+        <artifactId>agile-test-automation-framework</artifactId>
         <version>0.3.0</version>
     </parent>
 
@@ -14,7 +14,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>de.muenchen.ataf.java</groupId>
+            <groupId>de.muenchen.ataf</groupId>
             <artifactId>core</artifactId>
             <version>${project.version}</version>
         </dependency>
