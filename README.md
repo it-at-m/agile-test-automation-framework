@@ -76,7 +76,7 @@ Contains essential functionality for Cucumber and Jira integration, as well as h
 
 ```xml
 <dependency>
-    <groupId>de.muenchen.ataf.java</groupId>
+    <groupId>de.muenchen.ataf</groupId>
     <artifactId>core</artifactId>
     <version>${version.ataf}</version>
 </dependency>
@@ -88,7 +88,7 @@ Contains classes for API testing.
 
 ```xml
 <dependency>
-    <groupId>de.muenchen.ataf.java</groupId>
+    <groupId>de.muenchen.ataf</groupId>
     <artifactId>rest</artifactId>
     <version>${version.ataf}</version>
 </dependency>
@@ -100,7 +100,7 @@ Contains classes for browser-based tests.
 
 ```xml
 <dependency>
-    <groupId>de.muenchen.ataf.java</groupId>
+    <groupId>de.muenchen.ataf</groupId>
     <artifactId>web</artifactId>
     <version>${version.ataf}</version>
 </dependency>
