@@ -32,7 +32,7 @@ public class DirectoryUtils {
      * @throws IOException if an I/O error occurs during deletion
      * @throws IllegalArgumentException if the provided path does not exist or is not a directory
      */
-    public static void deleteDirectoryContents(Path path) throws IOException {
+    public static void deleteDirectoryRecursively(Path path) throws IOException {
         if (Files.exists(path) && Files.isDirectory(path)) {
             Files.walkFileTree(path, new SimpleFileVisitor<>() {
                 /**

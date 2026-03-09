@@ -2,6 +2,7 @@ package ataf.core.assertions;
 
 import ataf.core.assertions.strategy.AssertionStrategy;
 import ataf.core.assertions.strategy.ThrowingRunnable;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A wrapper class for dynamic assertion methods that adapts to the underlying assertion framework.
@@ -14,12 +15,20 @@ import ataf.core.assertions.strategy.ThrowingRunnable;
 public class CustomAssertions {
     private static AssertionStrategy strategy;
 
+    private static AssertionStrategy getStrategy() {
+        if (strategy == null) {
+            throw new IllegalStateException(
+                    "Assertion strategy has not been initialized! Example usage: CustomAssertions.setStrategy(new TestNGAssertionStrategy())");
+        }
+        return strategy;
+    }
+
     /**
      * Sets the current {@link AssertionStrategy} to use for assertions.
      *
      * @param strategy The strategy to use for assertions.
      */
-    public static void setStrategy(AssertionStrategy strategy) {
+    public static void setStrategy(@NotNull AssertionStrategy strategy) {
         CustomAssertions.strategy = strategy;
     }
 
@@ -31,7 +40,7 @@ public class CustomAssertions {
      * @throws AssertionError if the object is null.
      */
     public static void assertNotNull(Object object) {
-        strategy.assertNotNull(object);
+        getStrategy().assertNotNull(object);
     }
 
     /**
@@ -43,7 +52,7 @@ public class CustomAssertions {
      * @throws AssertionError if the object is null.
      */
     public static void assertNotNull(Object object, String message) {
-        strategy.assertNotNull(object, message);
+        getStrategy().assertNotNull(object, message);
     }
 
     /**
@@ -53,7 +62,7 @@ public class CustomAssertions {
      * @throws AssertionError unconditionally.
      */
     public static void fail(String message) {
-        strategy.fail(message);
+        getStrategy().fail(message);
     }
 
     /**
@@ -65,7 +74,7 @@ public class CustomAssertions {
      * @throws AssertionError wrapping the provided exception.
      */
     public static void fail(String message, Exception exception) {
-        strategy.fail(message, exception);
+        getStrategy().fail(message, exception);
     }
 
     /**
@@ -76,7 +85,7 @@ public class CustomAssertions {
      * @throws AssertionError if the condition is true.
      */
     public static void assertFalse(boolean condition) {
-        strategy.assertFalse(condition);
+        getStrategy().assertFalse(condition);
     }
 
     /**
@@ -88,7 +97,7 @@ public class CustomAssertions {
      * @throws AssertionError if the condition is true.
      */
     public static void assertFalse(boolean condition, String message) {
-        strategy.assertFalse(condition, message);
+        getStrategy().assertFalse(condition, message);
     }
 
     /**
@@ -99,7 +108,7 @@ public class CustomAssertions {
      * @throws AssertionError if the condition is false.
      */
     public static void assertTrue(boolean condition) {
-        strategy.assertTrue(condition);
+        getStrategy().assertTrue(condition);
     }
 
     /**
@@ -111,7 +120,7 @@ public class CustomAssertions {
      * @throws AssertionError if the condition is false.
      */
     public static void assertTrue(boolean condition, String message) {
-        strategy.assertTrue(condition, message);
+        getStrategy().assertTrue(condition, message);
     }
 
     /**
@@ -122,7 +131,7 @@ public class CustomAssertions {
      * @throws AssertionError if the actual value is not equal to the expected value.
      */
     public static void assertEquals(boolean actual, boolean expected) {
-        strategy.assertEquals(actual, expected);
+        getStrategy().assertEquals(actual, expected);
     }
 
     /**
@@ -134,7 +143,7 @@ public class CustomAssertions {
      * @throws AssertionError if the actual value is not equal to the expected value.
      */
     public static void assertEquals(boolean actual, boolean expected, String message) {
-        strategy.assertEquals(actual, expected, message);
+        getStrategy().assertEquals(actual, expected, message);
     }
 
     /**
@@ -145,7 +154,7 @@ public class CustomAssertions {
      * @throws AssertionError if the actual value is not equal to the expected value.
      */
     public static void assertEquals(int actual, int expected) {
-        strategy.assertEquals(actual, expected);
+        getStrategy().assertEquals(actual, expected);
     }
 
     /**
@@ -157,7 +166,7 @@ public class CustomAssertions {
      * @throws AssertionError if the actual value is not equal to the expected value.
      */
     public static void assertEquals(int actual, int expected, String message) {
-        strategy.assertEquals(actual, expected, message);
+        getStrategy().assertEquals(actual, expected, message);
     }
 
     /**
@@ -168,7 +177,7 @@ public class CustomAssertions {
      * @throws AssertionError if the actual value is not equal to the expected value.
      */
     public static void assertEquals(long actual, long expected) {
-        strategy.assertEquals(actual, expected);
+        getStrategy().assertEquals(actual, expected);
     }
 
     /**
@@ -180,7 +189,7 @@ public class CustomAssertions {
      * @throws AssertionError if the actual value is not equal to the expected value.
      */
     public static void assertEquals(long actual, long expected, String message) {
-        strategy.assertEquals(actual, expected, message);
+        getStrategy().assertEquals(actual, expected, message);
     }
 
     /**
@@ -191,7 +200,7 @@ public class CustomAssertions {
      * @throws AssertionError if the actual value is not equal to the expected value.
      */
     public static void assertEquals(float actual, float expected) {
-        strategy.assertEquals(actual, expected);
+        getStrategy().assertEquals(actual, expected);
     }
 
     /**
@@ -203,7 +212,7 @@ public class CustomAssertions {
      * @throws AssertionError if the actual value is not equal to the expected value.
      */
     public static void assertEquals(float actual, float expected, String message) {
-        strategy.assertEquals(actual, expected, message);
+        getStrategy().assertEquals(actual, expected, message);
     }
 
     /**
@@ -214,7 +223,7 @@ public class CustomAssertions {
      * @throws AssertionError if the actual value is not equal to the expected value.
      */
     public static void assertEquals(double actual, double expected) {
-        strategy.assertEquals(actual, expected);
+        getStrategy().assertEquals(actual, expected);
     }
 
     /**
@@ -226,7 +235,7 @@ public class CustomAssertions {
      * @throws AssertionError if the actual value is not equal to the expected value.
      */
     public static void assertEquals(double actual, double expected, String message) {
-        strategy.assertEquals(actual, expected, message);
+        getStrategy().assertEquals(actual, expected, message);
     }
 
     /**
@@ -237,7 +246,7 @@ public class CustomAssertions {
      * @throws AssertionError if the actual value is not equal to the expected value.
      */
     public static void assertEquals(String actual, String expected) {
-        strategy.assertEquals(actual, expected);
+        getStrategy().assertEquals(actual, expected);
     }
 
     /**
@@ -249,7 +258,7 @@ public class CustomAssertions {
      * @throws AssertionError if the actual value is not equal to the expected value.
      */
     public static void assertEquals(String actual, String expected, String message) {
-        strategy.assertEquals(actual, expected, message);
+        getStrategy().assertEquals(actual, expected, message);
     }
 
     /**
@@ -260,7 +269,7 @@ public class CustomAssertions {
      * @throws AssertionError if the actual value is not equal to the expected value.
      */
     public static void assertEquals(Object actual, Object expected) {
-        strategy.assertEquals(actual, expected);
+        getStrategy().assertEquals(actual, expected);
     }
 
     /**
@@ -272,7 +281,7 @@ public class CustomAssertions {
      * @throws AssertionError if the actual value is not equal to the expected value.
      */
     public static void assertEquals(Object actual, Object expected, String message) {
-        strategy.assertEquals(actual, expected, message);
+        getStrategy().assertEquals(actual, expected, message);
     }
 
     /**
@@ -287,7 +296,7 @@ public class CustomAssertions {
     public static void assertThrows(String message,
             Class<? extends Throwable> expectedThrowable,
             ThrowingRunnable runnable) {
-        strategy.assertThrows(expectedThrowable, runnable, message);
+        getStrategy().assertThrows(expectedThrowable, runnable, message);
     }
 
     /**
@@ -300,6 +309,6 @@ public class CustomAssertions {
      */
     public static void assertThrows(Class<? extends Throwable> expectedThrowable,
             ThrowingRunnable runnable) {
-        strategy.assertThrows(expectedThrowable, runnable, null);
+        getStrategy().assertThrows(expectedThrowable, runnable, null);
     }
 }

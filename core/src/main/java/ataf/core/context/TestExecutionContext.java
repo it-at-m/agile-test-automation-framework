@@ -47,8 +47,15 @@ public class TestExecutionContext {
      * @param scenario the Cucumber {@link Scenario} from which to determine the test execution context
      */
     public static void set(Scenario scenario) {
+        String executionKey = scenario.getSourceTagNames().stream()
+                .map(tag -> tag.replace("@", ""))
+                .filter(RunnerUtils.TEST_EXECUTION_MAP::containsKey)
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException(
+                        "No matching test execution tag found for scenario: " + scenario.getName()));
+
         CURRENT_TEST_EXECUTION_MAP.put(Thread.currentThread().threadId(),
-                RunnerUtils.TEST_EXECUTION_MAP.get(scenario.getSourceTagNames().toArray()[0].toString().replace("@", "")));
+                RunnerUtils.TEST_EXECUTION_MAP.get(executionKey));
     }
 
     /**
@@ -58,6 +65,6 @@ public class TestExecutionContext {
      * thread-specific data is properly cleaned up after use.
      */
     public static void clear() {
-        CURRENT_TEST_EXECUTION_MAP.clear();
+        CURRENT_TEST_EXECUTION_MAP.remove(Thread.currentThread().threadId());
     }
 }

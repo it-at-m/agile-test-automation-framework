@@ -3,8 +3,8 @@ package ataf.core.runner;
 import ataf.core.assertions.CustomAssertions;
 import ataf.core.assertions.strategy.impl.JUnitAssertionStrategy;
 import ataf.core.utils.RunnerUtils;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.platform.suite.api.AfterSuite;
+import org.junit.platform.suite.api.BeforeSuite;
 import org.junit.platform.suite.api.IncludeEngines;
 import org.junit.platform.suite.api.Suite;
 
@@ -42,13 +42,13 @@ public class BasicJUnitRunner {
      * Sets up the test suite before any tests are run.
      *
      * <p>
-     * This method is annotated with {@link BeforeAll}, indicating that it should be executed once
+     * This method is annotated with {@link BeforeSuite}, indicating that it should be executed once
      * before all tests in the suite. It typically contains
      * initialization logic required for the tests.
      * </p>
      */
-    @BeforeAll
-    public static void beforeTestSuite() {
+    @BeforeSuite
+    public void beforeTestSuite() {
         RunnerUtils.setupTestSuite();
     }
 
@@ -56,13 +56,14 @@ public class BasicJUnitRunner {
      * Tears down the test suite after all tests have been executed.
      *
      * <p>
-     * This method is annotated with {@link AfterAll}, indicating that it should be executed once after
+     * This method is annotated with {@link AfterSuite}, indicating that it should be executed once
+     * after
      * all tests in the suite have completed. It typically
      * contains cleanup logic to release resources or reset states.
      * </p>
      */
-    @AfterAll
-    public static void afterTestSuite() {
+    @AfterSuite
+    public void afterTestSuite() {
         RunnerUtils.tearDownTestSuite();
     }
 }

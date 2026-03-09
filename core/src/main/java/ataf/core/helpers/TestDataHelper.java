@@ -295,7 +295,7 @@ public class TestDataHelper {
         // Check for unprocessed placeholders and log a warning
         if (transformedParameter.matches(".*<[^<>]+>.*")) {
             ScenarioLogManager.getLogger().warn(
-                    "Potentially incorrect placeholder detected in transformed string: '{}'. Make sure all placeholders are correctly formatted and match supported patterns. See for details: https://confluence.muenchen.de/pages/viewpage.action?spaceKey=ATAF&title=API-Dokumentation",
+                    "Potentially incorrect placeholder detected in transformed string: '{}'. Make sure all placeholders are correctly formatted and match supported patterns.",
                     transformedParameter);
         }
 

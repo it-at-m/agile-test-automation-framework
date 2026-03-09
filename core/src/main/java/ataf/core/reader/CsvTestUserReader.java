@@ -176,7 +176,13 @@ public class CsvTestUserReader extends AbstractTestUserReader {
                 continue;
             }
 
-            UserType userType = testUserResolver.resolveType(columns[userTypeColumnIndex].trim());
+            UserType userType;
+            if (userTypeColumnIndex >= 0) {
+                userType = testUserResolver.resolveType(columns[userTypeColumnIndex].trim());
+            } else {
+                // When userTypeColumnIndex is -1, resolver must determine type without CSV input
+                userType = testUserResolver.resolveType(null);
+            }
             if (userType == null) {
                 ScenarioLogManager.getLogger().warn("Skipping line because user type resolved to null: {}", line);
                 continue;
