@@ -17,7 +17,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -254,15 +256,18 @@ public class CryptoUtils {
                 .replace(encryptedFileExtension, "");
         Path outputFile = encryptedFile.resolveSibling(originalFileName);
 
-        try (FileInputStream fis = new FileInputStream(encryptedFile.toFile());
-                FileOutputStream fos = new FileOutputStream(outputFile.toFile())) {
+        Path tempFile = Files.createTempFile(
+                outputFile.getParent(),
+                outputFile.getFileName().toString(),
+                ".tmp");
 
+        try (FileInputStream fis = new FileInputStream(encryptedFile.toFile());
+                FileOutputStream fos = new FileOutputStream(tempFile.toFile())) {
             // Read IV and salt from the input file
             byte[] iv = new byte[IV_LENGTH_BYTE];
             if (fis.read(iv) != iv.length) {
                 throw new IOException("Invalid encrypted file: IV missing or incomplete.");
             }
-
             byte[] salt = new byte[SALT_LENGTH_BYTE];
             if (fis.read(salt) != salt.length) {
                 throw new IOException("Invalid encrypted file: Salt missing or incomplete.");
@@ -270,7 +275,6 @@ public class CryptoUtils {
 
             // Create secret key
             SecretKey aesKey = getAESKey(salt);
-
             Cipher cipher = Cipher.getInstance(ENCRYPT_ALGO);
             cipher.init(Cipher.DECRYPT_MODE, aesKey, new GCMParameterSpec(TAG_LENGTH_BIT, iv));
 
@@ -281,10 +285,20 @@ public class CryptoUtils {
                 byte[] decryptedChunk = cipher.update(buffer, 0, bytesRead);
                 fos.write(decryptedChunk);
             }
+
             // Finalize decryption
             byte[] finalChunk = cipher.doFinal();
             fos.write(finalChunk);
+        } catch (Exception e) {
+            Files.deleteIfExists(tempFile);
+            throw e;
         }
+
+        Files.move(
+                tempFile,
+                outputFile,
+                StandardCopyOption.REPLACE_EXISTING,
+                StandardCopyOption.ATOMIC_MOVE);
 
         return outputFile.toAbsolutePath();
     }

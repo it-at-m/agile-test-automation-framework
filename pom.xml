@@ -10,14 +10,21 @@
         <version>2.2.0</version>
     </parent>
 
-    <groupId>de.muenchen.ataf.java</groupId>
-    <artifactId>test-automation-framework</artifactId>
+    <groupId>de.muenchen.ataf</groupId>
+    <artifactId>agile-test-automation-framework</artifactId>
     <version>0.3.0</version>
-    <name>test-automation-framework</name>
-    <description>
-        This is the generated documentation for the Agile Test Automation Framework (ATAF)
-    </description>
     <packaging>pom</packaging>
+
+    <name>agile-test-automation-framework</name>
+    <description>This is the generated documentation for the Agile Test Automation Framework (ATAF)</description>
+    <url>https://github.com/it-at-m/agile-test-automation-framework/</url>
+    <licenses>
+        <license>
+            <name>MIT</name>
+            <url>https://opensource.org/licenses/MIT</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
     <properties>
         <java.version>21</java.version>
@@ -27,6 +34,9 @@
         <log4j.version>2.25.3</log4j.version>
         <mockito.version>5.22.0</mockito.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven-release-plugin.version>3.3.1</maven-release-plugin.version>
+        <maven-gpg-plugin.version>3.2.8</maven-gpg-plugin.version>
+        <central-publishing-maven-plugin.version>0.10.0</central-publishing-maven-plugin.version>
     </properties>
 
     <modules>
@@ -36,18 +46,47 @@
     </modules>
 
     <scm>
-        <connection>
-            scm:git:http://git.muenchen.de/test-tool-projects/agile-test-automation-framework/java/test-automation-framework
-        </connection>
-        <developerConnection>
-            scm:git:http://git.muenchen.de/test-tool-projects/agile-test-automation-framework/java/test-automation-framework
-        </developerConnection>
+        <url>https://github.com/it-at-m/agile-test-automation-framework/</url>
+        <connection>scm:git:https://github.com/it-at-m/agile-test-automation-framework.git</connection>
+        <developerConnection>scm:git:https://github.com/it-at-m/agile-test-automation-framework.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 
+    <developers>
+        <developer>
+            <organization>it@M</organization>
+            <email>opensource@muenchen.de</email>
+            <url>https://github.com/it-at-m</url>
+        </developer>
+    </developers>
+
     <build>
+        <pluginManagement>
+            <plugins>
+                <!-- Source: https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-release-plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>${maven-release-plugin.version}</version>
+                </plugin>
+
+                <!-- Source: https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-gpg-plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <version>${maven-gpg-plugin.version}</version>
+                </plugin>
+
+                <!-- Source: https://mvnrepository.com/artifact/org.sonatype.central/central-publishing-maven-plugin -->
+                <plugin>
+                    <groupId>org.sonatype.central</groupId>
+                    <artifactId>central-publishing-maven-plugin</artifactId>
+                    <version>${central-publishing-maven-plugin.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>
-            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
+            <!-- Source: https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -59,7 +98,7 @@
                 </configuration>
             </plugin>
 
-            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
+            <!-- Source: https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -69,7 +108,7 @@
                     <argLine>-javaagent:${project.build.directory}/mockito-agent/mockito-core.jar</argLine>
                 </configuration>
                 <dependencies>
-                    <!-- https://mvnrepository.com/artifact/org.apache.maven.surefire/surefire-testng -->
+                    <!-- Source: https://mvnrepository.com/artifact/org.apache.maven.surefire/surefire-testng -->
                     <dependency>
                         <groupId>org.apache.maven.surefire</groupId>
                         <artifactId>surefire-testng</artifactId>
@@ -78,7 +117,7 @@
                 </dependencies>
             </plugin>
 
-            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-source-plugin -->
+            <!-- Source: https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-source-plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
@@ -93,7 +132,21 @@
                 </executions>
             </plugin>
 
-            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-javadoc-plugin -->
+            <!-- Source: https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-release-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>${maven-release-plugin.version}</version>
+                <configuration>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                    <useReleaseProfile>false</useReleaseProfile>
+                    <releaseProfiles>release</releaseProfiles>
+                    <goals>deploy</goals>
+                    <tagNameFormat>@{project.version}</tagNameFormat>
+                </configuration>
+            </plugin>
+
+            <!-- Source: https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-javadoc-plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
@@ -110,7 +163,7 @@
                 </executions>
             </plugin>
 
-            <!-- https://mvnrepository.com/artifact/com.diffplug.spotless/spotless-maven-plugin -->
+            <!-- Source: https://mvnrepository.com/artifact/com.diffplug.spotless/spotless-maven-plugin -->
             <plugin>
                 <groupId>com.diffplug.spotless</groupId>
                 <artifactId>spotless-maven-plugin</artifactId>
@@ -179,4 +232,50 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <!-- Central Portal Publishing Plugin -->
+                    <!-- Source: https://mvnrepository.com/artifact/org.sonatype.central/central-publishing-maven-plugin -->
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>${central-publishing-maven-plugin.version}</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <tokenAuth>true</tokenAuth>
+                            <autoPublish>true</autoPublish>
+                            <deploymentName>${project.groupId}:${project.artifactId}:${project.version}</deploymentName>
+                        </configuration>
+                    </plugin>
+                    <!-- GPG plugin -->
+                    <!-- Source: https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-gpg-plugin -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>${maven-gpg-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                                <configuration>
+                                    <!-- Prevent `gpg` from using pinentry programs -->
+                                    <gpgArguments>
+                                        <arg>--pinentry-mode</arg>
+                                        <arg>loopback</arg>
+                                    </gpgArguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

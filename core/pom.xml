@@ -13,7 +13,7 @@
     <packaging>jar</packaging>
 
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/org.testng/testng -->
+        <!-- Source: https://mvnrepository.com/artifact/org.testng/testng -->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
@@ -21,7 +21,7 @@
             <scope>compile</scope>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter -->
+        <!-- Source: https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
@@ -29,7 +29,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
+        <!-- Source: https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
@@ -37,7 +37,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+        <!-- Source: https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
@@ -45,7 +45,7 @@
             <scope>compile</scope>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-suite -->
+        <!-- Source: https://mvnrepository.com/artifact/org.junit.platform/junit-platform-suite -->
         <dependency>
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-suite</artifactId>
@@ -53,28 +53,28 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-suite-api -->
+        <!-- Source: https://mvnrepository.com/artifact/org.junit.platform/junit-platform-suite-api -->
         <dependency>
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-suite-api</artifactId>
             <version>${junit.platform.version}</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+        <!-- Source: https://mvnrepository.com/artifact/commons-io/commons-io -->
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>2.21.0</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
+        <!-- Source: https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-java</artifactId>
             <version>${cucumber.version}</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-core -->
+        <!-- Source: https://mvnrepository.com/artifact/io.cucumber/cucumber-core -->
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-core</artifactId>
@@ -82,42 +82,42 @@
             <scope>compile</scope>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-testng -->
+        <!-- Source: https://mvnrepository.com/artifact/io.cucumber/cucumber-testng -->
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-testng</artifactId>
             <version>${cucumber.version}</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-junit-platform-engine -->
+        <!-- Source: https://mvnrepository.com/artifact/io.cucumber/cucumber-junit-platform-engine -->
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-junit-platform-engine</artifactId>
             <version>${cucumber.version}</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j2-impl -->
+        <!-- Source: https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j2-impl -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j2-impl</artifactId>
             <version>${log4j.version}</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
+        <!-- Source: https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
             <version>${log4j.version}</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
+        <!-- Source: https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
             <version>${log4j.version}</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.jetbrains/annotations -->
+        <!-- Source: https://mvnrepository.com/artifact/org.jetbrains/annotations -->
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
@@ -125,42 +125,42 @@
             <scope>compile</scope>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+        <!-- Source: https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.20.0</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents.client5/httpclient5 -->
+        <!-- Source: https://mvnrepository.com/artifact/org.apache.httpcomponents.client5/httpclient5 -->
         <dependency>
             <groupId>org.apache.httpcomponents.client5</groupId>
             <artifactId>httpclient5</artifactId>
             <version>5.6</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+        <!-- Source: https://mvnrepository.com/artifact/com.google.code.gson/gson -->
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.13.2</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.passay/passay -->
+        <!-- Source: https://mvnrepository.com/artifact/org.passay/passay -->
         <dependency>
             <groupId>org.passay</groupId>
             <artifactId>passay</artifactId>
             <version>1.6.6</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.syncope.identityconnectors/framework -->
+        <!-- Source: https://mvnrepository.com/artifact/org.syncope.identityconnectors/framework -->
         <dependency>
             <groupId>org.syncope.identityconnectors</groupId>
             <artifactId>framework</artifactId>
             <version>0.4.3</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.syncope.identityconnectors/framework-internal -->
+        <!-- Source: https://mvnrepository.com/artifact/org.syncope.identityconnectors/framework-internal -->
         <dependency>
             <groupId>org.syncope.identityconnectors</groupId>
             <artifactId>framework-internal</artifactId>
@@ -168,14 +168,14 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.bidib.com.github.markusbernhardt/proxy-vole -->
+        <!-- Source: https://mvnrepository.com/artifact/org.bidib.com.github.markusbernhardt/proxy-vole -->
         <dependency>
             <groupId>org.bidib.com.github.markusbernhardt</groupId>
             <artifactId>proxy-vole</artifactId>
             <version>1.1.9</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
+        <!-- Source: https://mvnrepository.com/artifact/org.mockito/mockito-core -->
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>

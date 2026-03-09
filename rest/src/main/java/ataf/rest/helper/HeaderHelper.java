@@ -45,16 +45,16 @@ public class HeaderHelper {
     /**
      * Similar to {@link #addHeader(String, String)}, but allows adding multiple headers at once.
      *
-     * @param headers A map containing header names and their values
+     * @param headersToAdd A map containing header names and their values
      * @return The updated list of headers including the newly added headers
      */
-    public static Map<String, String> addMultipleHeaders(Map<String, String> headers) {
-        Map<String, String> currentHeaders = HEADER_HOLDER_MAP.computeIfAbsent(Thread.currentThread().threadId(), k -> new HashMap<>());
-        for (Map.Entry<String, String> entry : headers.entrySet()) {
-            findHeaderAndOverwrite(currentHeaders, entry.getKey(), entry.getValue());
+    public static Map<String, String> addMultipleHeaders(Map<String, String> headersToAdd) {
+        Map<String, String> headers = HEADER_HOLDER_MAP.computeIfAbsent(Thread.currentThread().threadId(), k -> new HashMap<>());
+        for (Map.Entry<String, String> entry : headersToAdd.entrySet()) {
+            findHeaderAndOverwrite(headers, entry.getKey(), entry.getValue());
         }
         HEADER_HOLDER_MAP.put(Thread.currentThread().threadId(), headers);
-        return currentHeaders;
+        return headers;
     }
 
     /**
