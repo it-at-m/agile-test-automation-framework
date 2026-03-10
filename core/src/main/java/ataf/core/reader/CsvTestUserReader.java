@@ -11,6 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * A variation of {@link AbstractTestUserReader} that reads CSV files where the username, password,
@@ -155,7 +156,7 @@ public class CsvTestUserReader extends AbstractTestUserReader {
 
         for (String line : chunk) {
             // Split the CSV line into columns
-            String[] columns = line.split(columnSeparator);
+            String[] columns = line.split(Pattern.quote(columnSeparator));
 
             // Basic validation: we need at least as many columns as the largest index we reference
             int maxRequiredIndex = Math.max(Math.max(usernameColumnIndex, passwordColumnIndex), userTypeColumnIndex);
