@@ -132,6 +132,10 @@ public class SingleSignOnPage extends BasePage {
      *            (e.g. {@code sso(dev|test)\\.muenchen\\.de})
      */
     public void executeSingleSignOnLogin(String userName, String password, String urlRegexp) {
+        // NOTE: This block is intentionally used as a workaround for Chrome incognito mode,
+        // where browser credential popups cannot be automated via Selenium WebDriver.
+        // Credentials are embedded in the URL, which may appear in browser history, grid logs,
+        // and proxy logs. This approach is NOT intended for production automation environments.
         if ("chrome".equalsIgnoreCase(
                 TestProperties.getProperty("browser", true, DefaultValues.BROWSER).orElse(DefaultValues.BROWSER))) {
             WebDriverWait wait = new WebDriverWait(DRIVER, Duration.ofSeconds(DEFAULT_EXPLICIT_WAIT_TIME));
