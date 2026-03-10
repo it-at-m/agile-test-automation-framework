@@ -145,7 +145,7 @@ public class HeaderHelper {
      */
     public static List<Header> getHeadersAsList() {
         List<Header> headers = new ArrayList<>();
-        for (Map.Entry<String, String> entry : HEADER_HOLDER_MAP.get(Thread.currentThread().threadId()).entrySet()) {
+        for (Map.Entry<String, String> entry : getHeaderList().entrySet()) {
             headers.add(new Header(entry.getKey(), entry.getValue()));
         }
         return headers;
