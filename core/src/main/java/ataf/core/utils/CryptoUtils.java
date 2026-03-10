@@ -63,7 +63,9 @@ public class CryptoUtils {
      * @throws IllegalArgumentException if the number of bytes is less than or equal to zero.
      */
     private static byte[] getRandomNonce(int numBytes) {
-        assert (numBytes > 0) : "Nonce size must be positive!";
+        if (numBytes <= 0) {
+            throw new IllegalArgumentException("Nonce size must be positive!");
+        }
         byte[] nonce = new byte[numBytes];
         new SecureRandom().nextBytes(nonce);
         return nonce;
