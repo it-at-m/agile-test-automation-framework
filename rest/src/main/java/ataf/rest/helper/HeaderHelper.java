@@ -114,8 +114,19 @@ public class HeaderHelper {
     private static void findHeaderAndOverwrite(Map<String, String> headers,
             String headerName,
             String headerValue) {
-        ScenarioLogManager.getLogger().debug("Adding header: {}={}", headerName, headerValue);
-        headers.put(headerName, headerValue);
+        String effectiveHeaderName = headers.keySet().stream()
+                .filter(existingName -> existingName.equalsIgnoreCase(headerName))
+                .findFirst()
+                .orElse(headerName);
+        String loggedValue = effectiveHeaderName.equalsIgnoreCase("Authorization")
+                || effectiveHeaderName.equalsIgnoreCase("Proxy-Authorization")
+                || effectiveHeaderName.equalsIgnoreCase("Cookie")
+                || effectiveHeaderName.equalsIgnoreCase("Set-Cookie")
+                || effectiveHeaderName.equalsIgnoreCase("X-Api-Key")
+                        ? "***"
+                        : headerValue;
+        ScenarioLogManager.getLogger().debug("Adding header: {}={}", effectiveHeaderName, loggedValue);
+        headers.put(effectiveHeaderName, headerValue);
     }
 
     /**
