@@ -131,11 +131,11 @@ public class BaseSteps {
         }
     }
 
-    /***
-     * Navigates to a specified system per SSO.
+    /**
+     * Navigates to a specified system via Single Sign-On.
      *
-     * @param user The SSO account.
-     * @param system The system where the user logs on.
+     * @param user the SSO account
+     * @param system the target system the user logs into
      */
     @Wenn("Sie per SingleSignOn mit dem User {string} auf das System {string} navigieren.")
     public void wenn_sie_per_sso_auf_das_system_navigieren(String user, String system) {
@@ -146,13 +146,49 @@ public class BaseSteps {
             } else {
                 environment = Environment.NONE;
             }
-            CustomAssertions.assertNotNull(environment, "Environment could not be retrieved! Check test environment in Jira");
-            String systemUrl = environment.getSystemUrl(TestDataHelper.transformTestData(system));
+
+            CustomAssertions.assertNotNull(environment,
+                    "Environment could not be retrieved! Check test environment in Jira");
+
+            String transformedSystem = TestDataHelper.transformTestData(system);
+            String systemUrl = environment.getSystemUrl(transformedSystem);
             CustomAssertions.assertNotNull(systemUrl, "System [" + system + "] not specified!");
-            TestUser testUser = TestUser.getTestUser(TestDataHelper.transformTestData(user));
+
+            String transformedUser = TestDataHelper.transformTestData(user);
+            TestUser testUser = TestUser.getTestUser(transformedUser);
             CustomAssertions.assertNotNull(testUser, "User [" + user + "] not found in test data!");
 
-            new SingleSignOnPage(DriverUtil.getDriver()).executeSingleSignOnLogin(testUser.getUserName(), testUser.getPassword());
+            String userNameFieldLocator = TestDataHelper.transformTestData("ssoUsernameFieldLocator");
+            CustomAssertions.assertNotNull(userNameFieldLocator, "Value for [ssoUsernameFieldLocator] not found in test data!");
+
+            String userNameFieldLocatorTypeString = TestDataHelper.transformTestData("ssoUsernameFieldLocatorType");
+            CustomAssertions.assertNotNull(userNameFieldLocatorTypeString, "Value for [ssoUsernameFieldLocatorType] not found in test data!");
+            LocatorType userNameFieldLocatorType = LocatorType.valueOf(userNameFieldLocatorTypeString);
+
+            String passwordFieldLocator = TestDataHelper.transformTestData("ssoPasswordFieldLocator");
+            CustomAssertions.assertNotNull(passwordFieldLocator, "Value for [ssoPasswordFieldLocator] not found in test data!");
+            String passwordFieldLocatorTypeString = TestDataHelper.transformTestData("ssoPasswordFieldLocatorType");
+            CustomAssertions.assertNotNull(passwordFieldLocatorTypeString, "Value for [ssoPasswordFieldLocatorType] not found in test data!");
+            LocatorType passwordFieldLocatorType = LocatorType.valueOf(passwordFieldLocatorTypeString);
+
+            String loginButtonLocator = TestDataHelper.transformTestData("ssoLoginButtonLocator");
+            CustomAssertions.assertNotNull(loginButtonLocator, "Value for [ssoLoginButtonLocator] not found in test data!");
+            String loginButtonLocatorTypeString = TestDataHelper.transformTestData("ssoLoginButtonLocatorType");
+            CustomAssertions.assertNotNull(loginButtonLocatorTypeString, "Value for [ssoLoginButtonLocatorType] not found in test data!");
+            LocatorType loginButtonLocatorType = LocatorType.valueOf(loginButtonLocatorTypeString);
+
+            String urlRegexp = TestDataHelper.transformTestData("ssoUrlRegexp");
+            CustomAssertions.assertNotNull(urlRegexp, "Value for [ssoUrlRegexp] not found in test data!");
+
+            new SingleSignOnPage(
+                    DriverUtil.getDriver(),
+                    userNameFieldLocator,
+                    userNameFieldLocatorType,
+                    passwordFieldLocator,
+                    passwordFieldLocatorType,
+                    loginButtonLocator,
+                    loginButtonLocatorType)
+                    .executeSingleSignOnLogin(testUser.getUserName(), testUser.getPassword(), urlRegexp);
         } else {
             ScenarioLogManager.getLogger().warn("Skipping SSO login step. Manually login only in incognito mode!");
         }
