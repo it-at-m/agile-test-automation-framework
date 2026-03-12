@@ -258,8 +258,9 @@ public class CryptoUtils {
                 .replace(encryptedFileExtension, "");
         Path outputFile = encryptedFile.resolveSibling(originalFileName);
 
+        Path parentDir = outputFile.getParent();
         Path tempFile = Files.createTempFile(
-                outputFile.getParent(),
+                parentDir != null ? parentDir : Path.of("."),
                 outputFile.getFileName().toString(),
                 ".tmp");
 
