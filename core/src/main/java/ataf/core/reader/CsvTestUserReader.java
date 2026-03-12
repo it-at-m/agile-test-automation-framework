@@ -167,13 +167,13 @@ public class CsvTestUserReader extends AbstractTestUserReader {
 
             String username = testUserResolver.resolveName(columns[usernameColumnIndex].trim());
             if (username == null) {
-                ScenarioLogManager.getLogger().warn("Skipping line because username resolved to null: {}", line);
+                ScenarioLogManager.getLogger().warn("Skipping line at position {} because username resolved to null", chunk.indexOf(line));
                 continue;
             }
 
             String password = testUserResolver.resolvePassword(columns[passwordColumnIndex].trim());
             if (password == null) {
-                ScenarioLogManager.getLogger().warn("Skipping line because password resolved to null: {}", line);
+                ScenarioLogManager.getLogger().warn("Skipping line at position {} because password resolved to null", chunk.indexOf(line));
                 continue;
             }
 
