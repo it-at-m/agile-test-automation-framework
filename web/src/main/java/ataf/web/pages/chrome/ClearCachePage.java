@@ -100,6 +100,7 @@ public class ClearCachePage extends BasePage {
             wait.until(ExpectedConditions.invisibilityOf(shadowRoot6.findElement(By.cssSelector("#spinnerContainer"))));
         } catch (StaleElementReferenceException ignore) {
             // Continue if the element is no longer attached to the DOM
+            ScenarioLogManager.getLogger().debug("Spinner element was already removed from DOM, continuing.");
         }
     }
 }
