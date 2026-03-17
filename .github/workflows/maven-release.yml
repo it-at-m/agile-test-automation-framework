@@ -31,7 +31,7 @@ jobs:
       - id: maven-release-step
         uses: it-at-m/lhm_actions/action-templates/actions/action-maven-release@7cb754b2056cebda6c36db344434f85be398c493 # v1.0.25
         with:
-          app-path: "." # adjust if pom.xml ends up in a subdirectory
+          app-path: "" # empty string so the action targets the root pom.xml without creating an invalid ././pom.xml path
           releaseVersion: ${{ inputs.releaseVersion }}
           developmentVersion: ${{ inputs.developmentVersion }}
           skipDeployment: "false"
