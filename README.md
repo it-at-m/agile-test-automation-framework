@@ -106,12 +106,55 @@ Contains classes for browser-based tests.
 </dependency>
 ```
 
+### Releasing to Maven Central
+
+This repository is configured to publish ATAF artifacts to Maven Central in the `de.muenchen.ataf` group using a GitHub Actions workflow:
+
+- Workflow: `.github/workflows/maven-release.yml`
+- Action: [`it-at-m/lhm_actions` Maven release composite action](https://github.com/it-at-m/lhm_actions/tree/main/action-templates/actions/action-maven-release)
+
+To create a release:
+
+1. Open the **Actions** tab in GitHub and select **Release Maven**.
+2. Use `0.3.0` as the `releaseVersion` (or a higher version for future releases).
+3. Use `0.3.1-SNAPSHOT` (or the next snapshot) as the `developmentVersion`.
+4. Run the workflow. It will:
+   - Use the Maven `release` profile (which skips tests during the release build).
+   - Sign and deploy artifacts to Maven Central via the Sonatype Central publishing plugin.
+   - Open a pull request with the updated snapshot version (when `use-pr` is enabled).
+
+After the release, consumers (such as `zmsautomation`) can depend on:
+
+- `de.muenchen.ataf:core:0.3.0`
+- `de.muenchen.ataf:rest:0.3.0`
+- `de.muenchen.ataf:web:0.3.0`
+
 ### Build the Project
 
 After configuring your Maven project, verify that it builds successfully with:
 
 ```bash
 mvn clean package
+```
+
+### JIRA-dependent integration tests
+
+A small subset of ATAF core tests exercises the HTTP client against a JIRA-like endpoint (e.g. `jira.example.org`). To keep the default build self-contained and CI-friendly, these tests are **disabled by default** and gated behind a system property:
+
+- Property: `ataf.it.jira.enabled`
+- Default: `false` (property unset)
+- Effect:
+  - When `ataf.it.jira.enabled` is not set or `false`, the JIRA integration tests are **skipped**.
+  - When `ataf.it.jira.enabled=true`, the tests run and attempt to reach the configured JIRA URL.
+
+Examples:
+
+```bash
+# Default build (JIRA tests skipped)
+mvn clean install
+
+# Run including JIRA-dependent tests (requires suitable JIRA test environment)
+mvn clean install -Dataf.it.jira.enabled=true
 ```
 
 ### Additional Installation Notes
