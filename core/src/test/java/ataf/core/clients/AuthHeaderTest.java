@@ -67,6 +67,9 @@ public class AuthHeaderTest {
 
     @Test
     public void testAddBasicAuthHeader_success_addsHeader() {
+        if (!Boolean.getBoolean("ataf.it.jira.enabled")) {
+            throw new org.testng.SkipException("JIRA integration test disabled; run with -Dataf.it.jira.enabled=true to enable.");
+        }
         try (var ignored = Mockito.mockStatic(AuthenticationHelper.class)) {
             when(AuthenticationHelper.credentialsHaveNotBeenSet()).thenReturn(false);
             when(AuthenticationHelper.getAuthenticationMethod()).thenReturn(HttpClient.AuthenticationMethod.BasicAuth);
@@ -105,6 +108,9 @@ public class AuthHeaderTest {
 
     @Test
     public void testAddAuthorizationHeader_success_addsHeader() {
+        if (!Boolean.getBoolean("ataf.it.jira.enabled")) {
+            throw new org.testng.SkipException("JIRA integration test disabled; run with -Dataf.it.jira.enabled=true to enable.");
+        }
         try (var ignored = Mockito.mockStatic(AuthenticationHelper.class)) {
             when(AuthenticationHelper.authorizationTokenHasNotBeenSet()).thenReturn(false);
             when(AuthenticationHelper.getAuthenticationMethod()).thenReturn(HttpClient.AuthenticationMethod.AccessToken);
