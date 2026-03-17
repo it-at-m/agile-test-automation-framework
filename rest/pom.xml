@@ -49,23 +49,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!--
-          Override Jackson versions used transitively by test libraries (e.g. WireMock)
-          to a fixed, non-vulnerable release. This keeps Trivy / dependency scanners
-          happy and ensures we do not accidentally pick up older vulnerable Jackson
-          versions from transitive dependencies.
-        -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-            <version>${jackson.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>${jackson.version}</version>
-            <scope>test</scope>
-        </dependency>
+        <!-- Jackson and Rhino versions are globally managed in the root pom's dependencyManagement
+             so that Trivy sees the fixed, non-vulnerable coordinates across all modules. -->
     </dependencies>
 </project>
