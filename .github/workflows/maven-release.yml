@@ -1,0 +1,57 @@
+name: Release Maven
+
+on:
+  workflow_dispatch:
+    inputs:
+      releaseVersion:
+        description: "Version to use when preparing a release (e.g., 0.1.0)"
+        required: true
+        default: "0.3.0"
+      developmentVersion:
+        description: "Next development version (e.g., 0.1.1-SNAPSHOT)"
+        required: true
+        default: "0.3.1-SNAPSHOT"
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+jobs:
+  release-maven:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    outputs:
+      MVN_ARTIFACT_ID: ${{ steps.maven-release-step.outputs.MVN_ARTIFACT_ID }}
+      ARTIFACT_NAME: ${{ steps.maven-release-step.outputs.artifact-name }}
+    env:
+      TZ: Europe/Berlin
+    steps:
+      - id: maven-release-step
+        uses: it-at-m/lhm_actions/action-templates/actions/action-maven-release@7cb754b2056cebda6c36db344434f85be398c493 # v1.0.25
+        with:
+          app-path: "." # adjust if pom.xml ends up in a subdirectory
+          releaseVersion: ${{ inputs.releaseVersion }}
+          developmentVersion: ${{ inputs.developmentVersion }}
+          skipDeployment: "false"
+          use-pr: "true"
+          SIGN_KEY_PASS: ${{ secrets.gpg_passphrase }}
+          CENTRAL_USERNAME: ${{ secrets.sonatype_username }}
+          CENTRAL_PASSWORD: ${{ secrets.sonatype_password }}
+          GPG_PRIVATE_KEY: ${{ secrets.gpg_private_key }}
+
+  create-github-release:
+    needs: release-maven
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-create-github-release@7cb754b2056cebda6c36db344434f85be398c493 # v1.0.25
+        with:
+          artifact-name: ${{ needs.release-maven.outputs.ARTIFACT_NAME }}
+          tag-name: v${{ inputs.releaseVersion }}
+          artifact-path: |
+            core/target/*.jar
+            rest/target/*.jar
+            web/target/*.jar

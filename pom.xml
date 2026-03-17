@@ -28,6 +28,10 @@
         <junit.platform.version>1.14.3</junit.platform.version>
         <log4j.version>2.25.3</log4j.version>
         <mockito.version>5.22.0</mockito.version>
+        <!-- Shared Jackson version (used to override transitive versions pulled by test libraries like WireMock).
+             Trivy reports CVE-2025-52999 and GHSA-72hv-8253-57qq as fixed starting with 2.18.6 for jackson-core,
+             so we pin to 2.18.6 here to keep the security scanner happy while staying compatible with our stack. -->
+        <jackson.version>2.18.6</jackson.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven-surefire-plugin.version>3.5.5</maven-surefire-plugin.version>
         <maven-release-plugin.version>3.3.1</maven-release-plugin.version>
@@ -60,6 +64,34 @@
             <url>https://github.com/it-at-m</url>
         </developer>
     </developers>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Force all Jackson dependencies (including transitive ones) onto a fixed, non-vulnerable line. -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+
+            <!-- Align Rhino with a fixed version so Trivy no longer reports CVE-2025-66453 on transitive usages. -->
+            <dependency>
+                <groupId>org.mozilla</groupId>
+                <artifactId>rhino</artifactId>
+                <version>1.7.15.1</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <pluginManagement>
