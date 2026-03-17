@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>de.muenchen.ataf</groupId>
+    <artifactId>agile-test-automation-framework</artifactId>
+    <version>0.3.0</version>
+    <packaging>pom</packaging>
+
+    <name>agile-test-automation-framework</name>
+    <description>This is the generated documentation for the Agile Test Automation Framework (ATAF)</description>
+    <url>https://github.com/it-at-m/agile-test-automation-framework/</url>
+    <licenses>
+        <license>
+            <name>MIT</name>
+            <url>https://opensource.org/licenses/MIT</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <properties>
+        <java.version>21</java.version>
+        <cucumber.version>7.34.3</cucumber.version>
+        <testng.version>7.12.0</testng.version>
+        <junit.version>5.14.3</junit.version>
+        <junit.platform.version>1.14.3</junit.platform.version>
+        <log4j.version>2.25.3</log4j.version>
+        <mockito.version>5.22.0</mockito.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven-surefire-plugin.version>3.5.5</maven-surefire-plugin.version>
+        <maven-release-plugin.version>3.3.1</maven-release-plugin.version>
+        <maven-gpg-plugin.version>3.2.8</maven-gpg-plugin.version>
+        <central-publishing-maven-plugin.version>0.10.0</central-publishing-maven-plugin.version>
+
+        <!-- Spotless P2 Mirror configuration (aligned with other it@M projects) -->
+        <p2.username/><!-- must be empty, override via Maven settings.xml if needed -->
+        <p2.password/><!-- must be empty, override via Maven settings.xml if needed -->
+        <p2.mirror>download.eclipse.org</p2.mirror>
+    </properties>
+
+    <modules>
+        <module>core</module>
+        <module>rest</module>
+        <module>web</module>
+    </modules>
+
+    <scm>
+        <url>https://github.com/it-at-m/agile-test-automation-framework/</url>
+        <connection>scm:git:https://github.com/it-at-m/agile-test-automation-framework.git</connection>
+        <developerConnection>scm:git:https://github.com/it-at-m/agile-test-automation-framework.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
+    <developers>
+        <developer>
+            <organization>it@M</organization>
+            <email>opensource@muenchen.de</email>
+            <url>https://github.com/it-at-m</url>
+        </developer>
+    </developers>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <!-- Source: https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-release-plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>${maven-release-plugin.version}</version>
+                </plugin>
+
+                <!-- Source: https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-gpg-plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <version>${maven-gpg-plugin.version}</version>
+                </plugin>
+
+                <!-- Source: https://mvnrepository.com/artifact/org.sonatype.central/central-publishing-maven-plugin -->
+                <plugin>
+                    <groupId>org.sonatype.central</groupId>
+                    <artifactId>central-publishing-maven-plugin</artifactId>
+                    <version>${central-publishing-maven-plugin.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <!-- Source: https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.15.0</version>
+                <configuration>
+                    <release>${java.version}</release>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+
+            <!-- Source: https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
+                <configuration>
+                    <trimStackTrace>false</trimStackTrace>
+                    <argLine>-javaagent:${project.build.directory}/mockito-agent/mockito-core.jar</argLine>
+                </configuration>
+                <dependencies>
+                    <!-- Source: https://mvnrepository.com/artifact/org.apache.maven.surefire/surefire-testng -->
+                    <dependency>
+                        <groupId>org.apache.maven.surefire</groupId>
+                        <artifactId>surefire-testng</artifactId>
+                        <version>${maven-surefire-plugin.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+            <!-- Source: https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-source-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.4.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Source: https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-release-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>${maven-release-plugin.version}</version>
+                <configuration>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                    <useReleaseProfile>false</useReleaseProfile>
+                    <releaseProfiles>release</releaseProfiles>
+                    <goals>deploy</goals>
+                    <tagNameFormat>@{project.version}</tagNameFormat>
+                </configuration>
+            </plugin>
+
+            <!-- Source: https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-javadoc-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.12.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>aggregate-docs</id>
+                        <inherited>false</inherited>
+                        <goals>
+                            <goal>aggregate</goal>
+                        </goals>
+                        <configuration>
+                            <doctitle>Agile Test Automation Framework</doctitle>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Source: https://mvnrepository.com/artifact/com.diffplug.spotless/spotless-maven-plugin -->
+            <plugin>
+                <groupId>com.diffplug.spotless</groupId>
+                <artifactId>spotless-maven-plugin</artifactId>
+                <version>2.46.1</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>de.muenchen.oss</groupId>
+                        <artifactId>itm-java-codeformat</artifactId>
+                        <version>1.0.10</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <java>
+                        <includes>
+                            <include>src/main/java/**/*.java</include>
+                            <include>src/test/java/**/*.java</include>
+                        </includes>
+                        <eclipse>
+                            <file>itm-java-codeformat/java_codestyle_formatter.xml</file>
+                            <p2Mirrors>
+                                <p2Mirror>
+                                    <prefix>https://download.eclipse.org</prefix>
+                                    <url>https://${p2.username}:${p2.password}@${p2.mirror}</url>
+                                </p2Mirror>
+                            </p2Mirrors>
+                        </eclipse>
+                        <trimTrailingWhitespace/>
+                        <endWithNewline/>
+                    </java>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <phase>compile</phase>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Source: https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-dependency-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.10.0</version>
+                <executions>
+                    <execution>
+                        <id>copy-mockito-agent</id>
+                        <phase>process-test-classes</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.mockito</groupId>
+                                    <artifactId>mockito-core</artifactId>
+                                    <version>${mockito.version}</version>
+                                    <outputDirectory>${project.build.directory}/mockito-agent</outputDirectory>
+                                    <destFileName>mockito-core.jar</destFileName>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <!-- Central Portal Publishing Plugin -->
+                    <!-- Source: https://mvnrepository.com/artifact/org.sonatype.central/central-publishing-maven-plugin -->
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>${central-publishing-maven-plugin.version}</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <tokenAuth>true</tokenAuth>
+                            <autoPublish>true</autoPublish>
+                            <deploymentName>${project.groupId}:${project.artifactId}:${project.version}</deploymentName>
+                        </configuration>
+                    </plugin>
+                    <!-- GPG plugin -->
+                    <!-- Source: https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-gpg-plugin -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>${maven-gpg-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                                <configuration>
+                                    <!-- Prevent `gpg` from using pinentry programs -->
+                                    <gpgArguments>
+                                        <arg>--pinentry-mode</arg>
+                                        <arg>loopback</arg>
+                                    </gpgArguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>
