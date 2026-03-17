@@ -48,8 +48,5 @@
             <version>3.13.2</version>
             <scope>test</scope>
         </dependency>
-
-        <!-- Jackson and Rhino versions are globally managed in the root pom's dependencyManagement
-             so that Trivy sees the fixed, non-vulnerable coordinates across all modules. -->
     </dependencies>
 </project>
