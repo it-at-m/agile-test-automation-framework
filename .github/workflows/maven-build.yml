@@ -17,5 +17,5 @@ jobs:
       - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@7cb754b2056cebda6c36db344434f85be398c493 # v1.0.25
       - uses: it-at-m/lhm_actions/action-templates/actions/action-maven-build@7cb754b2056cebda6c36db344434f85be398c493 # v1.0.25
         with:
-          app-path: "."
+          app-path: ""
           java-version: "21"
