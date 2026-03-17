@@ -10,6 +10,7 @@
     </parent>
 
     <artifactId>rest</artifactId>
+    <name>Agile Test Automation Framework - REST</name>
     <packaging>jar</packaging>
 
     <dependencies>

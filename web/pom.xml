@@ -10,6 +10,7 @@
     </parent>
 
     <artifactId>web</artifactId>
+    <name>Agile Test Automation Framework - Web</name>
     <packaging>jar</packaging>
 
     <dependencies>

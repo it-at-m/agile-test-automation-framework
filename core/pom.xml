@@ -10,6 +10,7 @@
     </parent>
 
     <artifactId>core</artifactId>
+    <name>Agile Test Automation Framework - Core</name>
     <packaging>jar</packaging>
 
     <dependencies>
