@@ -22,11 +22,12 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+    env:
+      TZ: Europe/Berlin
+      MAVEN_OPTS: "-Dhttp.socket.timeout=1800000 -Dhttp.connection.timeout=1800000"
     outputs:
       MVN_ARTIFACT_ID: ${{ steps.maven-release-step.outputs.MVN_ARTIFACT_ID }}
       ARTIFACT_NAME: ${{ steps.maven-release-step.outputs.artifact-name }}
-    env:
-      TZ: Europe/Berlin
     steps:
       - id: maven-release-step
         uses: it-at-m/lhm_actions/action-templates/actions/action-maven-release@7cb754b2056cebda6c36db344434f85be398c493 # v1.0.25
