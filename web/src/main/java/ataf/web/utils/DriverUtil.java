@@ -281,8 +281,6 @@ public final class DriverUtil {
                 edgeOptions.setPageLoadStrategy(PageLoadStrategy.EAGER);
 
                 // Container-friendly Chromium arguments (Edge runs on the Chromium engine).
-                // The chrome-branch already sets these, but the edge-branch previously did not,
-                // which caused "Chrome instance exited" in containerized CI.
                 edgeOptions.addArguments("--lang=de");
                 edgeOptions.addArguments("--disable-gpu");
                 edgeOptions.addArguments("--start-maximized");
