@@ -6,11 +6,11 @@ on:
       releaseVersion:
         description: "Version to use when preparing a release (e.g., 0.1.0)"
         required: true
-        default: "0.3.1"
+        default: "0.3.2"
       developmentVersion:
         description: "Next development version (e.g., 0.1.1-SNAPSHOT)"
         required: true
-        default: "0.3.1-SNAPSHOT"
+        default: "0.3.2-SNAPSHOT"
 
 concurrency:
   group: ${{ github.workflow }}
