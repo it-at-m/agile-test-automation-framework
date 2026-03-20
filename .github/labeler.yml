@@ -12,12 +12,15 @@
   - head-branch: [ '^dep', '-dependency-' ]
 "Type: Security":
   - head-branch: [ '^sec', '-security-' ]
-"Template: Core":
+
+"Core":
   - changed-files:
     - any-glob-to-any-file: ['core/**']
-"Template: Rest":
+
+"Rest":
   - changed-files:
     - any-glob-to-any-file: ['rest/**']
-"Template: Web":
+
+"Web":
   - changed-files:
     - any-glob-to-any-file: ['web/**']
