@@ -12,15 +12,12 @@
   - head-branch: [ '^dep', '-dependency-' ]
 "Type: Security":
   - head-branch: [ '^sec', '-security-' ]
-"Template: Backend":
+"Template: Core":
   - changed-files:
-    - any-glob-to-any-file: ['refarch-backend/**']
-"Template: EAI":
+    - any-glob-to-any-file: ['core/**']
+"Template: Rest":
   - changed-files:
-      - any-glob-to-any-file: ['refarch-eai/**']
-"Template: Frontend":
+    - any-glob-to-any-file: ['rest/**']
+"Template: Web":
   - changed-files:
-      - any-glob-to-any-file: ['refarch-frontend/**']
-"Template: Webcomponent":
-  - changed-files:
-      - any-glob-to-any-file: ['refarch-webcomponent/**']
+    - any-glob-to-any-file: ['web/**']
