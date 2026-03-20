@@ -116,8 +116,8 @@ This repository is configured to publish ATAF artifacts to Maven Central in the 
 To create a release:
 
 1. Open the **Actions** tab in GitHub and select **Release Maven**.
-2. Use `0.3.1` as the `releaseVersion` (or a higher version for future releases).
-3. Use `0.3.2-SNAPSHOT` (or the next snapshot) as the `developmentVersion`.
+2. Use `0.3.2` as the `releaseVersion` (or a higher version for future releases).
+3. Use `0.3.3-SNAPSHOT` (or the next snapshot) as the `developmentVersion`.
 4. Run the workflow. It will:
    - Use the Maven `release` profile (which skips tests during the release build).
    - Sign and deploy artifacts to Maven Central via the Sonatype Central publishing plugin.
@@ -125,9 +125,9 @@ To create a release:
 
 After the release, consumers (such as `zmsautomation`) can depend on:
 
-- `de.muenchen.ataf:core:0.3.1`
-- `de.muenchen.ataf:rest:0.3.1`
-- `de.muenchen.ataf:web:0.3.1`
+- `de.muenchen.ataf:core:0.3.2`
+- `de.muenchen.ataf:rest:0.3.2`
+- `de.muenchen.ataf:web:0.3.2`
 
 ### Build the Project
 
