@@ -35,6 +35,7 @@ import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.time.Duration;
+import java.util.Locale;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -121,6 +122,7 @@ public final class DriverUtil {
                 .orElse(DefaultValues.USE_INCOGNITO_MODE);
         final String SELENIUM_GRID_URL = TestProperties.getProperty("seleniumGridUrl", true, DefaultValues.SELENIUM_GRID_URL)
                 .orElse(DefaultValues.SELENIUM_GRID_URL);
+        final String PLATFORM_NAME = TestProperties.getProperty("platformName", true, "WINDOWS").orElse("WINDOWS");
         final long DEFAULT_SCRIPT_AND_PAGE_LOAD_TIME = TestProperties.getProperty("defaultScriptAndPageLoadTime", true,
                 DefaultValues.DEFAULT_SCRIPT_AND_PAGE_LOAD_TIME)
                 .orElse(DefaultValues.DEFAULT_SCRIPT_AND_PAGE_LOAD_TIME);
@@ -260,6 +262,9 @@ public final class DriverUtil {
                 break;
             case "edge":
                 EdgeOptions edgeOptions = new EdgeOptions();
+                final String edgePlatformName = PLATFORM_NAME == null || PLATFORM_NAME.trim().isEmpty()
+                        ? "WINDOWS"
+                        : PLATFORM_NAME.trim().toUpperCase(Locale.ROOT);
                 edgeOptions.setEnableDownloads(true);
                 if (USE_PROXY) {
                     edgeOptions.setProxy(proxy);
@@ -271,7 +276,7 @@ public final class DriverUtil {
                 if (USE_INCOGNITO_MODE) {
                     edgeOptions.addArguments("--InPrivate");
                 }
-                edgeOptions.setPlatformName("WINDOWS");
+                edgeOptions.setPlatformName(edgePlatformName);
                 edgeOptions.setAcceptInsecureCerts(true);
 
                 LoggingPreferences edgeLogPrefs = new LoggingPreferences();
@@ -291,7 +296,7 @@ public final class DriverUtil {
                     if (!BROWSER_VERSION.isEmpty()) {
                         edgeOptions.setCapability(CapabilityType.BROWSER_VERSION, BROWSER_VERSION);
                     }
-                    edgeOptions.setCapability(CapabilityType.PLATFORM_NAME, "WINDOWS");
+                    edgeOptions.setCapability(CapabilityType.PLATFORM_NAME, edgePlatformName);
                     try {
                         driver = new RemoteWebDriver(new URI(SELENIUM_GRID_URL).toURL(), edgeOptions);
                     } catch (URISyntaxException e) {

@@ -6,10 +6,11 @@
     <parent>
         <groupId>de.muenchen.ataf</groupId>
         <artifactId>agile-test-automation-framework</artifactId>
-        <version>0.3.0</version>
+        <version>0.3.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>rest</artifactId>
+    <name>Agile Test Automation Framework - REST</name>
     <packaging>jar</packaging>
 
     <dependencies>
