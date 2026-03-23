@@ -22,6 +22,8 @@ import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.LocalFileDetector;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.safari.SafariDriver;
+import org.openqa.selenium.safari.SafariOptions;
 
 import java.io.File;
 import java.io.IOException;
@@ -393,9 +395,36 @@ public final class DriverUtil {
                     }
                 }
                 break;
+            case "safari":
+                SafariOptions safariOptions = new SafariOptions();
+                safariOptions.setPageLoadStrategy(PageLoadStrategy.EAGER);
+                safariOptions.setAcceptInsecureCerts(true);
+                if (USE_PROXY) {
+                    safariOptions.setProxy(proxy);
+                    ScenarioLogManager.getLogger().info("Proxy set");
+                } else {
+                    ScenarioLogManager.getLogger().info("Proxy ignored!");
+                }
+                if (isLocalExecution) {
+                    driver = new SafariDriver(safariOptions);
+                } else {
+                    safariOptions.setCapability(CapabilityType.BROWSER_NAME, BROWSER);
+                    if (!BROWSER_VERSION.isEmpty()) {
+                        safariOptions.setCapability(CapabilityType.BROWSER_VERSION, BROWSER_VERSION);
+                    }
+                    safariOptions.setCapability(CapabilityType.PLATFORM_NAME, "MAC");
+                    try {
+                        driver = new RemoteWebDriver(new URI(SELENIUM_GRID_URL).toURL(), safariOptions);
+                    } catch (URISyntaxException e) {
+                        ScenarioLogManager.getLogger().error(
+                                "Given value of {} could not be parsed as a URI reference. Check your property if it is a correct URL!", SELENIUM_GRID_URL);
+                        CustomAssertions.fail(e.getMessage(), e);
+                    }
+                }
+                break;
             default:
                 throw new IllegalArgumentException(
-                        "Browser \"" + BROWSER + "\" is not supported by test automation framework! Supported browsers are: firefox, edge and chrome");
+                        "Browser \"" + BROWSER + "\" is not supported by test automation framework! Supported browsers are: firefox, edge, chrome, safari");
         }
 
         CustomAssertions.assertNotNull(driver);
