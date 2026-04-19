@@ -5,7 +5,31 @@ updates:
     directory: "/"          # where your pom.xml lives (root here)
     schedule:
       interval: "weekly"
-      day: "saturday"
+      day: "monday"
       time: "04:00"
       timezone: "Europe/Berlin"
-    target-branch: "next"
+    target-branch: "main"
+  - package-ecosystem: "maven"
+    directory: "/core"          # where your pom.xml lives (root here)
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "04:00"
+      timezone: "Europe/Berlin"
+    target-branch: "main"
+  - package-ecosystem: "maven"
+    directory: "/rest"          # where your pom.xml lives (root here)
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "04:00"
+      timezone: "Europe/Berlin"
+    target-branch: "main"
+  - package-ecosystem: "maven"
+    directory: "/web"          # where your pom.xml lives (root here)
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "04:00"
+      timezone: "Europe/Berlin"
+    target-branch: "main"
