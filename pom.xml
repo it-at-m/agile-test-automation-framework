@@ -26,7 +26,7 @@
         <testng.version>7.12.0</testng.version>
         <junit.version>5.14.3</junit.version>
         <junit.platform.version>1.14.3</junit.platform.version>
-        <log4j.version>2.25.3</log4j.version>
+        <log4j.version>2.25.4</log4j.version>
         <mockito.version>5.22.0</mockito.version>
         <!-- Shared Jackson version (used to override transitive versions pulled by test libraries like WireMock).
              Trivy reports CVE-2025-52999 and GHSA-72hv-8253-57qq as fixed starting with 2.18.6 for jackson-core,
