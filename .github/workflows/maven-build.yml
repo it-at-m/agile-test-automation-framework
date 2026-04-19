@@ -14,8 +14,8 @@ jobs:
     env:
       TZ: Europe/Berlin
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@7cb754b2056cebda6c36db344434f85be398c493 # v1.0.25
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-maven-build@7cb754b2056cebda6c36db344434f85be398c493 # v1.0.25
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-maven-build@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
         with:
           app-path: ""
           java-version: "21"
