@@ -48,7 +48,7 @@ ATAF was built primarily by colleagues from **digital@M** for use at **it@M**, t
 
 <table border="0" cellpadding="0" cellspacing="0">
   <tr>
-    <td style="padding-right: 30px;"><img src="https://raw.githubusercontent.com/it-at-m/agile-test-automation-framework/main/docs/img/digital-at-m-logo.svg" height="30" align="center" alt="digital@M"></td>
+    <td style="padding-right: 30px;"><img src="https://raw.githubusercontent.com/it-at-m/agile-test-automation-framework/main/docs/img/digital-at-m-logo.png" height="30" align="center" alt="digital@M"></td>
     <td style="padding-right: 30px;"><img src="https://assets.muenchen.de/logos/itm/itM_Basislogo_gelb_schwarz-500.png" height="30" align="center" alt="it@M"></td>
     <td><img src="https://assets.muenchen.de/logos/lhm/logo-lhm-muenchen.svg" height="30" align="center" alt="Landeshauptstadt München"></td>
   </tr>
@@ -81,7 +81,7 @@ ATAF wurde überwiegend von Kolleg:innen aus **digital@M** für den Einsatz bei 
 
 <table border="0" cellpadding="0" cellspacing="0">
   <tr>
-    <td style="padding-right: 30px;"><img src="https://raw.githubusercontent.com/it-at-m/agile-test-automation-framework/main/docs/img/digital-at-m-logo.svg" height="30" align="center" alt="digital@M"></td>
+    <td style="padding-right: 30px;"><img src="https://raw.githubusercontent.com/it-at-m/agile-test-automation-framework/main/docs/img/digital-at-m-logo.png" height="30" align="center" alt="digital@M"></td>
     <td style="padding-right: 30px;"><img src="https://assets.muenchen.de/logos/itm/itM_Basislogo_gelb_schwarz-500.png" height="30" align="center" alt="it@M"></td>
     <td><img src="https://assets.muenchen.de/logos/lhm/logo-lhm-muenchen.svg" height="30" align="center" alt="Landeshauptstadt München"></td>
   </tr>
