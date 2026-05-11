@@ -22,6 +22,8 @@ import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.LocalFileDetector;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.safari.SafariDriver;
+import org.openqa.selenium.safari.SafariOptions;
 
 import java.io.File;
 import java.io.IOException;
@@ -278,6 +280,26 @@ public final class DriverUtil {
                 }
                 edgeOptions.setPlatformName(edgePlatformName);
                 edgeOptions.setAcceptInsecureCerts(true);
+                edgeOptions.setPageLoadStrategy(PageLoadStrategy.EAGER);
+
+                // Container-friendly Chromium arguments (Edge runs on the Chromium engine).
+                edgeOptions.addArguments("--lang=de");
+                edgeOptions.addArguments("--disable-gpu");
+                edgeOptions.addArguments("--start-maximized");
+                edgeOptions.addArguments("--disable-popup-blocking");
+                edgeOptions.addArguments("--disable-web-security");
+                edgeOptions.addArguments("--enable-automation");
+                edgeOptions.addArguments("--no-sandbox");
+                edgeOptions.addArguments("--disable-infobars");
+                edgeOptions.addArguments("--disable-dev-shm-usage");
+                edgeOptions.addArguments("--disable-browser-side-navigation");
+                edgeOptions.addArguments("--disable-site-isolation-trials");
+
+                // Enable headless when requested by CI (e.g. -Dtestautomation.browserHeadless=true).
+                boolean browserHeadless = TestProperties.getProperty("browserHeadless", true, false).orElse(false);
+                if (browserHeadless) {
+                    edgeOptions.addArguments("--headless=new");
+                }
 
                 LoggingPreferences edgeLogPrefs = new LoggingPreferences();
                 Level edgeLogLevel = switch (LOG_LEVEL.toUpperCase()) {
@@ -373,9 +395,36 @@ public final class DriverUtil {
                     }
                 }
                 break;
+            case "safari":
+                SafariOptions safariOptions = new SafariOptions();
+                safariOptions.setPageLoadStrategy(PageLoadStrategy.EAGER);
+                safariOptions.setAcceptInsecureCerts(true);
+                if (USE_PROXY) {
+                    safariOptions.setProxy(proxy);
+                    ScenarioLogManager.getLogger().info("Proxy set");
+                } else {
+                    ScenarioLogManager.getLogger().info("Proxy ignored!");
+                }
+                if (isLocalExecution) {
+                    driver = new SafariDriver(safariOptions);
+                } else {
+                    safariOptions.setCapability(CapabilityType.BROWSER_NAME, BROWSER);
+                    if (!BROWSER_VERSION.isEmpty()) {
+                        safariOptions.setCapability(CapabilityType.BROWSER_VERSION, BROWSER_VERSION);
+                    }
+                    safariOptions.setCapability(CapabilityType.PLATFORM_NAME, "MAC");
+                    try {
+                        driver = new RemoteWebDriver(new URI(SELENIUM_GRID_URL).toURL(), safariOptions);
+                    } catch (URISyntaxException e) {
+                        ScenarioLogManager.getLogger().error(
+                                "Given value of {} could not be parsed as a URI reference. Check your property if it is a correct URL!", SELENIUM_GRID_URL);
+                        CustomAssertions.fail(e.getMessage(), e);
+                    }
+                }
+                break;
             default:
                 throw new IllegalArgumentException(
-                        "Browser \"" + BROWSER + "\" is not supported by test automation framework! Supported browsers are: firefox, edge and chrome");
+                        "Browser \"" + BROWSER + "\" is not supported by test automation framework! Supported browsers are: firefox, edge, chrome, safari");
         }
 
         CustomAssertions.assertNotNull(driver);
