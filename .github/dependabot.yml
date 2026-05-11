@@ -5,7 +5,7 @@ updates:
     directory: "/"          # where your pom.xml lives (root here)
     schedule:
       interval: "weekly"
-      day: "monday"
+      day: "tuesday"
       time: "04:00"
       timezone: "Europe/Berlin"
     target-branch: "main"
@@ -13,7 +13,7 @@ updates:
     directory: "/core"          # where your pom.xml lives (root here)
     schedule:
       interval: "weekly"
-      day: "monday"
+      day: "tuesday"
       time: "04:00"
       timezone: "Europe/Berlin"
     target-branch: "main"
@@ -21,7 +21,7 @@ updates:
     directory: "/rest"          # where your pom.xml lives (root here)
     schedule:
       interval: "weekly"
-      day: "monday"
+      day: "tuesday"
       time: "04:00"
       timezone: "Europe/Berlin"
     target-branch: "main"
@@ -29,7 +29,7 @@ updates:
     directory: "/web"          # where your pom.xml lives (root here)
     schedule:
       interval: "weekly"
-      day: "monday"
+      day: "tuesday"
       time: "04:00"
       timezone: "Europe/Berlin"
     target-branch: "main"
