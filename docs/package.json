@@ -6,7 +6,8 @@
     "docs:build": "vitepress build .",
     "docs:preview": "vitepress preview .",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "lint": "prettier --check ."
   },
   "devDependencies": {
     "@muenchen/prettier-codeformat": "^1.0.2",

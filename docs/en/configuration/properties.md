@@ -6,12 +6,12 @@ This page lists the four files ATAF expects and gives an annotated example for e
 
 ## Supported Webdrivers
 
-| Browser key (`testautomation.browser`) | Selenium driver | Local execution | Selenium Grid `platformName` | Architectures | Headless |
-| --- | --- | --- | --- | --- | --- |
-| `chrome` | `ChromeDriver` | Windows · macOS · Linux | `LINUX` | `amd64` (Intel/x86_64), `arm64` | yes — `testautomation.browserHeadless=true` |
-| `edge` | `EdgeDriver` | Windows · macOS · Linux | configurable via `testautomation.platformName` (default `WINDOWS`) | `amd64`, `arm64` | yes — `testautomation.browserHeadless=true` |
-| `firefox` | `GeckoDriver` (via `FirefoxDriver`) | Windows · macOS · Linux | `LINUX` | `amd64`, `arm64` | always on, when running on grid |
-| `safari` | `SafariDriver` | macOS only (10.15+) | `MAC` | `amd64` (Intel macOS/iOS), `arm64` (Apple Silicon macOS/iOS) | not supported by Safari |
+| Browser key (`testautomation.browser`) | Selenium driver                     | Local execution         | Selenium Grid `platformName`                                       | Architectures                                                | Headless                                    |
+| -------------------------------------- | ----------------------------------- | ----------------------- | ------------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------- |
+| `chrome`                               | `ChromeDriver`                      | Windows · macOS · Linux | `LINUX`                                                            | `amd64` (Intel/x86_64), `arm64`                              | yes — `testautomation.browserHeadless=true` |
+| `edge`                                 | `EdgeDriver`                        | Windows · macOS · Linux | configurable via `testautomation.platformName` (default `WINDOWS`) | `amd64`, `arm64`                                             | yes — `testautomation.browserHeadless=true` |
+| `firefox`                              | `GeckoDriver` (via `FirefoxDriver`) | Windows · macOS · Linux | `LINUX`                                                            | `amd64`, `arm64`                                             | always on, when running on grid             |
+| `safari`                               | `SafariDriver`                      | macOS only (10.15+)     | `MAC`                                                              | `amd64` (Intel macOS/iOS), `arm64` (Apple Silicon macOS/iOS) | not supported by Safari                     |
 
 Notes:
 
