@@ -2,12 +2,12 @@
 
 <!-- PROJECT SHIELDS -->
 
+[![Made with love by it@M][made-with-love-shield]][itm-opensource]
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
-[![Made with love by it@M][made-with-love-shield]][itm-opensource]
 [![Java 21][java-shield]][java-url]
 [![Cucumber][cucumber-shield]][cucumber-url]
 [![TestNG][testng-shield]][testng-url]
@@ -24,8 +24,6 @@
 - Maven coordinates: `de.muenchen.ataf:{core,rest,web}` on Maven Central
 
 ## About ATAF
-
-<img width="200" align="right" alt="Made with love by it@M" src="https://img.shields.io/badge/made%20with%20%E2%9D%A4%20by-it%40M-yellow?style=for-the-badge" />
 
 The **Agile Test Automation Framework (ATAF)** is a Java 21 framework for Cucumber-based BDD tests and traditional TestNG/JUnit test suites, with optional Jira/Xray integration. It is designed for agile projects: fast setup, maintainable test automation, and integration into modern development workflows. In addition to browser-based and API testing, it provides hooks for managing test executions in Jira and Xray.
 
@@ -59,8 +57,6 @@ ATAF was built primarily by colleagues from **digital@M** for use at **it@M**, t
 ---
 
 ## Über ATAF
-
-<img width="200" align="right" alt="Made with love by it@M" src="https://img.shields.io/badge/made%20with%20%E2%9D%A4%20by-it%40M-yellow?style=for-the-badge" />
 
 Das **Agile Test Automation Framework (ATAF)** ist ein Java-21-Framework für Cucumber-basierte BDD-Tests und klassische TestNG/JUnit-Testsuites mit optionaler Jira-/Xray-Anbindung. Es wurde für agile Projekte entworfen: schnelle Einrichtung, wartbare Testautomatisierung und Integration in moderne Entwicklungs-Workflows. Neben Browser- und API-Tests bietet es Hooks für die Verwaltung von Testausführungen in Jira und Xray.
 
