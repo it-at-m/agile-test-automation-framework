@@ -5,6 +5,7 @@
     "docs:dev": "vitepress dev .",
     "docs:build": "vitepress build .",
     "docs:preview": "vitepress preview .",
+    "build": "vitepress build .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "prettier --check ."
