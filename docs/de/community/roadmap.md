@@ -9,13 +9,6 @@ Eine wachsende Sammlung wiederverwendbarer Bausteine ist bereits Teil der Module
 - [`SingleSignOnPage`](https://github.com/it-at-m/agile-test-automation-framework/blob/main/web/src/main/java/ataf/web/pages/SingleSignOnPage.java) — generischer Keycloak-/SSO-Loginflow, der gegen beliebige Keycloak-Realms funktioniert, indem Locator für Benutzername-Feld, Passwort-Feld und Login-Button parametrisiert werden.
 - [`RandomNameGenerator`](https://github.com/it-at-m/agile-test-automation-framework/blob/main/web/src/main/java/ataf/web/pages/RandomNameGenerator.java) — holt einen realistischen Vor- und Nachnamen von einem externen Generator und stellt sie (inklusive einer E-Mail-konformen Variante) für den Testdaten-Aufbau bereit.
 
-Die unten stehende Roadmap zielt darauf ab, diese Sammlung — und das Framework selbst — so weit auszubauen, dass jedes LHM-Team ATAF in ein neues Projekt einbinden und sofort über funktionierende SSO-, Testdaten-, Reporting- und Jira/Xray-Integration verfügen kann.
+Die Roadmap zielt darauf ab, diese Sammlung — und das Framework selbst — so weit auszubauen, dass jedes LHM-Team ATAF in ein neues Projekt einbinden und sofort über funktionierende SSO-, Testdaten-, Reporting- und Jira/Xray-Integration verfügen kann.
 
-## Mögliche zukünftige Erweiterungen
-
-- Erweiterte Unterstützung weiterer Programmiersprachen wie Python, C#, Ruby und JavaScript.
-- Zusätzliche wiederverwendbare Step-Bibliotheken.
-- Verbesserte Reporting-Integrationen.
-- Modularere Plugins für projektspezifische Erweiterungen.
-
-Eine vollständige Liste vorgeschlagener Features und bekannter Probleme findest du in den [offenen Issues](https://github.com/it-at-m/agile-test-automation-framework/issues).
+Eine aktuelle Liste vorgeschlagener Features und bekannter Probleme findest du in den [offenen Issues](https://github.com/it-at-m/agile-test-automation-framework/issues).
