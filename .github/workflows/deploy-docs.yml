@@ -1,0 +1,29 @@
+# Workflow to build docs and deploy docs folder to GitHub pages
+name: deploy-docs
+
+on:
+  # Runs on pushes to main when docs or this workflow change
+  push:
+    branches:
+      - main
+    paths:
+      - "docs/**"
+      - ".github/workflows/deploy-docs.yml"
+  pull_request:
+    paths:
+      - "docs/**"
+      - ".github/workflows/deploy-docs.yml"
+
+jobs:
+  deploy-docs:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    steps:
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-build-docs@acb09213786b76dd7aa52ec1d901390d28c60eb0 # v1.0.29
+        with:
+          node-version: "24"
+      # Only deploy documentation from the main branch to prevent unauthorized changes
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-deploy-docs@acb09213786b76dd7aa52ec1d901390d28c60eb0 # v1.0.29
