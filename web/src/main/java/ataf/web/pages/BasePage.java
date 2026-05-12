@@ -692,7 +692,7 @@ public class BasePage {
      */
     public void waitForPageToLoad() {
         long millis = DEFAULT_IMPLICIT_WAIT_TIME;
-        int iterations = 1;
+        long iterations = 1L;
         do {
             try {
                 Thread.sleep(millis);
