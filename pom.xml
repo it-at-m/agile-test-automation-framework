@@ -31,7 +31,7 @@
         <!-- Shared Jackson version (used to override transitive versions pulled by test libraries like WireMock).
              Trivy reports CVE-2025-52999 and GHSA-72hv-8253-57qq as fixed starting with 2.18.6 for jackson-core,
              so we pin to 2.18.6 here to keep the security scanner happy while staying compatible with our stack. -->
-        <jackson.version>2.18.6</jackson.version>
+        <jackson.version>2.21.3</jackson.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven-surefire-plugin.version>3.5.5</maven-surefire-plugin.version>
         <maven-release-plugin.version>3.3.1</maven-release-plugin.version>
