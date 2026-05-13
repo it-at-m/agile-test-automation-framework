@@ -19,8 +19,6 @@ import java.util.Locale;
  * </p>
  */
 public class DateUtils {
-    // SecureRandom is thread-safe; sharing a single instance avoids per-call
-    // seeding from the OS entropy source on every getRandomBirthDate(...) call.
     private static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
     /**

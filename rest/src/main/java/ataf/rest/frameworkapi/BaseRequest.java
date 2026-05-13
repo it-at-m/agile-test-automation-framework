@@ -215,8 +215,6 @@ public class BaseRequest {
      * @return this BaseRequest instance for fluent API usage
      */
     public BaseRequest assertBodyContains(String expectedSubstring) {
-        // Use Objects.requireNonNull so static analyzers can prove `body` is non-null
-        // on the following lines; CustomAssertions.assertNotNull is opaque to CodeQL.
         String body = Objects.requireNonNull(
                 getResponse().getBody(),
                 "Expected response body to be non-null for assertBodyContains.").asString();
