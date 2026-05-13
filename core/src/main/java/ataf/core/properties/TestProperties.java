@@ -274,9 +274,6 @@ public class TestProperties {
      */
     @SuppressWarnings("unchecked")
     public static <T> Optional<T> getProperty(String propertyName, boolean isMandatory) {
-        // Cast to (T) null so overload resolution picks the non-deprecated
-        // getProperty(String, boolean, T) overload instead of the deprecated
-        // getProperty(String, boolean, TestProperty<T>) overload.
         return getProperty(propertyName, isMandatory, (T) null);
     }
 
@@ -289,9 +286,6 @@ public class TestProperties {
      */
     @SuppressWarnings("unchecked")
     public static <T> Optional<T> getProperty(String propertyName) {
-        // Cast to (T) null so overload resolution picks the non-deprecated
-        // getProperty(String, boolean, T) overload instead of the deprecated
-        // getProperty(String, boolean, TestProperty<T>) overload.
         return getProperty(propertyName, false, (T) null);
     }
 

@@ -51,9 +51,6 @@ public class CryptoUtils {
     private static final int TAG_LENGTH_BIT = 128; // must be one of {128, 120, 112, 104, 96}
     private static final int IV_LENGTH_BYTE = 12; // Length of the Initialization Vector
     private static final int SALT_LENGTH_BYTE = 16; // Length of the salt
-    // SecureRandom is thread-safe; sharing a single instance avoids the expensive
-    // per-call seeding from /dev/random (or its equivalent) and lets the entropy
-    // pool accumulate across calls.
     private static final SecureRandom SECURE_RANDOM = new SecureRandom();
     private static char[] secret; // Secret key for encryption and decryption
     private static String encryptedFileExtension = ".encrypted";

@@ -428,8 +428,6 @@ public final class DriverUtil {
                         "Browser \"" + BROWSER + "\" is not supported by test automation framework! Supported browsers are: firefox, edge, chrome, safari");
         }
 
-        // Reassign through requireNonNull so static analyzers can prove `driver` is non-null
-        // on the following lines; CustomAssertions.assertNotNull is opaque to CodeQL.
         driver = Objects.requireNonNull(driver, "WebDriver must be initialized before use!");
         if (!isLocalExecution) {
             driver.setFileDetector(new LocalFileDetector());
