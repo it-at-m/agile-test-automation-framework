@@ -225,7 +225,16 @@ public class HttpClient implements AutoCloseable {
                     .map(String::trim)
                     .orElse("");
             int port = TestProperties.getProperty("proxyPort", true, String.valueOf(DefaultValues.PROXY_PORT))
-                    .map(Integer::parseInt)
+                    .map(value -> {
+                        try {
+                            return Integer.parseInt(value.trim());
+                        } catch (NumberFormatException e) {
+                            ScenarioLogManager.getLogger().warn(
+                                    "Property [proxyPort] has non-numeric value \"{}\". Falling back to default {}.",
+                                    value, DefaultValues.PROXY_PORT);
+                            return DefaultValues.PROXY_PORT;
+                        }
+                    })
                     .orElse(DefaultValues.PROXY_PORT);
 
             if (!host.isBlank() && port > 0) {
