@@ -14,21 +14,16 @@ public class ExceptionManager {
     }
 
     /**
-     * Processes the given exception and logs the error message.
-     *
-     * @param e The exception to be processed
-     */
-    public static void process(Exception e) {
-        ScenarioLogManager.getLogger().error("Error message: {}", e.getMessage());
-    }
-
-    /**
-     * Processes the given {@link Throwable} and logs the error message including the stack trace.
+     * Processes the given {@link Throwable} (including subclasses such as {@link Exception} and
+     * {@link AssertionError}) and logs the error message together with the full stack trace via
+     * {@link ScenarioLogManager}.
      *
      * <p>
-     * This overload allows handling of errors that are not subclasses of {@link Exception},
-     * such as {@link AssertionError}, while preserving the existing {@link #process(Exception)}
-     * method for backward compatibility.
+     * Previously this class also exposed an {@code Exception}-only overload that logged the
+     * message without the stack trace. That same-arity overload was confusing (CodeQL
+     * {@code java/confusing-method-signature}) and silently dropped the trace on the
+     * {@code Exception} path. Consolidated into this single {@code Throwable} entry point so all
+     * paths get full diagnostics.
      * </p>
      *
      * @param t the throwable to be processed
