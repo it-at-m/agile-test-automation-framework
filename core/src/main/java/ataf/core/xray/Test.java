@@ -120,4 +120,30 @@ public class Test implements Comparable<Test> {
     public int compareTo(@NotNull Test test) {
         return Integer.compare(RANK, test.RANK);
     }
+
+    /**
+     * Indicates whether another object is equal to this test. Equality is based on {@link #RANK} so
+     * it stays consistent with {@link #compareTo(Test)} — required for sorted collections like the
+     * {@code ConcurrentSkipListSet} used by {@code TestExecution} to behave predictably
+     * (x.compareTo(y) == 0 iff x.equals(y)).
+     *
+     * @param obj the object to compare with.
+     * @return {@code true} if the other object is a {@code Test} with the same rank.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof Test other)) return false;
+        return this.RANK == other.RANK;
+    }
+
+    /**
+     * Returns a hash code consistent with {@link #equals(Object)} and {@link #compareTo(Test)}.
+     *
+     * @return a hash code derived from {@link #RANK}.
+     */
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(RANK);
+    }
 }
