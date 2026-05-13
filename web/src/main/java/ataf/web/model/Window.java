@@ -74,7 +74,8 @@ public class Window implements Serializable {
      */
     @Override
     public String toString() {
-        return "Window{" + "windowHandle='" + WINDOW_HANDLE + '\'' + ", windowTitle='" + windowTitle + '\'' + ", windowType=" + windowType + '}';
+        String windowTypeDisplay = (windowType == null) ? "null" : windowType.getClass().getSimpleName();
+        return "Window{" + "windowHandle='" + WINDOW_HANDLE + '\'' + ", windowTitle='" + windowTitle + '\'' + ", windowType=" + windowTypeDisplay + '}';
     }
 
     /***
