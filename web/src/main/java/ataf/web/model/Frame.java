@@ -81,4 +81,16 @@ public class Frame implements Serializable {
         Frame frame = (Frame) o;
         return Objects.equals(NAME, frame.NAME);
     }
+
+    /**
+     * Returns a hash code value for this frame. The hash is derived from {@link #NAME} so it stays
+     * consistent with {@link #equals(Object)} — required by the Object hashCode contract for any
+     * hash-based collection (HashMap, HashSet, ...) to work correctly.
+     *
+     * @return a hash code value for this frame.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(NAME);
+    }
 }
