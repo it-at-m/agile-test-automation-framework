@@ -45,7 +45,7 @@ public class DriverUtilTest {
                 { "0.0.1", "0", true },
                 { "1", "1.0.0", true },
 
-                // Invalid cases (should throw an exception)
+                // Invalid cases (non-numeric parts are treated as "not less or equal")
                 { "abc.2.3", "94", false },
                 { "94.3", "xyz", false },
                 { "94.5.6", "94.5.a", false }
@@ -61,12 +61,7 @@ public class DriverUtilTest {
      */
     @Test(dataProvider = "versionComparisonData")
     public void testIsVersionLessOrEqual(String currentVersion, String targetVersion, boolean expected) {
-        try {
-            boolean result = DriverUtil.isVersionLessOrEqual(currentVersion, targetVersion);
-            CustomAssertions.assertEquals(result, expected, "Failed for: " + currentVersion + " <= " + targetVersion);
-        } catch (Exception e) {
-            CustomAssertions.assertEquals(e.getClass(), NumberFormatException.class,
-                    "Expected exception for invalid input: " + currentVersion + " vs. " + targetVersion);
-        }
+        boolean result = DriverUtil.isVersionLessOrEqual(currentVersion, targetVersion);
+        CustomAssertions.assertEquals(result, expected, "Failed for: " + currentVersion + " <= " + targetVersion);
     }
 }
