@@ -242,32 +242,6 @@ public class TestNGAssertionStrategy implements AssertionStrategy {
     }
 
     /**
-     * Asserts that two strings are equal using TestNG's {@link Assert#assertEquals(String, String)}.
-     *
-     * @param actual The actual value.
-     * @param expected The expected value.
-     * @throws AssertionError if the actual value is not equal to the expected value.
-     */
-    @Override
-    public void assertEquals(String actual, String expected) {
-        Assert.assertEquals(actual, expected);
-    }
-
-    /**
-     * Asserts that two strings are equal using TestNG's
-     * {@link Assert#assertEquals(String, String, String)}.
-     *
-     * @param actual The actual value.
-     * @param expected The expected value.
-     * @param message The assertion message to display on failure.
-     * @throws AssertionError if the actual value is not equal to the expected value.
-     */
-    @Override
-    public void assertEquals(String actual, String expected, String message) {
-        Assert.assertEquals(actual, expected, message);
-    }
-
-    /**
      * Asserts that two objects are equal using TestNG's {@link Assert#assertEquals(Object, Object)}.
      *
      * @param actual The actual value.

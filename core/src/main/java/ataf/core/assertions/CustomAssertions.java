@@ -239,29 +239,6 @@ public class CustomAssertions {
     }
 
     /**
-     * Asserts that two strings are equal using the currently active {@link AssertionStrategy}.
-     *
-     * @param actual The actual value.
-     * @param expected The expected value.
-     * @throws AssertionError if the actual value is not equal to the expected value.
-     */
-    public static void assertEquals(String actual, String expected) {
-        getStrategy().assertEquals(actual, expected);
-    }
-
-    /**
-     * Asserts that two strings are equal using the currently active {@link AssertionStrategy}.
-     *
-     * @param actual The actual value.
-     * @param expected The expected value.
-     * @param message The assertion message to display on failure.
-     * @throws AssertionError if the actual value is not equal to the expected value.
-     */
-    public static void assertEquals(String actual, String expected, String message) {
-        getStrategy().assertEquals(actual, expected, message);
-    }
-
-    /**
      * Asserts that two objects are equal using the currently active {@link AssertionStrategy}.
      *
      * @param actual The actual value.
