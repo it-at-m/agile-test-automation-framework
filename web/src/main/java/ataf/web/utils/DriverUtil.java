@@ -40,6 +40,7 @@ import java.time.Duration;
 import java.util.Locale;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 
@@ -427,7 +428,9 @@ public final class DriverUtil {
                         "Browser \"" + BROWSER + "\" is not supported by test automation framework! Supported browsers are: firefox, edge, chrome, safari");
         }
 
-        CustomAssertions.assertNotNull(driver);
+        // Reassign through requireNonNull so static analyzers can prove `driver` is non-null
+        // on the following lines; CustomAssertions.assertNotNull is opaque to CodeQL.
+        driver = Objects.requireNonNull(driver, "WebDriver must be initialized before use!");
         if (!isLocalExecution) {
             driver.setFileDetector(new LocalFileDetector());
         }
