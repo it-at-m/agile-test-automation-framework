@@ -4,6 +4,7 @@ import ataf.core.logging.ScenarioLogManager;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /***
  * Represents a browser window that is opened and registered with Selenium WebDriver.
@@ -92,6 +93,18 @@ public class Window implements Serializable {
         if (!(o instanceof Window window))
             return false;
         return WINDOW_HANDLE.equals(window.WINDOW_HANDLE);
+    }
+
+    /***
+     * Returns a hash code value for this window. The hash is derived from {@link #WINDOW_HANDLE} so
+     * it stays consistent with {@link #equals(Object)} — required by the Object hashCode contract
+     * for any hash-based collection (HashMap, HashSet, ...) to work correctly.
+     *
+     * @return a hash code value for this window.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(WINDOW_HANDLE);
     }
 
     /***
