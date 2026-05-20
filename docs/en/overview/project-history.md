@@ -2,9 +2,9 @@
 
 ## Context
 
-The **Agile Test Automation Framework (ATAF)** was developed in **2023–2024** to support the first iteration of the **ZMS / eAppointment** project — the appointment-scheduling system operated by the City of Munich (Landeshauptstadt München).
+The **Agile Test Automation Framework (ATAF)** was developed in **2023–2024** to support the first iteration of the **ZMS / [eAppointment](https://it-at-m.github.io/eappointment/)** project — the appointment-scheduling system operated by the City of Munich (Landeshauptstadt München).
 
-After that initial use, ATAF was extracted into its own repository so that it could be reused across teams. It is today used in the [`zmsautomation`](https://github.com/it-at-m/eappointment/tree/main/zmsautomation) test suite of the eAppointment project and is reused internally by other Munich projects.
+After that initial use, ATAF was extracted into its own repository so that it could be reused across teams. It is today used in the [`zmsautomation`](https://github.com/it-at-m/eappointment/tree/main/zmsautomation) test suite of the [eAppointment](https://it-at-m.github.io/eappointment/) project and is reused internally by other Munich projects.
 
 ## Origin
 
@@ -19,6 +19,6 @@ The framework consolidates patterns that had emerged across multiple Munich proj
 
 ## Today
 
-- **In production use**: `zmsautomation` (ZMS / eAppointment end-to-end and REST tests)
+- **In production use**: `zmsautomation` (ZMS / [eAppointment](https://it-at-m.github.io/eappointment/) end-to-end and REST tests)
 - **Internal reuse**: additional Munich projects consume `de.muenchen.ataf:{core,rest,web}` from Maven Central
 - **Open source**: the framework is published under MIT on [GitHub](https://github.com/it-at-m/agile-test-automation-framework) and on [opensource.muenchen.de](https://opensource.muenchen.de/)

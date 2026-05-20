@@ -2,9 +2,9 @@
 
 ## Kontext
 
-Das **Agile Test Automation Framework (ATAF)** wurde **2023–2024** entwickelt, um die erste Iteration des **ZMS-/eAppointment**-Projekts zu unterstützen – das Terminvergabesystem der Landeshauptstadt München.
+Das **Agile Test Automation Framework (ATAF)** wurde **2023–2024** entwickelt, um die erste Iteration des **ZMS-/[eAppointment](https://it-at-m.github.io/eappointment/)**-Projekts zu unterstützen – das Terminvergabesystem der Landeshauptstadt München.
 
-Nach dem ersten Einsatz wurde ATAF in ein eigenes Repository ausgelagert, damit es teamübergreifend wiederverwendet werden kann. Heute kommt es in der [`zmsautomation`](https://github.com/it-at-m/eappointment/tree/main/zmsautomation)-Testsuite des eAppointment-Projekts zum Einsatz und wird intern in weiteren Münchner Projekten genutzt.
+Nach dem ersten Einsatz wurde ATAF in ein eigenes Repository ausgelagert, damit es teamübergreifend wiederverwendet werden kann. Heute kommt es in der [`zmsautomation`](https://github.com/it-at-m/eappointment/tree/main/zmsautomation)-Testsuite des [eAppointment](https://it-at-m.github.io/eappointment/)-Projekts zum Einsatz und wird intern in weiteren Münchner Projekten genutzt.
 
 ## Entstehung
 
@@ -19,6 +19,6 @@ Das Framework fasst Muster zusammen, die sich in mehreren Münchner Projekten he
 
 ## Heute
 
-- **Produktiver Einsatz**: `zmsautomation` (End-to-End- und REST-Tests von ZMS / eAppointment)
+- **Produktiver Einsatz**: `zmsautomation` (End-to-End- und REST-Tests von ZMS / [eAppointment](https://it-at-m.github.io/eappointment/))
 - **Interne Nutzung**: weitere Münchner Projekte verwenden `de.muenchen.ataf:{core,rest,web}` von Maven Central
 - **Open Source**: das Framework ist unter MIT-Lizenz auf [GitHub](https://github.com/it-at-m/agile-test-automation-framework) und auf [opensource.muenchen.de](https://opensource.muenchen.de/) veröffentlicht
