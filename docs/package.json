@@ -18,6 +18,6 @@
     "vitepress": "1.6.4"
   },
   "overrides": {
-    "vite": "6.4.2"
+    "vite": "7.3.3"
   }
 }
