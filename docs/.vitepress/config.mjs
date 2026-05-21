@@ -59,7 +59,7 @@ const buildNav = (prefix, lang) => {
     { text: t.releases, link: `${GH_REPO}/releases` },
     {
       text: t.openSource,
-      link: "https://opensource.muenchen.de/",
+      link: "https://opensource.muenchen.de/software/ataf.html",
     },
     {
       text: t.digitalAtM,
