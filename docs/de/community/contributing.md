@@ -8,25 +8,26 @@ Wenn du eine Idee hast, die das Projekt verbessert, öffne bitte ein Issue mit d
 
 1. Öffne ein Issue mit dem Label `enhancement`.
 2. Forke das Projekt.
-3. Lege deinen Feature-Branch an:
+3. Führe im Repository-Root `npm install` aus, um [Git-Hooks (Husky)](./git-hooks.md) zu aktivieren.
+4. Lege deinen Feature-Branch an:
 
    ```bash
    git checkout -b feature/AmazingFeature
    ```
 
-4. Committe deine Änderungen:
+5. Committe deine Änderungen im konventionellen Format:
 
    ```bash
-   git commit -m 'Add some AmazingFeature'
+   git commit -m 'feat(ATAF): add some AmazingFeature'
    ```
 
-5. Pushe den Branch:
+6. Pushe den Branch:
 
    ```bash
    git push origin feature/AmazingFeature
    ```
 
-6. Öffne einen Pull Request.
+7. Öffne einen Pull Request.
 
 Weitere Details findest du in der [CODE_OF_CONDUCT.md](https://github.com/it-at-m/agile-test-automation-framework/blob/main/CODE_OF_CONDUCT.md).
 
