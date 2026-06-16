@@ -296,6 +296,7 @@ export default {
     const pageTitle = fm.title || pageData.title || siteTitle;
     const pageDescription =
       fm.description || pageData.description || siteDescription;
+    const ogImage = `${SITE_HOSTNAME}${SITE_BASE}img/ataf_logo.png`;
 
     tags.push(["link", { rel: "canonical", href: fullUrl }]);
     tags.push(["link", { rel: "alternate", hreflang: "en", href: enUrl }]);
@@ -313,6 +314,7 @@ export default {
       { property: "og:description", content: pageDescription },
     ]);
     tags.push(["meta", { property: "og:url", content: fullUrl }]);
+    tags.push(["meta", { property: "og:image", content: ogImage }]);
     tags.push(["meta", { property: "og:locale", content: ogLocale }]);
     tags.push(["meta", { name: "twitter:card", content: "summary" }]);
     tags.push(["meta", { name: "twitter:title", content: pageTitle }]);
@@ -320,6 +322,7 @@ export default {
       "meta",
       { name: "twitter:description", content: pageDescription },
     ]);
+    tags.push(["meta", { name: "twitter:image", content: ogImage }]);
 
     return tags;
   },
