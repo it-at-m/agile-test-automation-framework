@@ -84,6 +84,7 @@ const sidebarLabels = {
     writingTests: "Writing Tests",
     runners: "Runners and Running Tests",
     environments: "Environments and Systems",
+    standaloneWithoutJira: "Standalone (No Jira, Local Keycloak)",
     configuration: "Configuration",
     properties: "Property Files and Supported Webdrivers",
     credentials: "Runtime Credentials",
@@ -108,6 +109,7 @@ const sidebarLabels = {
     writingTests: "Tests schreiben",
     runners: "Runner und Testausführung",
     environments: "Umgebungen und Systeme",
+    standaloneWithoutJira: "Standalone (ohne Jira, lokales Keycloak)",
     configuration: "Konfiguration",
     properties: "Property-Dateien und unterstützte Webdriver",
     credentials: "Laufzeit-Zugangsdaten",
@@ -166,6 +168,10 @@ const buildSidebar = (prefix, lang) => {
         {
           text: t.environments,
           link: `${prefix}/usage/environments`,
+        },
+        {
+          text: t.standaloneWithoutJira,
+          link: `${prefix}/usage/standalone-without-jira`,
         },
       ],
     },
