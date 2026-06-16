@@ -42,12 +42,14 @@ const navLabels = {
     overview: "Overview",
     releases: "Releases",
     openSource: "Open Source",
+    openSourceUrl: "https://opensource.muenchen.de/software/ataf.html",
     digitalAtM: "digital@M",
   },
   de: {
     overview: "Übersicht",
     releases: "Releases",
     openSource: "Open Source",
+    openSourceUrl: "https://opensource.muenchen.de/de/software/ataf.html",
     digitalAtM: "digital@M",
   },
 };
@@ -59,7 +61,7 @@ const buildNav = (prefix, lang) => {
     { text: t.releases, link: `${GH_REPO}/releases` },
     {
       text: t.openSource,
-      link: "https://opensource.muenchen.de/software/ataf.html",
+      link: t.openSourceUrl,
     },
     {
       text: t.digitalAtM,
