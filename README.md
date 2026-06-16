@@ -25,6 +25,8 @@
 
 ## About ATAF
 
+<img width="200" align="right" alt="ATAF logo" src="docs/img/ataf_logo.png" />
+
 The **Agile Test Automation Framework (ATAF)** is a Java 21 framework for Cucumber-based BDD tests and traditional TestNG/JUnit test suites, with optional Jira/Xray integration. It is designed for agile projects: fast setup, maintainable test automation, and integration into modern development workflows. In addition to browser-based and API testing, it provides hooks for managing test executions in Jira and Xray.
 
 The framework was developed in 2023–2024 to support the first iteration of the **ZMS / eAppointment** project of the Landeshauptstadt München and is today used in the `zmsautomation` test suite as well as other Munich projects. It was built primarily by colleagues from **digital@M** for use at **it@M**.
@@ -57,6 +59,8 @@ ATAF was built primarily by colleagues from **digital@M** for use at **it@M**, t
 ---
 
 ## Über ATAF
+
+<img width="200" align="right" alt="ATAF-Logo" src="docs/img/ataf_logo.png" />
 
 Das **Agile Test Automation Framework (ATAF)** ist ein Java-21-Framework für Cucumber-basierte BDD-Tests und klassische TestNG/JUnit-Testsuites mit optionaler Jira-/Xray-Anbindung. Es wurde für agile Projekte entworfen: schnelle Einrichtung, wartbare Testautomatisierung und Integration in moderne Entwicklungs-Workflows. Neben Browser- und API-Tests bietet es Hooks für die Verwaltung von Testausführungen in Jira und Xray.
 
