@@ -4,9 +4,9 @@ ATAF supports two complementary test styles: Cucumber-based BDD scenarios and tr
 
 ## Writing Cucumber Tests
 
-Create Cucumber scenarios either in Jira or directly as feature files in your repository.
+Create Cucumber scenarios either in Jira/Xray **or** directly as feature files in your repository. The latter is enough for most projects — you do not need Jira at all. See [Standalone Usage (No Jira, Local Keycloak)](./standalone-without-jira.md) for a full walkthrough; [zmsautomation](https://it-at-m.github.io/eappointment/testing-and-automation/zmsautomation.html) is a production example that stores features in Git and uses local Keycloak for SSO.
 
-Set the correct Cucumber tags for the corresponding package, such as `@web` or `@rest`. This ensures that the correct hook class is used. In Jira, these tags can be set as labels on the test case issues.
+Set the correct Cucumber tags for the corresponding package, such as `@web` or `@rest`. This ensures that the correct hook class is used. In Jira, these tags can be set as labels on the test case issues; in a repository-only setup, set them in the `.feature` files.
 
 Example feature:
 

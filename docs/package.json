@@ -19,6 +19,7 @@
     "vitepress": "1.6.4"
   },
   "overrides": {
-    "vite": "8.0.16"
+    "vite": "8.0.16",
+    "dompurify": "^3.4.10"
   }
 }
