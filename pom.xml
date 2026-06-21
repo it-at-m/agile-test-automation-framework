@@ -38,7 +38,7 @@
         <maven-surefire-plugin.version>3.5.6</maven-surefire-plugin.version>
         <maven-release-plugin.version>3.3.1</maven-release-plugin.version>
         <maven-gpg-plugin.version>3.2.8</maven-gpg-plugin.version>
-        <central-publishing-maven-plugin.version>0.10.0</central-publishing-maven-plugin.version>
+        <central-publishing-maven-plugin.version>0.11.0</central-publishing-maven-plugin.version>
 
         <!-- Spotless P2 Mirror configuration (aligned with other it@M projects) -->
         <p2.username/><!-- must be empty, override via Maven settings.xml if needed -->
