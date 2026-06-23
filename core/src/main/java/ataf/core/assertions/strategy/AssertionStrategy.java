@@ -170,25 +170,6 @@ public interface AssertionStrategy {
     void assertEquals(double actual, double expected, String message);
 
     /**
-     * Asserts that two strings are equal.
-     *
-     * @param actual The actual value.
-     * @param expected The expected value.
-     * @throws AssertionError if the actual value is not equal to the expected value.
-     */
-    void assertEquals(String actual, String expected);
-
-    /**
-     * Asserts that two strings are equal.
-     *
-     * @param actual The actual value.
-     * @param expected The expected value.
-     * @param message The assertion message to display on failure.
-     * @throws AssertionError if the actual value is not equal to the expected value.
-     */
-    void assertEquals(String actual, String expected, String message);
-
-    /**
      * Asserts that two objects are equal.
      *
      * @param actual The actual value.

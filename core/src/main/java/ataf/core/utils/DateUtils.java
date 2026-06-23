@@ -19,6 +19,7 @@ import java.util.Locale;
  * </p>
  */
 public class DateUtils {
+    private static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
     /**
      * Generates a timestamp string based on the current date and time. The format of the timestamp is
@@ -121,10 +122,9 @@ public class DateUtils {
         }
 
         LocalDate currentLocalDate = LocalDate.now(ZoneId.of("Europe/Berlin"));
-        SecureRandom secureRandom = new SecureRandom();
-        int yearOfBirth = currentLocalDate.getYear() - (secureRandom.nextInt(ageMax - ageMin + 1) + ageMin);
-        int monthOfBirth = secureRandom.nextInt(12) + 1;
-        int dayOfBirth = secureRandom.nextInt(currentLocalDate.minusYears(yearOfBirth).withMonth(monthOfBirth).lengthOfMonth()) + 1;
+        int yearOfBirth = currentLocalDate.getYear() - (SECURE_RANDOM.nextInt(ageMax - ageMin + 1) + ageMin);
+        int monthOfBirth = SECURE_RANDOM.nextInt(12) + 1;
+        int dayOfBirth = SECURE_RANDOM.nextInt(currentLocalDate.minusYears(yearOfBirth).withMonth(monthOfBirth).lengthOfMonth()) + 1;
         return LocalDate.parse(dayOfBirth + "." + monthOfBirth + "." + yearOfBirth, DateTimeFormatter.ofPattern("d.M.yyyy", Locale.GERMAN));
     }
 }
