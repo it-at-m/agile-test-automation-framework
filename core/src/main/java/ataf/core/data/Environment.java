@@ -130,4 +130,30 @@ public class Environment extends TestData implements Comparable<Environment> {
     public int compareTo(@NotNull Environment other) {
         return Integer.compare(this.rank, other.rank);
     }
+
+    /**
+     * Indicates whether another object is equal to this environment. Equality is based on
+     * {@link #rank} so it stays consistent with {@link #compareTo(Environment)} — required for
+     * sorted collections like the static {@code ENVIRONMENTS} {@link TreeSet} to behave
+     * predictably (x.compareTo(y) == 0 iff x.equals(y)).
+     *
+     * @param obj the object to compare with.
+     * @return {@code true} if the other object is an {@code Environment} with the same rank.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof Environment other)) return false;
+        return this.rank == other.rank;
+    }
+
+    /**
+     * Returns a hash code consistent with {@link #equals(Object)} and {@link #compareTo(Environment)}.
+     *
+     * @return a hash code derived from {@link #rank}.
+     */
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(rank);
+    }
 }

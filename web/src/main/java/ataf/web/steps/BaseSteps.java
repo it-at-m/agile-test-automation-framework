@@ -242,7 +242,12 @@ public class BaseSteps {
      */
     @Und("Sie {string} Minuten warten bis die Änderungen übernommen wurden.")
     public void sie_string_minuten_warten_bis_die_aenderungen_uebernommen_wurden(String minutes) {
-        BASE_PAGE.waitFor(Integer.parseInt(minutes), TimeUnit.MINUTES, true);
+        try {
+            BASE_PAGE.waitFor(Integer.parseInt(minutes), TimeUnit.MINUTES, true);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException(
+                    "Ungültiger Minutenwert: \"" + minutes + "\". Es wird eine ganze Zahl erwartet.", e);
+        }
     }
 
     /**

@@ -272,8 +272,9 @@ public class TestProperties {
      *            MandatoryPropertyNullException if it is null.
      * @return an Optional containing the property value if it exists; otherwise, empty.
      */
+    @SuppressWarnings("unchecked")
     public static <T> Optional<T> getProperty(String propertyName, boolean isMandatory) {
-        return getProperty(propertyName, isMandatory, null);
+        return getProperty(propertyName, isMandatory, (T) null);
     }
 
     /**
@@ -283,8 +284,9 @@ public class TestProperties {
      * @param propertyName the known name of the property.
      * @return an Optional containing the property value if it exists; otherwise, empty.
      */
+    @SuppressWarnings("unchecked")
     public static <T> Optional<T> getProperty(String propertyName) {
-        return getProperty(propertyName, false, null);
+        return getProperty(propertyName, false, (T) null);
     }
 
     /**
