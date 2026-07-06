@@ -273,7 +273,7 @@ public class TestProperties {
      * @return an Optional containing the property value if it exists; otherwise, empty.
      */
     public static <T> Optional<T> getProperty(String propertyName, boolean isMandatory) {
-        return getProperty(propertyName, isMandatory, null);
+        return getProperty(propertyName, isMandatory, (T) null);
     }
 
     /**
@@ -284,7 +284,7 @@ public class TestProperties {
      * @return an Optional containing the property value if it exists; otherwise, empty.
      */
     public static <T> Optional<T> getProperty(String propertyName) {
-        return getProperty(propertyName, false, null);
+        return getProperty(propertyName, false, (T) null);
     }
 
     /**
