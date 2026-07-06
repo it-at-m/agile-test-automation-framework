@@ -17,7 +17,6 @@ import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.core.layout.PatternLayout;
 import org.apache.logging.log4j.util.StackLocatorUtil;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -107,14 +106,13 @@ public class ScenarioLogManager {
             Appender newAppender = RollingFileAppender.newBuilder()
                     .setName(scenario)
                     .setLayout(PatternLayout.newBuilder()
-                            .withPattern("[thread-id %T] %d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n")
-                            .withCharset(StandardCharsets.UTF_8)
+                            .setPattern("[thread-id %T] %d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n")
                             .build())
-                    .withFileName("logs/" + scenario + ".log")
-                    .withFilePattern("logs/" + scenario + "-%d{yyyy-MM-dd}.log.gz")
+                    .setFileName("logs/" + scenario + ".log")
+                    .setFilePattern("logs/" + scenario + "-%d{yyyy-MM-dd}.log.gz")
                     .setConfiguration(configuration)
                     .setFilter(filter)
-                    .withPolicy(TimeBasedTriggeringPolicy.newBuilder()
+                    .setPolicy(TimeBasedTriggeringPolicy.newBuilder()
                             .build())
                     .build();
 
