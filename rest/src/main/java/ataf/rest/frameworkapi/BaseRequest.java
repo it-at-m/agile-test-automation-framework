@@ -213,11 +213,13 @@ public class BaseRequest {
      * @return this BaseRequest instance for fluent API usage
      */
     public BaseRequest assertBodyContains(String expectedSubstring) {
-        String body = getResponse().getBody() != null ? getResponse().getBody().asString() : null;
+        Object responseBody = getResponse().getBody();
+        if (responseBody == null) {
+            CustomAssertions.fail("Expected response body to be non-null for assertBodyContains.");
+            return this; // for compiler/static analysis only
+        }
 
-        CustomAssertions.assertNotNull(
-                body,
-                "Expected response body to be non-null for assertBodyContains.");
+        String body = getResponse().getBody().asString();
 
         boolean contains = body.contains(expectedSubstring);
 

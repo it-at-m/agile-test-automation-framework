@@ -40,6 +40,7 @@ import java.time.Duration;
 import java.util.Locale;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 
@@ -428,17 +429,18 @@ public final class DriverUtil {
         }
 
         CustomAssertions.assertNotNull(driver);
+        RemoteWebDriver nonNullDriver = Objects.requireNonNull(driver, "WebDriver must be initialized before use");
         if (!isLocalExecution) {
-            driver.setFileDetector(new LocalFileDetector());
+            nonNullDriver.setFileDetector(new LocalFileDetector());
         }
 
-        driver.manage().timeouts().scriptTimeout(Duration.ofMillis(DEFAULT_SCRIPT_AND_PAGE_LOAD_TIME));
-        driver.manage().timeouts().pageLoadTimeout(Duration.ofMillis(DEFAULT_SCRIPT_AND_PAGE_LOAD_TIME));
-        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(
+        nonNullDriver.manage().timeouts().scriptTimeout(Duration.ofMillis(DEFAULT_SCRIPT_AND_PAGE_LOAD_TIME));
+        nonNullDriver.manage().timeouts().pageLoadTimeout(Duration.ofMillis(DEFAULT_SCRIPT_AND_PAGE_LOAD_TIME));
+        nonNullDriver.manage().timeouts().implicitlyWait(Duration.ofMillis(
                 TestProperties.getProperty("defaultImplicitWaitTime", true, DefaultValues.DEFAULT_IMPLICIT_WAIT_TIME)
                         .orElse(DefaultValues.DEFAULT_IMPLICIT_WAIT_TIME)));
 
-        REMOTE_WEB_DRIVER_MAP.put(Thread.currentThread().threadId(), driver);
+        REMOTE_WEB_DRIVER_MAP.put(Thread.currentThread().threadId(), nonNullDriver);
 
         return driver;
     }
