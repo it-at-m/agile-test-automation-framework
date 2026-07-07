@@ -484,20 +484,24 @@ public final class DriverUtil {
      * @throws NumberFormatException if the version strings contain non-numeric values.
      */
     public static boolean isVersionLessOrEqual(String currentVersion, String targetVersion) {
-        String[] currentParts = currentVersion.split("\\.");
-        String[] targetParts = targetVersion.split("\\.");
+        try {
+            String[] currentParts = currentVersion.split("\\.");
+            String[] targetParts = targetVersion.split("\\.");
 
-        int length = Math.min(currentParts.length, targetParts.length); // Ensure we compare at least major.minor.patch
+            int length = Math.min(currentParts.length, targetParts.length); // Ensure we compare at least major.minor.patch
 
-        for (int i = 0; i < length; i++) {
-            int current = Integer.parseInt(currentParts[i]);
-            int target = Integer.parseInt(targetParts[i]);
+            for (int i = 0; i < length; i++) {
+                int current = Integer.parseInt(currentParts[i]);
+                int target = Integer.parseInt(targetParts[i]);
 
-            if (current < target) return true;
-            if (current > target) return false;
+                if (current < target) return true;
+                if (current > target) return false;
+            }
+
+            return true; // Versions are equal
+        } catch (NumberFormatException e) {
+            throw e;
         }
-
-        return true; // Versions are equal
     }
 
     /***
