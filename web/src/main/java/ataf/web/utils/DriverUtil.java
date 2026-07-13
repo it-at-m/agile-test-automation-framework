@@ -488,7 +488,7 @@ public final class DriverUtil {
         String[] currentParts = currentVersion.split("\\.");
         String[] targetParts = targetVersion.split("\\.");
 
-        int length = Math.min(currentParts.length, targetParts.length); // Ensure we compare at least major.minor.patch
+        int length = Math.min(currentParts.length, targetParts.length);
 
         try {
             for (int i = 0; i < length; i++) {
@@ -505,7 +505,7 @@ public final class DriverUtil {
             return false;
         }
 
-        return true; // Versions are equal
+        return true;
     }
 
     /***
