@@ -75,7 +75,19 @@ public class Window implements Serializable {
      */
     @Override
     public String toString() {
-        return "Window{" + "windowHandle='" + WINDOW_HANDLE + '\'' + ", windowTitle='" + windowTitle + '\'' + ", windowType=" + windowType + '}';
+        String windowTypeDisplay = (windowType == null) ? "null" : windowType.getClass().getSimpleName();
+        return "Window{" + "windowHandle='" + WINDOW_HANDLE + '\'' + ", windowTitle='" + windowTitle + '\'' + ", windowType=" + windowTypeDisplay + '}';
+    }
+
+    /***
+     * Returns a hash code value for the window. This implementation is consistent with
+     * {@link #equals(Object)}, which defines equality based on {@code WINDOW_HANDLE}.
+     *
+     * @return a hash code value for this window
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(WINDOW_HANDLE);
     }
 
     /***

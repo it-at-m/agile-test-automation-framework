@@ -8,25 +8,26 @@ If you have a suggestion that would make this project better, please open an iss
 
 1. Open an issue with the tag `enhancement`.
 2. Fork the project.
-3. Create your feature branch:
+3. Run `npm install` at the repository root to enable [Git hooks (Husky)](./git-hooks.md).
+4. Create your feature branch:
 
    ```bash
    git checkout -b feature/AmazingFeature
    ```
 
-4. Commit your changes:
+5. Commit your changes using the conventional format:
 
    ```bash
-   git commit -m 'Add some AmazingFeature'
+   git commit -m 'feat(ATAF): add some AmazingFeature'
    ```
 
-5. Push to the branch:
+6. Push to the branch:
 
    ```bash
    git push origin feature/AmazingFeature
    ```
 
-6. Open a pull request.
+7. Open a pull request.
 
 More details are in the [CODE_OF_CONDUCT.md](https://github.com/it-at-m/agile-test-automation-framework/blob/main/CODE_OF_CONDUCT.md) file.
 

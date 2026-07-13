@@ -1,5 +1,7 @@
 # Runtime Credentials
 
+These properties are **only required when Jira/Xray integration is enabled** (exporting feature files from Jira, creating test executions, pushing results to Xray). For repository-only Cucumber tests with local Keycloak, you can skip this page entirely — see [Standalone Usage (No Jira, Local Keycloak)](../usage/standalone-without-jira.md).
+
 The following properties should only be passed at test execution time and **must never be committed to the repository**. They contain credentials.
 
 ```properties
