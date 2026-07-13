@@ -67,6 +67,17 @@ public class Frame implements Serializable {
     }
 
     /**
+     * Returns a hash code value for the frame. This implementation is consistent with
+     * {@link #equals(Object)}, which defines equality based on {@code NAME}.
+     *
+     * @return a hash code value for this frame
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(NAME);
+    }
+
+    /**
      * Indicates whether some other object is "equal to" this one. Two frames are considered equal if
      * they have the same name.
      *
