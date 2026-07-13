@@ -7,7 +7,6 @@ import org.testng.annotations.Test;
 
 import java.time.Instant;
 import java.util.List;
-import java.util.Map;
 
 public class AuthHeaderProviderTest {
     @BeforeClass
@@ -61,15 +60,18 @@ public class AuthHeaderProviderTest {
 
     @Test
     public void resolve_shouldNormalizeTokenType() {
-        // Simulate an already cached token with the small tokenType "bearer"
+        // Simulate an already cached token with the lowercase tokenType "bearer"
         TokenStore inMemoryTokenStore = new InMemoryTokenStore();
         inMemoryTokenStore.put("client_credentials:cid", new TokenInfo("tok", "bearer", Instant.now().plusSeconds(300), null));
 
-        // Warning: This assertion indirectly checks private logic (normalization) via headerValue.
-        // We bypass actual calls to OAuth2Service here by checking BEARER,
-        // separate integration tests are being conducted for OAuth2.
         AuthHeaderProvider authHeaderProvider = new AuthHeaderProvider(inMemoryTokenStore);
-        var result = AuthHeaderProvider.Result.ofHeaders(Map.of("Authorization", "Bearer tok"));
+        AuthConfig authConfig = new AuthConfig(
+                AuthType.OAUTH2_CLIENT_CREDENTIALS, null, "cid", "secret", null,
+                null, null, null, null, null,
+                null, null, null, null);
+
+        var result = authHeaderProvider.resolve(authConfig);
+
         CustomAssertions.assertEquals(result.headers().get("Authorization"), "Bearer tok");
     }
 }

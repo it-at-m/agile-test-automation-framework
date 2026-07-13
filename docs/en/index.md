@@ -16,15 +16,18 @@ This handbook is the main entry point on [GitHub Pages](https://it-at-m.github.i
 - [Writing Tests](./usage/writing-tests.md) — Cucumber + TestNG/JUnit
 - [Runners and Running Tests](./usage/runners.md)
 - [Environments and Systems](./usage/environments.md)
+- [Standalone Usage (No Jira, Local Keycloak)](./usage/standalone-without-jira.md) — feature files in Git, local Keycloak instead of corporate SSO
 - [Property Files](./configuration/properties.md)
 - [Runtime Credentials](./configuration/credentials.md)
 - [Reporting](./reporting.md)
 
 ## About ATAF
 
+<img width="200" align="right" alt="ATAF logo" src="../img/ataf_logo.png" />
+
 The **Agile Test Automation Framework (ATAF)** is a robust, flexible Java 21 framework for automated testing. It simplifies BDD-style testing with Cucumber alongside traditional TestNG and JUnit test suites, and supports integration with Jira and Xray via their REST APIs.
 
-ATAF is designed for agile projects: fast setup, maintainable test automation, and integration into modern development workflows. In addition to browser-based and API testing, it provides hooks for managing test executions in Jira/Xray.
+ATAF is designed for agile projects: fast setup, maintainable test automation, and integration into modern development workflows. In addition to browser-based and API testing, it provides **optional** hooks for managing test executions in Jira/Xray. You can also run ATAF standalone with feature files in Git and local Keycloak — see [Standalone Usage (No Jira, Local Keycloak)](./usage/standalone-without-jira.md).
 
 ### What ATAF Provides
 

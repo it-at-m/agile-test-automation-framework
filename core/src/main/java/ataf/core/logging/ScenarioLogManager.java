@@ -17,7 +17,6 @@ import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.core.layout.PatternLayout;
 import org.apache.logging.log4j.util.StackLocatorUtil;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -108,7 +107,6 @@ public class ScenarioLogManager {
                     .setName(scenario)
                     .setLayout(PatternLayout.newBuilder()
                             .setPattern("[thread-id %T] %d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n")
-                            .setCharset(StandardCharsets.UTF_8)
                             .build())
                     .setFileName("logs/" + scenario + ".log")
                     .setFilePattern("logs/" + scenario + "-%d{yyyy-MM-dd}.log.gz")

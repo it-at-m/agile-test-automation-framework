@@ -42,12 +42,14 @@ const navLabels = {
     overview: "Overview",
     releases: "Releases",
     openSource: "Open Source",
+    openSourceUrl: "https://opensource.muenchen.de/software/ataf.html",
     digitalAtM: "digital@M",
   },
   de: {
     overview: "Übersicht",
     releases: "Releases",
     openSource: "Open Source",
+    openSourceUrl: "https://opensource.muenchen.de/de/software/ataf.html",
     digitalAtM: "digital@M",
   },
 };
@@ -59,7 +61,7 @@ const buildNav = (prefix, lang) => {
     { text: t.releases, link: `${GH_REPO}/releases` },
     {
       text: t.openSource,
-      link: "https://opensource.muenchen.de/software/ataf.html",
+      link: t.openSourceUrl,
     },
     {
       text: t.digitalAtM,
@@ -82,6 +84,7 @@ const sidebarLabels = {
     writingTests: "Writing Tests",
     runners: "Runners and Running Tests",
     environments: "Environments and Systems",
+    standaloneWithoutJira: "Standalone (No Jira, Local Keycloak)",
     configuration: "Configuration",
     properties: "Property Files and Supported Webdrivers",
     credentials: "Runtime Credentials",
@@ -89,6 +92,7 @@ const sidebarLabels = {
     community: "Community",
     roadmap: "Roadmap",
     contributing: "Contributing and License",
+    gitHooks: "Git Hooks (Husky)",
     codeOfConduct: "Code of Conduct",
     license: "License (MIT)",
   },
@@ -105,6 +109,7 @@ const sidebarLabels = {
     writingTests: "Tests schreiben",
     runners: "Runner und Testausführung",
     environments: "Umgebungen und Systeme",
+    standaloneWithoutJira: "Standalone (ohne Jira, lokales Keycloak)",
     configuration: "Konfiguration",
     properties: "Property-Dateien und unterstützte Webdriver",
     credentials: "Laufzeit-Zugangsdaten",
@@ -112,6 +117,7 @@ const sidebarLabels = {
     community: "Community",
     roadmap: "Roadmap",
     contributing: "Mitwirken und Lizenz",
+    gitHooks: "Git-Hooks (Husky)",
     codeOfConduct: "Verhaltenskodex",
     license: "Lizenz (MIT)",
   },
@@ -163,6 +169,10 @@ const buildSidebar = (prefix, lang) => {
           text: t.environments,
           link: `${prefix}/usage/environments`,
         },
+        {
+          text: t.standaloneWithoutJira,
+          link: `${prefix}/usage/standalone-without-jira`,
+        },
       ],
     },
     {
@@ -189,6 +199,10 @@ const buildSidebar = (prefix, lang) => {
         {
           text: t.contributing,
           link: `${prefix}/community/contributing`,
+        },
+        {
+          text: t.gitHooks,
+          link: `${prefix}/community/git-hooks`,
         },
         {
           text: t.codeOfConduct,
@@ -282,6 +296,7 @@ export default {
     const pageTitle = fm.title || pageData.title || siteTitle;
     const pageDescription =
       fm.description || pageData.description || siteDescription;
+    const ogImage = `${SITE_HOSTNAME}${SITE_BASE}img/ataf_logo.png`;
 
     tags.push(["link", { rel: "canonical", href: fullUrl }]);
     tags.push(["link", { rel: "alternate", hreflang: "en", href: enUrl }]);
@@ -299,6 +314,7 @@ export default {
       { property: "og:description", content: pageDescription },
     ]);
     tags.push(["meta", { property: "og:url", content: fullUrl }]);
+    tags.push(["meta", { property: "og:image", content: ogImage }]);
     tags.push(["meta", { property: "og:locale", content: ogLocale }]);
     tags.push(["meta", { name: "twitter:card", content: "summary" }]);
     tags.push(["meta", { name: "twitter:title", content: pageTitle }]);
@@ -306,6 +322,7 @@ export default {
       "meta",
       { name: "twitter:description", content: pageDescription },
     ]);
+    tags.push(["meta", { name: "twitter:image", content: ogImage }]);
 
     return tags;
   },

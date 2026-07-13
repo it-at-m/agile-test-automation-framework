@@ -1,5 +1,7 @@
 # Laufzeit-Zugangsdaten
 
+Diese Properties sind **nur erforderlich, wenn die Jira-/Xray-Anbindung aktiv ist** (Feature-Export aus Jira, Anlegen von Testausführungen, Ergebnis-Upload nach Xray). Für reine Repository-Cucumber-Tests mit lokalem Keycloak kannst du diese Seite überspringen — siehe [Standalone-Nutzung (ohne Jira, lokales Keycloak)](../usage/standalone-without-jira.md).
+
 Die folgenden Properties sollten ausschließlich zur Test-Laufzeit übergeben werden und **niemals ins Repository eingecheckt** werden. Sie enthalten Zugangsdaten.
 
 ```properties
