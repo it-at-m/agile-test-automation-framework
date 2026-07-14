@@ -31,7 +31,7 @@
         <!-- Shared Jackson version (used to override transitive versions pulled by test libraries like WireMock).
              Trivy reports CVE-2025-52999 and GHSA-72hv-8253-57qq for vulnerable jackson-core versions,
              so we pin Jackson to 3.1.3 here to keep the security scanner happy while staying compatible with our stack. -->
-        <jackson.version>3.2.0</jackson.version>
+        <jackson.version>3.2.1</jackson.version>
         <jackson2.version>2.22.0</jackson2.version>
         <opentelemetry.version>1.63.0</opentelemetry.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
