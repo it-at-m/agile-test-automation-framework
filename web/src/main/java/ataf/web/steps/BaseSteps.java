@@ -23,6 +23,8 @@ import io.cucumber.datatable.DataTable;
 import io.cucumber.java.de.Und;
 import io.cucumber.java.de.Wenn;
 
+import java.util.Arrays;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -132,6 +134,50 @@ public class BaseSteps {
     }
 
     /**
+     * Resolves a required SSO configuration value.
+     *
+     * <p>
+     * Test-specific data takes precedence over suite-level test data.
+     * Missing and blank values are rejected.
+     * </p>
+     *
+     * @param key the test data key
+     * @return the resolved non-blank value
+     * @throws IllegalArgumentException if no value is configured
+     */
+    static String getRequiredSsoTestData(String key) {
+        String value = TestDataHelper.getTestData(key);
+
+        if (value == null || value.isBlank()) {
+            value = TestDataHelper.getSuiteTestData(key);
+        }
+
+        if (value == null || value.isBlank()) {
+            throw new IllegalArgumentException("Value for [" + key + "] not found in test data or suite test data!");
+        }
+
+        return value;
+    }
+
+    /**
+     * Resolves and validates a required LocatorType configuration value.
+     *
+     * @param key the test data key containing the locator type
+     * @return the resolved locator type
+     * @throws IllegalArgumentException if the value is missing or invalid
+     */
+    static LocatorType getRequiredLocatorType(String key) {
+        String value = getRequiredSsoTestData(key);
+
+        try {
+            return LocatorType.valueOf(value.trim().toUpperCase(Locale.ROOT));
+        } catch (IllegalArgumentException exception) {
+            throw new IllegalArgumentException(
+                    "Invalid LocatorType [" + value + "] for [" + key + "]. Valid values are: " + Arrays.toString(LocatorType.values()), exception);
+        }
+    }
+
+    /**
      * Navigates to a specified system via Single Sign-On.
      *
      * @param user the SSO account
@@ -139,59 +185,39 @@ public class BaseSteps {
      */
     @Wenn("Sie per SingleSignOn mit dem User {string} auf das System {string} navigieren.")
     public void wenn_sie_per_sso_auf_das_system_navigieren(String user, String system) {
-        if (TestPropertiesHelper.getPropertyAsBoolean("useIncognitoMode", true, DefaultValues.USE_INCOGNITO_MODE)) {
-            Environment environment;
-            if (RunnerUtils.isJiraBasedTestExecution()) {
-                environment = Environment.contains(TestExecutionContext.get().ENVIRONMENT);
-            } else {
-                environment = Environment.NONE;
-            }
 
-            CustomAssertions.assertNotNull(environment,
-                    "Environment could not be retrieved! Check test environment in Jira");
-
-            String transformedSystem = TestDataHelper.transformTestData(system);
-            String systemUrl = environment.getSystemUrl(transformedSystem);
-            CustomAssertions.assertNotNull(systemUrl, "System [" + system + "] not specified!");
-
-            String transformedUser = TestDataHelper.transformTestData(user);
-            TestUser testUser = TestUser.getTestUser(transformedUser);
-            CustomAssertions.assertNotNull(testUser, "User [" + user + "] not found in test data!");
-
-            String userNameFieldLocator = TestDataHelper.transformTestData("ssoUsernameFieldLocator");
-            CustomAssertions.assertNotNull(userNameFieldLocator, "Value for [ssoUsernameFieldLocator] not found in test data!");
-
-            String userNameFieldLocatorTypeString = TestDataHelper.transformTestData("ssoUsernameFieldLocatorType");
-            CustomAssertions.assertNotNull(userNameFieldLocatorTypeString, "Value for [ssoUsernameFieldLocatorType] not found in test data!");
-            LocatorType userNameFieldLocatorType = LocatorType.valueOf(userNameFieldLocatorTypeString);
-
-            String passwordFieldLocator = TestDataHelper.transformTestData("ssoPasswordFieldLocator");
-            CustomAssertions.assertNotNull(passwordFieldLocator, "Value for [ssoPasswordFieldLocator] not found in test data!");
-            String passwordFieldLocatorTypeString = TestDataHelper.transformTestData("ssoPasswordFieldLocatorType");
-            CustomAssertions.assertNotNull(passwordFieldLocatorTypeString, "Value for [ssoPasswordFieldLocatorType] not found in test data!");
-            LocatorType passwordFieldLocatorType = LocatorType.valueOf(passwordFieldLocatorTypeString);
-
-            String loginButtonLocator = TestDataHelper.transformTestData("ssoLoginButtonLocator");
-            CustomAssertions.assertNotNull(loginButtonLocator, "Value for [ssoLoginButtonLocator] not found in test data!");
-            String loginButtonLocatorTypeString = TestDataHelper.transformTestData("ssoLoginButtonLocatorType");
-            CustomAssertions.assertNotNull(loginButtonLocatorTypeString, "Value for [ssoLoginButtonLocatorType] not found in test data!");
-            LocatorType loginButtonLocatorType = LocatorType.valueOf(loginButtonLocatorTypeString);
-
-            String urlRegexp = TestDataHelper.transformTestData("ssoUrlRegexp");
-            CustomAssertions.assertNotNull(urlRegexp, "Value for [ssoUrlRegexp] not found in test data!");
-
-            new SingleSignOnPage(
-                    DriverUtil.getDriver(),
-                    userNameFieldLocator,
-                    userNameFieldLocatorType,
-                    passwordFieldLocator,
-                    passwordFieldLocatorType,
-                    loginButtonLocator,
-                    loginButtonLocatorType)
-                    .executeSingleSignOnLogin(testUser.getUserName(), testUser.getPassword(), urlRegexp);
-        } else {
+        if (!TestPropertiesHelper.getPropertyAsBoolean("useIncognitoMode", true, DefaultValues.USE_INCOGNITO_MODE)) {
             ScenarioLogManager.getLogger().warn("Skipping SSO login step. Manually login only in incognito mode!");
+            return;
         }
+
+        Environment environment;
+        if (RunnerUtils.isJiraBasedTestExecution()) {
+            environment = Environment.contains(
+                    TestExecutionContext.get().ENVIRONMENT);
+        } else {
+            environment = Environment.NONE;
+        }
+        CustomAssertions.assertNotNull(environment, "Environment could not be retrieved! Check test environment in Jira");
+
+        String transformedSystem = TestDataHelper.transformTestData(system);
+        String systemUrl = environment.getSystemUrl(transformedSystem);
+        CustomAssertions.assertNotNull(systemUrl, "System [" + system + "] not specified!");
+
+        String transformedUser = TestDataHelper.transformTestData(user);
+        TestUser testUser = TestUser.getTestUser(transformedUser);
+        CustomAssertions.assertNotNull(testUser, "User [" + user + "] not found in test data!");
+
+        String userNameFieldLocator = getRequiredSsoTestData("ssoUsernameFieldLocator");
+        LocatorType userNameFieldLocatorType = getRequiredLocatorType("ssoUsernameFieldLocatorType");
+        String passwordFieldLocator = getRequiredSsoTestData("ssoPasswordFieldLocator");
+        LocatorType passwordFieldLocatorType = getRequiredLocatorType("ssoPasswordFieldLocatorType");
+        String loginButtonLocator = getRequiredSsoTestData("ssoLoginButtonLocator");
+        LocatorType loginButtonLocatorType = getRequiredLocatorType("ssoLoginButtonLocatorType");
+        String urlRegexp = getRequiredSsoTestData("ssoUrlRegexp");
+
+        new SingleSignOnPage(DriverUtil.getDriver(), userNameFieldLocator, userNameFieldLocatorType, passwordFieldLocator, passwordFieldLocatorType,
+                loginButtonLocator, loginButtonLocatorType).executeSingleSignOnLogin(testUser.getUserName(), testUser.getPassword(), urlRegexp);
     }
 
     /***
