@@ -80,17 +80,6 @@ public class Window implements Serializable {
     }
 
     /***
-     * Returns a hash code value for the window. This implementation is consistent with
-     * {@link #equals(Object)}, which defines equality based on {@code WINDOW_HANDLE}.
-     *
-     * @return a hash code value for this window
-     */
-    @Override
-    public int hashCode() {
-        return Objects.hash(WINDOW_HANDLE);
-    }
-
-    /***
      * Compares this Window object with another object for equality.
      * Two windows are considered equal if they have the same window handle.
      *
@@ -105,6 +94,18 @@ public class Window implements Serializable {
         if (!(o instanceof Window window))
             return false;
         return WINDOW_HANDLE.equals(window.WINDOW_HANDLE);
+    }
+
+    /***
+     * Returns a hash code value for this window. The hash is derived from {@link #WINDOW_HANDLE} so
+     * it stays consistent with {@link #equals(Object)} — required by the Object hashCode contract
+     * for any hash-based collection (HashMap, HashSet, ...) to work correctly.
+     *
+     * @return a hash code value for this window.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(WINDOW_HANDLE);
     }
 
     /***

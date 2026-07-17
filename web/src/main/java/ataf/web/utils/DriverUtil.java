@@ -480,16 +480,17 @@ public final class DriverUtil {
      *
      * @param currentVersion The current version string (e.g., "94.5.146").
      * @param targetVersion The target version string (e.g., "94", "94.0", or "94.0.0").
-     * @return true if the current version is less than or equal to the target version, false otherwise.
-     * @throws NumberFormatException if the version strings contain non-numeric values.
+     * @return true if the current version is less than or equal to the target version. Returns false
+     *         if either version string contains non-numeric parts (treated as "not less or equal" so
+     *         legacy workarounds are skipped on unrecognized version strings).
      */
     public static boolean isVersionLessOrEqual(String currentVersion, String targetVersion) {
+        String[] currentParts = currentVersion.split("\\.");
+        String[] targetParts = targetVersion.split("\\.");
+
+        int length = Math.min(currentParts.length, targetParts.length);
+
         try {
-            String[] currentParts = currentVersion.split("\\.");
-            String[] targetParts = targetVersion.split("\\.");
-
-            int length = Math.min(currentParts.length, targetParts.length); // Ensure we compare at least major.minor.patch
-
             for (int i = 0; i < length; i++) {
                 int current = Integer.parseInt(currentParts[i]);
                 int target = Integer.parseInt(targetParts[i]);
@@ -497,11 +498,14 @@ public final class DriverUtil {
                 if (current < target) return true;
                 if (current > target) return false;
             }
-
-            return true; // Versions are equal
         } catch (NumberFormatException e) {
-            throw e;
+            ScenarioLogManager.getLogger().warn(
+                    "Invalid version format. currentVersion=\"{}\", targetVersion=\"{}\". Treating as not less or equal.",
+                    currentVersion, targetVersion, e);
+            return false;
         }
+
+        return true;
     }
 
     /***

@@ -229,6 +229,9 @@ public class HttpClient implements AutoCloseable {
                         try {
                             return Integer.parseInt(value.trim());
                         } catch (NumberFormatException e) {
+                            ScenarioLogManager.getLogger().warn(
+                                    "Property [proxyPort] has non-numeric value \"{}\". Falling back to default {}.",
+                                    value, DefaultValues.PROXY_PORT);
                             return DefaultValues.PROXY_PORT;
                         }
                     })
