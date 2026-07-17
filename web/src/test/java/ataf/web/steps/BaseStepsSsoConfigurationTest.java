@@ -3,6 +3,7 @@ package ataf.web.steps;
 import ataf.core.helpers.TestDataHelper;
 import ataf.core.utils.CryptoUtils;
 import ataf.web.model.LocatorType;
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -23,8 +24,11 @@ public class BaseStepsSsoConfigurationTest {
 
     private static final char[] TEST_DATA_ENCRYPTION_PASSWORD = "BaseStepsSsoConfigurationTestEncryptionPassword123456789".toCharArray();
 
+    private char[] originalEncryptionSecret;
+
     @BeforeClass
     public void initializeEncryption() {
+        originalEncryptionSecret = getCryptoUtilsSecret();
         CryptoUtils.setSecret(TEST_DATA_ENCRYPTION_PASSWORD.clone());
     }
 
@@ -42,8 +46,23 @@ public class BaseStepsSsoConfigurationTest {
 
     @AfterClass(alwaysRun = true)
     public void clearEncryption() {
-        CryptoUtils.clearSecret();
-        Arrays.fill(TEST_DATA_ENCRYPTION_PASSWORD, '\0');
+        try {
+            CryptoUtils.clearSecret();
+            CryptoUtils.setSecret(originalEncryptionSecret);
+        } finally {
+            Arrays.fill(TEST_DATA_ENCRYPTION_PASSWORD, '\0');
+        }
+    }
+
+    private char[] getCryptoUtilsSecret() {
+        try {
+            Field secretField = CryptoUtils.class.getDeclaredField("secret");
+            secretField.setAccessible(true);
+            char[] currentSecret = (char[]) secretField.get(null);
+            return currentSecret == null ? null : currentSecret.clone();
+        } catch (NoSuchFieldException | IllegalAccessException exception) {
+            throw new IllegalStateException("Unable to capture CryptoUtils secret", exception);
+        }
     }
 
     @DataProvider(name = "ssoConfigurationKeys")
