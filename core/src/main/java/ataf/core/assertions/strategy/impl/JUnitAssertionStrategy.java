@@ -250,6 +250,37 @@ public class JUnitAssertionStrategy implements AssertionStrategy {
     }
 
     /**
+     * Asserts that two strings are equal using JUnit 5's
+     * {@link Assertions#assertEquals(Object, Object)}.
+     *
+     * @param actual The actual value.
+     * @param expected The expected value.
+     * @throws AssertionError if the actual value is not equal to the expected value.
+     * @deprecated Use {@link #assertEquals(Object, Object)} instead.
+     */
+    @Override
+    @Deprecated(forRemoval = true)
+    public void assertEquals(String actual, String expected) {
+        assertEquals((Object) actual, (Object) expected);
+    }
+
+    /**
+     * Asserts that two strings are equal using JUnit 5's
+     * {@link Assertions#assertEquals(Object, Object, String)}.
+     *
+     * @param actual The actual value.
+     * @param expected The expected value.
+     * @param message The assertion message to display on failure.
+     * @throws AssertionError if the actual value is not equal to the expected value.
+     * @deprecated Use {@link #assertEquals(Object, Object, String)} instead.
+     */
+    @Override
+    @Deprecated(forRemoval = true)
+    public void assertEquals(String actual, String expected, String message) {
+        assertEquals((Object) actual, (Object) expected, message);
+    }
+
+    /**
      * Asserts that two objects are equal using JUnit 5's
      * {@link Assertions#assertEquals(Object, Object)}.
      *

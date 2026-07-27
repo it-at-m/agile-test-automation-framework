@@ -225,16 +225,7 @@ public class HttpClient implements AutoCloseable {
                     .map(String::trim)
                     .orElse("");
             int port = TestProperties.getProperty("proxyPort", true, String.valueOf(DefaultValues.PROXY_PORT))
-                    .map(value -> {
-                        try {
-                            return Integer.parseInt(value.trim());
-                        } catch (NumberFormatException e) {
-                            ScenarioLogManager.getLogger().warn(
-                                    "Property [proxyPort] has non-numeric value \"{}\". Falling back to default {}.",
-                                    value, DefaultValues.PROXY_PORT);
-                            return DefaultValues.PROXY_PORT;
-                        }
-                    })
+                    .map(HttpClient::parseProxyPort)
                     .orElse(DefaultValues.PROXY_PORT);
 
             if (!host.isBlank() && port > 0) {
@@ -247,6 +238,36 @@ public class HttpClient implements AutoCloseable {
         }
 
         return factory.direct();
+    }
+
+    /**
+     * Parses and validates a configured proxy port.
+     *
+     * <p>
+     * Fail-fast: blank, non-numeric, or out-of-range values (not in {@code 1..65535}) throw
+     * {@link IllegalArgumentException} instead of silently falling back to a default port.
+     * </p>
+     *
+     * @param configuredProxyPort the raw property value
+     * @return the validated port
+     * @throws IllegalArgumentException if the value is blank, non-numeric, or out of range
+     */
+    static int parseProxyPort(String configuredProxyPort) {
+        if (configuredProxyPort == null || configuredProxyPort.isBlank()) {
+            throw new IllegalArgumentException("Invalid proxy port configured: " + configuredProxyPort);
+        }
+        final String trimmed = configuredProxyPort.trim();
+        try {
+            int port = Integer.parseInt(trimmed);
+            if (port < 1 || port > 65535) {
+                throw new IllegalArgumentException("Invalid proxy port configured: " + configuredProxyPort);
+            }
+            return port;
+        } catch (NumberFormatException exception) {
+            throw new IllegalArgumentException(
+                    "Invalid proxy port configured: " + configuredProxyPort,
+                    exception);
+        }
     }
 
     /**
