@@ -42,6 +42,6 @@ public class EnvironmentEqualityTest {
 
         CustomAssertions.assertNotNull(found);
         CustomAssertions.assertTrue(created.equals(found));
-        CustomAssertions.assertEquals(found.getName(), "equality-env-lookup");
+        CustomAssertions.assertEquals((Object) found.getName(), "equality-env-lookup");
     }
 }
