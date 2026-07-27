@@ -119,41 +119,44 @@ public class Environment extends TestData implements Comparable<Environment> {
     }
 
     /**
-     * Compares this environment to another based on their ranks.
+     * Compares this environment to another by stable name so {@code compareTo} stays consistent
+     * with {@link #equals(Object)}.
      *
      * @param other The other environment to compare to.
-     * @return A negative integer, zero, or a positive integer as this environment's rank is less than,
-     *         equal to, or greater than the specified environment's
-     *         rank.
+     * @return A negative integer, zero, or a positive integer as this environment's name is less
+     *         than, equal to, or greater than the specified environment's name.
      */
     @Override
     public int compareTo(@NotNull Environment other) {
-        return Integer.compare(this.rank, other.rank);
+        return Objects.compare(this.name, other.name, String::compareTo);
     }
 
     /**
-     * Indicates whether another object is equal to this environment. Equality is based on
-     * {@link #rank} so it stays consistent with {@link #compareTo(Environment)} — required for
-     * sorted collections like the static {@code ENVIRONMENTS} {@link TreeSet} to behave
-     * predictably (x.compareTo(y) == 0 iff x.equals(y)).
+     * Indicates whether another object is equal to this environment. Equality is based on the
+     * environment {@link #name}, which is the stable domain key used by
+     * {@link #contains(String)}.
      *
      * @param obj the object to compare with.
-     * @return {@code true} if the other object is an {@code Environment} with the same rank.
+     * @return {@code true} if the other object is an {@code Environment} with the same name.
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (!(obj instanceof Environment other)) return false;
-        return this.rank == other.rank;
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Environment other)) {
+            return false;
+        }
+        return Objects.equals(this.name, other.name);
     }
 
     /**
-     * Returns a hash code consistent with {@link #equals(Object)} and {@link #compareTo(Environment)}.
+     * Returns a hash code consistent with {@link #equals(Object)}.
      *
-     * @return a hash code derived from {@link #rank}.
+     * @return a hash code derived from {@link #name}.
      */
     @Override
     public int hashCode() {
-        return Integer.hashCode(rank);
+        return Objects.hash(name);
     }
 }

@@ -48,7 +48,18 @@ public class DriverUtilTest {
                 // Invalid cases (non-numeric parts are treated as "not less or equal")
                 { "abc.2.3", "94", false },
                 { "94.3", "xyz", false },
-                { "94.5.6", "94.5.a", false }
+                { "94.5.6", "94.5.a", false },
+
+                // null / blank
+                { null, "94", false },
+                { "94", null, false },
+                { "", "94", false },
+                { "94", "  ", false },
+
+                // Real browser formats with suffixes / prefixes
+                { "94.0.4606.81-beta", "94", true },
+                { "Chrome/94.0.4606.81", "94", true },
+                { "Chrome/95.0.0", "94", false }
         };
     }
 

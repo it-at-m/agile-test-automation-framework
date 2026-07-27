@@ -215,8 +215,12 @@ public class BaseRequest {
      * @return this BaseRequest instance for fluent API usage
      */
     public BaseRequest assertBodyContains(String expectedSubstring) {
+        var responseBody = getResponse().getBody();
+        CustomAssertions.assertNotNull(
+                responseBody,
+                "Expected response body to be non-null for assertBodyContains.");
         String body = Objects.requireNonNull(
-                getResponse().getBody(),
+                responseBody,
                 "Expected response body to be non-null for assertBodyContains.").asString();
 
         boolean contains = body.contains(expectedSubstring);

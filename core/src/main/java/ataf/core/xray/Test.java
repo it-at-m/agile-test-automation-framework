@@ -8,6 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -110,40 +111,48 @@ public class Test implements Comparable<Test> {
     }
 
     /**
-     * Compares this test to another test based on their rank for sorting.
+     * Compares this test to another test primarily by rank (execution order), then by stable
+     * {@link #ID} so that {@code compareTo} stays consistent with {@link #equals(Object)}.
      *
      * @param test the other test to compare to.
-     * @return a negative integer, zero, or a positive integer as this test's rank is less than, equal
-     *         to, or greater than the specified test's rank.
+     * @return a negative integer, zero, or a positive integer as this test should be ordered before,
+     *         equal to, or after the specified test.
      */
     @Override
     public int compareTo(@NotNull Test test) {
-        return Integer.compare(RANK, test.RANK);
+        int rankComparison = Integer.compare(RANK, test.RANK);
+        if (rankComparison != 0) {
+            return rankComparison;
+        }
+        return Integer.compare(ID, test.ID);
     }
 
     /**
-     * Indicates whether another object is equal to this test. Equality is based on {@link #RANK} so
-     * it stays consistent with {@link #compareTo(Test)} — required for sorted collections like the
-     * {@code ConcurrentSkipListSet} used by {@code TestExecution} to behave predictably
-     * (x.compareTo(y) == 0 iff x.equals(y)).
+     * Indicates whether another object is equal to this test. Equality is based on the stable
+     * Xray test-run {@link #ID}, not on {@link #RANK} (which is only unique within a single
+     * execution).
      *
      * @param obj the object to compare with.
-     * @return {@code true} if the other object is a {@code Test} with the same rank.
+     * @return {@code true} if the other object is a {@code Test} with the same ID.
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (!(obj instanceof Test other)) return false;
-        return this.RANK == other.RANK;
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Test other)) {
+            return false;
+        }
+        return this.ID == other.ID;
     }
 
     /**
-     * Returns a hash code consistent with {@link #equals(Object)} and {@link #compareTo(Test)}.
+     * Returns a hash code consistent with {@link #equals(Object)}.
      *
-     * @return a hash code derived from {@link #RANK}.
+     * @return a hash code derived from {@link #ID}.
      */
     @Override
     public int hashCode() {
-        return Integer.hashCode(RANK);
+        return Objects.hash(ID);
     }
 }
