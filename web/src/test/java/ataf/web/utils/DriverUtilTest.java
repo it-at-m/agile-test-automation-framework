@@ -49,6 +49,9 @@ public class DriverUtilTest {
                 { "abc.2.3", "94", false },
                 { "94.3", "xyz", false },
                 { "94.5.6", "94.5.a", false },
+                { "94.0.abc", "94", false },
+                { "93", "94.abc", false },
+                { "94.2147483648", "94", false },
 
                 // null / blank
                 { null, "94", false },

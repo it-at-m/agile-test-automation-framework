@@ -496,14 +496,14 @@ public final class DriverUtil {
         }
 
         try {
-            String[] currentParts = normalizeVersion(currentVersion).split("\\.");
-            String[] targetParts = normalizeVersion(targetVersion).split("\\.");
+            int[] currentParts = parseVersionParts(currentVersion);
+            int[] targetParts = parseVersionParts(targetVersion);
 
             int length = Math.min(currentParts.length, targetParts.length);
 
             for (int i = 0; i < length; i++) {
-                int current = parseVersionPart(currentParts[i]);
-                int target = parseVersionPart(targetParts[i]);
+                int current = currentParts[i];
+                int target = targetParts[i];
 
                 if (current < target) {
                     return true;
@@ -532,6 +532,19 @@ public final class DriverUtil {
             normalized = normalized.substring(slashIndex + 1);
         }
         return normalized;
+    }
+
+    /**
+     * Parses every normalized version segment before comparison so invalid trailing segments cannot
+     * be skipped by common-prefix comparison or an early ordering result.
+     */
+    private static int[] parseVersionParts(String version) {
+        String[] parts = normalizeVersion(version).split("\\.", -1);
+        int[] parsedParts = new int[parts.length];
+        for (int i = 0; i < parts.length; i++) {
+            parsedParts[i] = parseVersionPart(parts[i]);
+        }
+        return parsedParts;
     }
 
     /**
