@@ -176,8 +176,8 @@ public class HttpClient implements AutoCloseable {
      * a direct connection is used.</li>
      * <li><b>Direct proxy</b>: If PAC is disabled and {@code useProxy=true}, {@code proxyAddress} and
      * {@code proxyPort} are used. Only applied if host is not blank and port &gt; 0.</li>
-     * <li><b>Direct</b>: If neither is enabled (or configuration is incomplete), a direct client is
-     * created.</li>
+     * <li><b>Direct</b>: If neither is enabled (or the configured proxy host is blank), a direct
+     * client is created.</li>
      * </ol>
      *
      * <p>
@@ -194,7 +194,8 @@ public class HttpClient implements AutoCloseable {
      * @param factory a {@link ClientFactory} that can create the concrete client type
      * @param <T> the concrete client type
      * @return a configured client instance
-     * @throws IllegalArgumentException if {@code targetUrl} is null or blank
+     * @throws IllegalArgumentException if {@code targetUrl} is null or blank, or if an enabled
+     *             proxy has an invalid port
      */
     public static <T extends HttpClient> T createForTarget(String targetUrl, ClientFactory<T> factory) {
         if (targetUrl == null || targetUrl.isBlank()) {
@@ -216,15 +217,15 @@ public class HttpClient implements AutoCloseable {
             }
         }
 
-        boolean useProxy = TestProperties.getProperty("useProxy", true, String.valueOf(DefaultValues.USE_PROXY))
-                .map(Boolean::parseBoolean)
+        boolean useProxy = TestProperties.getProperty("useProxy", true, (Object) DefaultValues.USE_PROXY)
+                .map(HttpClient::parseUseProxy)
                 .orElse(DefaultValues.USE_PROXY);
 
         if (useProxy) {
             String host = TestProperties.getProperty("proxyAddress", true, DefaultValues.PROXY_ADDRESS)
                     .map(String::trim)
                     .orElse("");
-            int port = TestProperties.getProperty("proxyPort", true, String.valueOf(DefaultValues.PROXY_PORT))
+            int port = TestProperties.getProperty("proxyPort", true, (Object) DefaultValues.PROXY_PORT)
                     .map(HttpClient::parseProxyPort)
                     .orElse(DefaultValues.PROXY_PORT);
 
@@ -248,26 +249,43 @@ public class HttpClient implements AutoCloseable {
      * {@link IllegalArgumentException} instead of silently falling back to a default port.
      * </p>
      *
-     * @param configuredProxyPort the raw property value
+     * @param configuredProxyPort the raw {@link Integer} or legacy {@link String} property value
      * @return the validated port
      * @throws IllegalArgumentException if the value is blank, non-numeric, or out of range
      */
-    static int parseProxyPort(String configuredProxyPort) {
-        if (configuredProxyPort == null || configuredProxyPort.isBlank()) {
+    static int parseProxyPort(Object configuredProxyPort) {
+        if (configuredProxyPort instanceof Integer port) {
+            return validateProxyPort(port);
+        }
+        if (!(configuredProxyPort instanceof String configuredProxyPortString)
+                || configuredProxyPortString.isBlank()) {
             throw new IllegalArgumentException("Invalid proxy port configured: " + configuredProxyPort);
         }
-        final String trimmed = configuredProxyPort.trim();
+        final String trimmed = configuredProxyPortString.trim();
         try {
-            int port = Integer.parseInt(trimmed);
-            if (port < 1 || port > 65535) {
-                throw new IllegalArgumentException("Invalid proxy port configured: " + configuredProxyPort);
-            }
-            return port;
+            return validateProxyPort(Integer.parseInt(trimmed));
         } catch (NumberFormatException exception) {
             throw new IllegalArgumentException(
                     "Invalid proxy port configured: " + configuredProxyPort,
                     exception);
         }
+    }
+
+    private static boolean parseUseProxy(Object configuredUseProxy) {
+        if (configuredUseProxy instanceof Boolean useProxy) {
+            return useProxy;
+        }
+        if (configuredUseProxy instanceof String useProxy) {
+            return Boolean.parseBoolean(useProxy);
+        }
+        throw new IllegalArgumentException("Invalid useProxy value configured: " + configuredUseProxy);
+    }
+
+    private static int validateProxyPort(int configuredProxyPort) {
+        if (configuredProxyPort < 1 || configuredProxyPort > 65535) {
+            throw new IllegalArgumentException("Invalid proxy port configured: " + configuredProxyPort);
+        }
+        return configuredProxyPort;
     }
 
     /**
