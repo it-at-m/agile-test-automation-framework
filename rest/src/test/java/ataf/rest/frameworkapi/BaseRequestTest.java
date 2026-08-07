@@ -274,6 +274,18 @@ public class BaseRequestTest {
     }
 
     @Test
+    public void testAssertBodyContainsFailsWhenBodyIsNull() {
+        BaseRequest baseRequest = new BaseRequest();
+        Response response = org.mockito.Mockito.mock(Response.class);
+        org.mockito.Mockito.when(response.getBody()).thenReturn(null);
+        baseRequest.setResponse(response);
+
+        CustomAssertions.assertThrows(
+                AssertionError.class,
+                () -> baseRequest.assertBodyContains("anything"));
+    }
+
+    @Test
     public void testExtractJsonPathAs() {
         BaseRequest baseRequest = new BaseRequest();
         Response response = buildResponse(

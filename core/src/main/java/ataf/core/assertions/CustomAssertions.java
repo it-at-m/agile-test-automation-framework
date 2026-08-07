@@ -241,24 +241,39 @@ public class CustomAssertions {
     /**
      * Asserts that two strings are equal using the currently active {@link AssertionStrategy}.
      *
+     * <p>
+     * Deprecated binary-compatibility bridge for callers compiled against older ATAF versions that
+     * invoke the {@code (String, String)} signature. Prefer {@link #assertEquals(Object, Object)}.
+     * </p>
+     *
      * @param actual The actual value.
      * @param expected The expected value.
      * @throws AssertionError if the actual value is not equal to the expected value.
+     * @deprecated Use {@link #assertEquals(Object, Object)} instead.
      */
+    @Deprecated(forRemoval = true)
     public static void assertEquals(String actual, String expected) {
-        getStrategy().assertEquals(actual, expected);
+        assertEquals((Object) actual, (Object) expected);
     }
 
     /**
      * Asserts that two strings are equal using the currently active {@link AssertionStrategy}.
      *
+     * <p>
+     * Deprecated binary-compatibility bridge for callers compiled against older ATAF versions that
+     * invoke the {@code (String, String, String)} signature. Prefer
+     * {@link #assertEquals(Object, Object, String)}.
+     * </p>
+     *
      * @param actual The actual value.
      * @param expected The expected value.
      * @param message The assertion message to display on failure.
      * @throws AssertionError if the actual value is not equal to the expected value.
+     * @deprecated Use {@link #assertEquals(Object, Object, String)} instead.
      */
+    @Deprecated(forRemoval = true)
     public static void assertEquals(String actual, String expected, String message) {
-        getStrategy().assertEquals(actual, expected, message);
+        assertEquals((Object) actual, (Object) expected, message);
     }
 
     /**

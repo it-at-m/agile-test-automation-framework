@@ -8,12 +8,14 @@ import org.jetbrains.annotations.NotNull;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Represents a test case with associated attributes and methods for managing its status and
- * assignee within a Jira system. This class implements Comparable to
- * allow sorting of test cases based on their rank.
+ * assignee within a Jira system. Natural ordering follows the stable Xray test-run ID and is
+ * therefore consistent with {@link #equals(Object)}. Execution order is represented separately by
+ * {@link #RANK}.
  */
 public class Test implements Comparable<Test> {
     /**
@@ -110,14 +112,45 @@ public class Test implements Comparable<Test> {
     }
 
     /**
-     * Compares this test to another test based on their rank for sorting.
+     * Compares this test to another test by its stable {@link #ID}. Rank is deliberately excluded
+     * because two representations of the same Xray test run remain equal even if their rank or
+     * other mutable execution data differs.
      *
      * @param test the other test to compare to.
-     * @return a negative integer, zero, or a positive integer as this test's rank is less than, equal
-     *         to, or greater than the specified test's rank.
+     * @return a negative integer, zero, or a positive integer as this test should be ordered before,
+     *         equal to, or after the specified test.
      */
     @Override
     public int compareTo(@NotNull Test test) {
-        return Integer.compare(RANK, test.RANK);
+        return Integer.compare(ID, test.ID);
+    }
+
+    /**
+     * Indicates whether another object is equal to this test. Equality is based on the stable
+     * Xray test-run {@link #ID}, not on {@link #RANK} (which is only unique within a single
+     * execution).
+     *
+     * @param obj the object to compare with.
+     * @return {@code true} if the other object is a {@code Test} with the same ID.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Test other)) {
+            return false;
+        }
+        return this.ID == other.ID;
+    }
+
+    /**
+     * Returns a hash code consistent with {@link #equals(Object)}.
+     *
+     * @return a hash code derived from {@link #ID}.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(ID);
     }
 }

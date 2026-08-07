@@ -428,7 +428,6 @@ public final class DriverUtil {
                         "Browser \"" + BROWSER + "\" is not supported by test automation framework! Supported browsers are: firefox, edge, chrome, safari");
         }
 
-        CustomAssertions.assertNotNull(driver);
         RemoteWebDriver nonNullDriver = Objects.requireNonNull(driver, "WebDriver must be initialized before use");
         if (!isLocalExecution) {
             nonNullDriver.setFileDetector(new LocalFileDetector());
@@ -442,7 +441,7 @@ public final class DriverUtil {
 
         REMOTE_WEB_DRIVER_MAP.put(Thread.currentThread().threadId(), nonNullDriver);
 
-        return driver;
+        return nonNullDriver;
     }
 
     /***
@@ -477,31 +476,93 @@ public final class DriverUtil {
      * Example: - "94.5.146" compared to "94" only checks the major version (94 vs. 94) and returns
      * true. - "95.0.0" compared to "94" returns false since 95 >
      * 94.
+     * <p>
+     * {@code null}, blank, or unrecognized version strings (including non-numeric segments after
+     * light normalization) return {@code false} so legacy browser workarounds are skipped rather
+     * than applied incorrectly.
      *
-     * @param currentVersion The current version string (e.g., "94.5.146").
+     * @param currentVersion The current version string (e.g., "94.5.146" or "Chrome/94.0.4606.81").
      * @param targetVersion The target version string (e.g., "94", "94.0", or "94.0.0").
-     * @return true if the current version is less than or equal to the target version, false otherwise.
-     * @throws NumberFormatException if the version strings contain non-numeric values.
+     * @return true if the current version is less than or equal to the target version; false if
+     *         either version is null/blank or cannot be parsed safely.
      */
     public static boolean isVersionLessOrEqual(String currentVersion, String targetVersion) {
-        try {
-            String[] currentParts = currentVersion.split("\\.");
-            String[] targetParts = targetVersion.split("\\.");
+        if (currentVersion == null || targetVersion == null
+                || currentVersion.isBlank() || targetVersion.isBlank()) {
+            ScenarioLogManager.getLogger().warn(
+                    "Invalid version format. currentVersion=\"{}\", targetVersion=\"{}\". Treating as not less or equal.",
+                    currentVersion, targetVersion);
+            return false;
+        }
 
-            int length = Math.min(currentParts.length, targetParts.length); // Ensure we compare at least major.minor.patch
+        try {
+            int[] currentParts = parseVersionParts(currentVersion);
+            int[] targetParts = parseVersionParts(targetVersion);
+
+            int length = Math.min(currentParts.length, targetParts.length);
 
             for (int i = 0; i < length; i++) {
-                int current = Integer.parseInt(currentParts[i]);
-                int target = Integer.parseInt(targetParts[i]);
+                int current = currentParts[i];
+                int target = targetParts[i];
 
-                if (current < target) return true;
-                if (current > target) return false;
+                if (current < target) {
+                    return true;
+                }
+                if (current > target) {
+                    return false;
+                }
             }
-
-            return true; // Versions are equal
         } catch (NumberFormatException e) {
-            throw e;
+            ScenarioLogManager.getLogger().warn(
+                    "Invalid version format. currentVersion=\"{}\", targetVersion=\"{}\". Treating as not less or equal.",
+                    currentVersion, targetVersion, e);
+            return false;
         }
+
+        return true;
+    }
+
+    /**
+     * Strips common browser-version prefixes such as {@code Chrome/} before numeric comparison.
+     */
+    private static String normalizeVersion(String version) {
+        String normalized = version.trim();
+        int slashIndex = normalized.lastIndexOf('/');
+        if (slashIndex >= 0 && slashIndex < normalized.length() - 1) {
+            normalized = normalized.substring(slashIndex + 1);
+        }
+        return normalized;
+    }
+
+    /**
+     * Parses every normalized version segment before comparison so invalid trailing segments cannot
+     * be skipped by common-prefix comparison or an early ordering result.
+     */
+    private static int[] parseVersionParts(String version) {
+        String[] parts = normalizeVersion(version).split("\\.", -1);
+        int[] parsedParts = new int[parts.length];
+        for (int i = 0; i < parts.length; i++) {
+            parsedParts[i] = parseVersionPart(parts[i]);
+        }
+        return parsedParts;
+    }
+
+    /**
+     * Parses a single version segment, accepting a trailing non-numeric suffix (e.g. {@code 81-beta}).
+     */
+    private static int parseVersionPart(String part) {
+        StringBuilder digits = new StringBuilder();
+        for (int i = 0; i < part.length(); i++) {
+            char character = part.charAt(i);
+            if (!Character.isDigit(character)) {
+                break;
+            }
+            digits.append(character);
+        }
+        if (digits.isEmpty()) {
+            throw new NumberFormatException("No leading digits in version part: " + part);
+        }
+        return Integer.parseInt(digits.toString());
     }
 
     /***

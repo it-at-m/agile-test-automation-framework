@@ -77,4 +77,16 @@ public class WindowType {
         }
         return UNKNOWN; // Returns UNKNOWN if no match is found
     }
+
+    /**
+     * Returns the human-readable name of this window type, suitable for log output and inclusion in
+     * {@link Window#toString()}. Without this override the default {@link Object#toString()} would
+     * print the class name and identity hash code, which is not useful for diagnostics.
+     *
+     * @return the {@link #NAME} of this window type (e.g. {@code "UNKNOWN"}).
+     */
+    @Override
+    public String toString() {
+        return NAME;
+    }
 }

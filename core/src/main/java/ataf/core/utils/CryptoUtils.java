@@ -51,6 +51,7 @@ public class CryptoUtils {
     private static final int TAG_LENGTH_BIT = 128; // must be one of {128, 120, 112, 104, 96}
     private static final int IV_LENGTH_BYTE = 12; // Length of the Initialization Vector
     private static final int SALT_LENGTH_BYTE = 16; // Length of the salt
+    private static final SecureRandom SECURE_RANDOM = new SecureRandom();
     private static char[] secret; // Secret key for encryption and decryption
     private static String encryptedFileExtension = ".encrypted";
 
@@ -67,7 +68,7 @@ public class CryptoUtils {
             throw new IllegalArgumentException("Nonce size must be positive!");
         }
         byte[] nonce = new byte[numBytes];
-        new SecureRandom().nextBytes(nonce);
+        SECURE_RANDOM.nextBytes(nonce);
         return nonce;
     }
 

@@ -9,6 +9,8 @@ import ataf.rest.model.Operation;
 import io.restassured.response.Response;
 import org.hamcrest.Matcher;
 
+import java.util.Objects;
+
 /**
  * This class represents the base request functionality for sending HTTP requests and managing
  * responses within the framework.
@@ -213,13 +215,13 @@ public class BaseRequest {
      * @return this BaseRequest instance for fluent API usage
      */
     public BaseRequest assertBodyContains(String expectedSubstring) {
-        Object responseBody = getResponse().getBody();
-        if (responseBody == null) {
-            CustomAssertions.fail("Expected response body to be non-null for assertBodyContains.");
-            return this; // for compiler/static analysis only
-        }
-
-        String body = getResponse().getBody().asString();
+        var responseBody = getResponse().getBody();
+        CustomAssertions.assertNotNull(
+                responseBody,
+                "Expected response body to be non-null for assertBodyContains.");
+        String body = Objects.requireNonNull(
+                responseBody,
+                "Expected response body to be non-null for assertBodyContains.").asString();
 
         boolean contains = body.contains(expectedSubstring);
 
