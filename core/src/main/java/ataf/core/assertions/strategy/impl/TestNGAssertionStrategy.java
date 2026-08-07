@@ -247,10 +247,12 @@ public class TestNGAssertionStrategy implements AssertionStrategy {
      * @param actual The actual value.
      * @param expected The expected value.
      * @throws AssertionError if the actual value is not equal to the expected value.
+     * @deprecated Use {@link #assertEquals(Object, Object)} instead.
      */
     @Override
+    @Deprecated(forRemoval = true)
     public void assertEquals(String actual, String expected) {
-        Assert.assertEquals(actual, expected);
+        assertEquals((Object) actual, (Object) expected);
     }
 
     /**
@@ -261,10 +263,12 @@ public class TestNGAssertionStrategy implements AssertionStrategy {
      * @param expected The expected value.
      * @param message The assertion message to display on failure.
      * @throws AssertionError if the actual value is not equal to the expected value.
+     * @deprecated Use {@link #assertEquals(Object, Object, String)} instead.
      */
     @Override
+    @Deprecated(forRemoval = true)
     public void assertEquals(String actual, String expected, String message) {
-        Assert.assertEquals(actual, expected, message);
+        assertEquals((Object) actual, (Object) expected, message);
     }
 
     /**

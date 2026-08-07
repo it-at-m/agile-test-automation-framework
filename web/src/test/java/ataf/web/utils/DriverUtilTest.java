@@ -45,10 +45,24 @@ public class DriverUtilTest {
                 { "0.0.1", "0", true },
                 { "1", "1.0.0", true },
 
-                // Invalid cases (should throw an exception)
+                // Invalid cases (non-numeric parts are treated as "not less or equal")
                 { "abc.2.3", "94", false },
                 { "94.3", "xyz", false },
-                { "94.5.6", "94.5.a", false }
+                { "94.5.6", "94.5.a", false },
+                { "94.0.abc", "94", false },
+                { "93", "94.abc", false },
+                { "94.2147483648", "94", false },
+
+                // null / blank
+                { null, "94", false },
+                { "94", null, false },
+                { "", "94", false },
+                { "94", "  ", false },
+
+                // Real browser formats with suffixes / prefixes
+                { "94.0.4606.81-beta", "94", true },
+                { "Chrome/94.0.4606.81", "94", true },
+                { "Chrome/95.0.0", "94", false }
         };
     }
 
@@ -61,12 +75,7 @@ public class DriverUtilTest {
      */
     @Test(dataProvider = "versionComparisonData")
     public void testIsVersionLessOrEqual(String currentVersion, String targetVersion, boolean expected) {
-        try {
-            boolean result = DriverUtil.isVersionLessOrEqual(currentVersion, targetVersion);
-            CustomAssertions.assertEquals(result, expected, "Failed for: " + currentVersion + " <= " + targetVersion);
-        } catch (Exception e) {
-            CustomAssertions.assertEquals(e.getClass(), NumberFormatException.class,
-                    "Expected exception for invalid input: " + currentVersion + " vs. " + targetVersion);
-        }
+        boolean result = DriverUtil.isVersionLessOrEqual(currentVersion, targetVersion);
+        CustomAssertions.assertEquals(result, expected, "Failed for: " + currentVersion + " <= " + targetVersion);
     }
 }

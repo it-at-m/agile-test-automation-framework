@@ -271,7 +271,8 @@ public class BaseSteps {
         try {
             BASE_PAGE.waitFor(Integer.parseInt(minutes), TimeUnit.MINUTES, true);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Ungültiger Minutenwert: \"" + minutes + "\". Es wird eine ganze Zahl erwartet.", e);
+            throw new IllegalArgumentException(
+                    "Ungültiger Minutenwert: \"" + minutes + "\". Es wird eine ganze Zahl erwartet.", e);
         }
     }
 

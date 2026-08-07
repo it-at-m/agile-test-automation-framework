@@ -14,22 +14,26 @@ public class ExceptionManager {
     }
 
     /**
-     * Processes the given exception and logs the error message.
+     * Processes the given exception and logs the error message with the full stack trace.
+     *
+     * <p>
+     * Kept as a deprecated binary-compatibility bridge for callers compiled against older ATAF
+     * versions that invoke {@code process(Exception)} by exact signature. New code should call
+     * {@link #process(Throwable)} directly.
+     * </p>
      *
      * @param e The exception to be processed
+     * @deprecated Use {@link #process(Throwable)} instead.
      */
+    @Deprecated(forRemoval = true)
     public static void process(Exception e) {
-        ScenarioLogManager.getLogger().error("Error message: {}", e.getMessage());
+        process((Throwable) e);
     }
 
     /**
-     * Processes the given {@link Throwable} and logs the error message including the stack trace.
-     *
-     * <p>
-     * This overload allows handling of errors that are not subclasses of {@link Exception},
-     * such as {@link AssertionError}, while preserving the existing {@link #process(Exception)}
-     * method for backward compatibility.
-     * </p>
+     * Processes the given {@link Throwable} (including subclasses such as {@link Exception} and
+     * {@link AssertionError}) and logs the error message together with the full stack trace via
+     * {@link ScenarioLogManager}.
      *
      * @param t the throwable to be processed
      */

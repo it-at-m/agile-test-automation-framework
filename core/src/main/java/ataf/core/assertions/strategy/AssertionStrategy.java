@@ -175,7 +175,9 @@ public interface AssertionStrategy {
      * @param actual The actual value.
      * @param expected The expected value.
      * @throws AssertionError if the actual value is not equal to the expected value.
+     * @deprecated Use {@link #assertEquals(Object, Object)} instead.
      */
+    @Deprecated(forRemoval = true)
     void assertEquals(String actual, String expected);
 
     /**
@@ -185,7 +187,9 @@ public interface AssertionStrategy {
      * @param expected The expected value.
      * @param message The assertion message to display on failure.
      * @throws AssertionError if the actual value is not equal to the expected value.
+     * @deprecated Use {@link #assertEquals(Object, Object, String)} instead.
      */
+    @Deprecated(forRemoval = true)
     void assertEquals(String actual, String expected, String message);
 
     /**
