@@ -59,8 +59,8 @@ public class TestEqualityTest {
         map.put(first, "first");
         map.put(second, "second");
 
-        CustomAssertions.assertEquals((Object) map.get(first), "first");
-        CustomAssertions.assertEquals((Object) map.get(second), "second");
+        CustomAssertions.assertEquals((Object) map.get(first), (Object) "first");
+        CustomAssertions.assertEquals((Object) map.get(second), (Object) "second");
     }
 
     @org.testng.annotations.Test
@@ -78,7 +78,7 @@ public class TestEqualityTest {
 
         CustomAssertions.assertEquals(set.size(), 1);
         CustomAssertions.assertEquals(map.size(), 1);
-        CustomAssertions.assertEquals((Object) map.get(first), "second");
+        CustomAssertions.assertEquals((Object) map.get(first), (Object) "second");
     }
 
     @org.testng.annotations.Test

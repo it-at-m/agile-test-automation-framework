@@ -104,13 +104,10 @@ public class BaseRequest {
     public BaseRequest assertStatusCode(int expectedStatusCode) {
         int actualStatusCode = getResponse().getStatusCode();
 
-        CustomAssertions.assertEquals(
-                actualStatusCode,
+        CustomAssertions.assertEquals(actualStatusCode, expectedStatusCode, String.format(
+                "Unexpected HTTP status code. Expected <%d> but was <%d>.",
                 expectedStatusCode,
-                String.format(
-                        "Unexpected HTTP status code. Expected <%d> but was <%d>.",
-                        expectedStatusCode,
-                        actualStatusCode));
+                actualStatusCode));
 
         return this;
     }
@@ -197,13 +194,10 @@ public class BaseRequest {
     public BaseRequest assertContentType(String expected) {
         String actual = getResponse().getContentType();
 
-        CustomAssertions.assertEquals(
-                actual,
+        CustomAssertions.assertEquals((Object) actual, (Object) expected, String.format(
+                "Unexpected Content-Type. Expected <%s> but was <%s>.",
                 expected,
-                String.format(
-                        "Unexpected Content-Type. Expected <%s> but was <%s>.",
-                        expected,
-                        actual));
+                actual));
 
         return this;
     }
