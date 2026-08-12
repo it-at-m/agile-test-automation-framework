@@ -25,7 +25,7 @@ public class AuthHeaderProviderTest {
         var result = authHeaderProvider.resolve(authConfig);
 
         CustomAssertions.assertTrue(result.headers().containsKey("Authorization"));
-        CustomAssertions.assertEquals(result.headers().get("Authorization"), "Bearer abc123");
+        CustomAssertions.assertEquals((Object) result.headers().get("Authorization"), (Object) "Bearer abc123");
         CustomAssertions.assertTrue(result.queryParams().isEmpty());
     }
 
@@ -39,7 +39,7 @@ public class AuthHeaderProviderTest {
 
         var result = authHeaderProvider.resolve(authConfig);
 
-        CustomAssertions.assertEquals(result.headers().get("X-Api-Key"), "VAL123");
+        CustomAssertions.assertEquals((Object) result.headers().get("X-Api-Key"), (Object) "VAL123");
         CustomAssertions.assertTrue(result.queryParams().isEmpty());
     }
 
@@ -55,7 +55,7 @@ public class AuthHeaderProviderTest {
 
         CustomAssertions.assertTrue(result.headers().isEmpty());
         CustomAssertions.assertTrue(result.queryParams().containsKey("api_key"));
-        CustomAssertions.assertEquals(result.queryParams().get("api_key"), List.of("VAL123"));
+        CustomAssertions.assertEquals((Object) result.queryParams().get("api_key"), (Object) List.of("VAL123"));
     }
 
     @Test
@@ -72,6 +72,6 @@ public class AuthHeaderProviderTest {
 
         var result = authHeaderProvider.resolve(authConfig);
 
-        CustomAssertions.assertEquals(result.headers().get("Authorization"), "Bearer tok");
+        CustomAssertions.assertEquals((Object) result.headers().get("Authorization"), (Object) "Bearer tok");
     }
 }

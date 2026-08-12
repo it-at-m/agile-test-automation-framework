@@ -68,12 +68,12 @@ public class OAuth2ServiceWireMockTest {
 
         // Assert
         CustomAssertions.assertNotNull(tokenInfo1);
-        CustomAssertions.assertEquals(tokenInfo1.accessToken(), "acc1");
-        CustomAssertions.assertEquals(tokenInfo1.tokenType().toLowerCase(), "bearer");
+        CustomAssertions.assertEquals((Object) tokenInfo1.accessToken(), (Object) "acc1");
+        CustomAssertions.assertEquals((Object) tokenInfo1.tokenType().toLowerCase(), (Object) "bearer");
         CustomAssertions.assertFalse(tokenInfo1.isExpiredOrStale());
 
         // second call should come from cache (no new stub call required)
-        CustomAssertions.assertEquals(tokenInfo2.accessToken(), "acc1");
+        CustomAssertions.assertEquals((Object) tokenInfo2.accessToken(), (Object) "acc1");
         CustomAssertions.assertFalse(tokenInfo2.isExpiredOrStale());
 
         // Verify exactly one call to the endpoint
@@ -100,8 +100,8 @@ public class OAuth2ServiceWireMockTest {
                 null, null, null, null);
 
         TokenInfo tokenInfo = oAuth2Service.getOrFetchPassword(authConfig);
-        CustomAssertions.assertEquals(tokenInfo.accessToken(), "pTok");
-        CustomAssertions.assertEquals(tokenInfo.refreshToken(), "r1");
+        CustomAssertions.assertEquals((Object) tokenInfo.accessToken(), (Object) "pTok");
+        CustomAssertions.assertEquals((Object) tokenInfo.refreshToken(), (Object) "r1");
         CustomAssertions.assertFalse(tokenInfo.isExpiredOrStale());
     }
 
@@ -125,7 +125,7 @@ public class OAuth2ServiceWireMockTest {
                 null, null, null, null);
 
         TokenInfo tokenInfo = oAuth2Service.refresh(authConfig);
-        CustomAssertions.assertEquals(tokenInfo.accessToken(), "newAcc");
+        CustomAssertions.assertEquals((Object) tokenInfo.accessToken(), (Object) "newAcc");
         CustomAssertions.assertFalse(tokenInfo.isExpiredOrStale());
         CustomAssertions.assertTrue(tokenInfo.expiresAt().isAfter(Instant.now()));
     }

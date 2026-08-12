@@ -22,17 +22,17 @@ public class WindowTypeTest {
 
     @Test
     public void getSystemWindowTypeWithSystemNullTest() {
-        CustomAssertions.assertEquals(WindowType.getSystemWindowType((System) null), WindowType.UNKNOWN);
+        CustomAssertions.assertEquals((Object) WindowType.getSystemWindowType((System) null), (Object) WindowType.UNKNOWN);
     }
 
     @Test
     public void getSystemWindowTypeWithSystemNameNullTest() {
-        CustomAssertions.assertEquals(WindowType.getSystemWindowType((String) null), WindowType.UNKNOWN);
+        CustomAssertions.assertEquals((Object) WindowType.getSystemWindowType((String) null), (Object) WindowType.UNKNOWN);
     }
 
     @Test
     public void getSystemWindowTypeWithSystemUrlNullTest() {
-        CustomAssertions.assertEquals(WindowType.getSystemWindowType((URL) null), WindowType.UNKNOWN);
+        CustomAssertions.assertEquals((Object) WindowType.getSystemWindowType((URL) null), (Object) WindowType.UNKNOWN);
     }
 
     @Test
@@ -43,18 +43,18 @@ public class WindowTypeTest {
 
     @Test
     public void getSystemWindowTypeWithSystemTest() {
-        CustomAssertions.assertEquals(WindowType.getSystemWindowType(system), windowType);
+        CustomAssertions.assertEquals((Object) WindowType.getSystemWindowType(system), (Object) windowType);
     }
 
     @Test
     public void getSystemWindowTypeWithSystemNameTest() {
-        CustomAssertions.assertEquals(WindowType.getSystemWindowType(system.NAME), windowType);
+        CustomAssertions.assertEquals((Object) WindowType.getSystemWindowType(system.NAME), (Object) windowType);
     }
 
     @Test
     public void getSystemWindowTypeWithSystemUrlTest() throws MalformedURLException {
         try {
-            CustomAssertions.assertEquals(WindowType.getSystemWindowType(new URI(system.URL).toURL()), windowType);
+            CustomAssertions.assertEquals((Object) WindowType.getSystemWindowType(new URI(system.URL).toURL()), (Object) windowType);
         } catch (URISyntaxException e) {
             CustomAssertions.fail(e.getMessage(), e);
         }

@@ -145,8 +145,7 @@ public class TestPropertiesHelperTest {
 
     @Test
     public void positiveLongTestVariantThree() {
-        CustomAssertions.assertEquals(TestPropertiesHelper.getPropertyAsLong("longTest", true, 9000000000000000000L),
-                9000000000000000000L);
+        CustomAssertions.assertEquals(TestPropertiesHelper.getPropertyAsLong("longTest", true, 9000000000000000000L), 9000000000000000000L);
     }
 
     @Test
@@ -227,35 +226,34 @@ public class TestPropertiesHelperTest {
 
     @Test
     public void positiveStringTestVariantOne() {
-        CustomAssertions.assertEquals(TestPropertiesHelper.getPropertyAsString("stringTest"), "The Test value of this property!!111");
+        CustomAssertions.assertEquals((Object) TestPropertiesHelper.getPropertyAsString("stringTest"), (Object) "The Test value of this property!!111");
     }
 
     @Test
     public void positiveStringTestVariantTwo() {
-        CustomAssertions.assertEquals(TestPropertiesHelper.getPropertyAsString("stringTest", true), "The Test value of this property!!111");
+        CustomAssertions.assertEquals((Object) TestPropertiesHelper.getPropertyAsString("stringTest", true), (Object) "The Test value of this property!!111");
     }
 
     @Test
     public void positiveStringTestVariantThree() {
-        CustomAssertions.assertEquals(
-                TestPropertiesHelper.getPropertyAsString("stringTest", true, "The Test value of this property!!111"),
-                "The Test value of this property!!111");
+        CustomAssertions.assertEquals((Object) TestPropertiesHelper.getPropertyAsString("stringTest", true, "The Test value of this property!!111"),
+                (Object) "The Test value of this property!!111");
     }
 
     @Test
     public void negativeStringTestVariantOne() {
-        CustomAssertions.assertEquals(TestPropertiesHelper.getPropertyAsString(RandomStringUtils.secure().next(12)), "");
+        CustomAssertions.assertEquals((Object) TestPropertiesHelper.getPropertyAsString(RandomStringUtils.secure().next(12)), (Object) "");
     }
 
     @Test
     public void negativeStringTestVariantTwo() {
-        CustomAssertions.assertEquals(TestPropertiesHelper.getPropertyAsString(RandomStringUtils.secure().next(12), true), "");
+        CustomAssertions.assertEquals((Object) TestPropertiesHelper.getPropertyAsString(RandomStringUtils.secure().next(12), true), (Object) "");
     }
 
     @Test
     public void negativeStringTestVariantThree() {
         CustomAssertions.assertEquals(
-                TestPropertiesHelper.getPropertyAsString(RandomStringUtils.secure().next(12), true, "The Test value of this property!!111"),
-                "The Test value of this property!!111");
+                (Object) TestPropertiesHelper.getPropertyAsString(RandomStringUtils.secure().next(12), true, "The Test value of this property!!111"),
+                (Object) "The Test value of this property!!111");
     }
 }

@@ -22,7 +22,7 @@ public class InMemoryTokenStoreTest {
         Optional<TokenInfo> optionalTokenInfo = inMemoryTokenStore.get("k1");
 
         CustomAssertions.assertTrue(optionalTokenInfo.isPresent());
-        CustomAssertions.assertEquals(optionalTokenInfo.get().accessToken(), "acc");
+        CustomAssertions.assertEquals((Object) optionalTokenInfo.get().accessToken(), (Object) "acc");
     }
 
     @Test

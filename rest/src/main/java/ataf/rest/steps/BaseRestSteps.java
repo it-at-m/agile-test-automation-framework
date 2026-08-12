@@ -422,7 +422,7 @@ public class BaseRestSteps {
         ScenarioLogManager.getLogger().info(
                 "Asserting header {} has value {}", headerName, headerValue);
         String actual = baseRequest.getResponse().getHeader(headerName);
-        ataf.core.assertions.CustomAssertions.assertEquals(actual, headerValue,
+        ataf.core.assertions.CustomAssertions.assertEquals((Object) actual, (Object) headerValue,
                 String.format("Expected header '%s' to have value '%s' but was '%s'",
                         headerName, headerValue, actual));
     }

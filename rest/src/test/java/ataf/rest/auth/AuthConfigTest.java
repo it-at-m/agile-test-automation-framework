@@ -26,19 +26,19 @@ public class AuthConfigTest {
                 "api_key", "apikeyvalue",
                 ApiKeyLocation.HEADER);
 
-        CustomAssertions.assertEquals(authConfig.type(), AuthType.BEARER);
-        CustomAssertions.assertEquals(authConfig.tokenEndpoint().toString(), "https://auth.example.com/token");
-        CustomAssertions.assertEquals(authConfig.clientId(), "cid");
-        CustomAssertions.assertEquals(authConfig.clientSecret(), "sec");
-        CustomAssertions.assertEquals(authConfig.scope(), "read write");
-        CustomAssertions.assertEquals(authConfig.username(), "user");
-        CustomAssertions.assertEquals(authConfig.password(), "pw");
-        CustomAssertions.assertEquals(authConfig.refreshToken(), "rTok");
-        CustomAssertions.assertEquals(authConfig.connectTimeout(), Duration.ofSeconds(5));
-        CustomAssertions.assertEquals(authConfig.readTimeout(), Duration.ofSeconds(30));
-        CustomAssertions.assertEquals(authConfig.bearerToken(), "bearer123");
-        CustomAssertions.assertEquals(authConfig.apiKeyName(), "api_key");
-        CustomAssertions.assertEquals(authConfig.apiKeyValue(), "apikeyvalue");
-        CustomAssertions.assertEquals(authConfig.apiKeyLocation(), ApiKeyLocation.HEADER);
+        CustomAssertions.assertEquals((Object) authConfig.type(), (Object) AuthType.BEARER);
+        CustomAssertions.assertEquals((Object) authConfig.tokenEndpoint().toString(), (Object) "https://auth.example.com/token");
+        CustomAssertions.assertEquals((Object) authConfig.clientId(), (Object) "cid");
+        CustomAssertions.assertEquals((Object) authConfig.clientSecret(), (Object) "sec");
+        CustomAssertions.assertEquals((Object) authConfig.scope(), (Object) "read write");
+        CustomAssertions.assertEquals((Object) authConfig.username(), (Object) "user");
+        CustomAssertions.assertEquals((Object) authConfig.password(), (Object) "pw");
+        CustomAssertions.assertEquals((Object) authConfig.refreshToken(), (Object) "rTok");
+        CustomAssertions.assertEquals((Object) authConfig.connectTimeout(), (Object) Duration.ofSeconds(5));
+        CustomAssertions.assertEquals((Object) authConfig.readTimeout(), (Object) Duration.ofSeconds(30));
+        CustomAssertions.assertEquals((Object) authConfig.bearerToken(), (Object) "bearer123");
+        CustomAssertions.assertEquals((Object) authConfig.apiKeyName(), (Object) "api_key");
+        CustomAssertions.assertEquals((Object) authConfig.apiKeyValue(), (Object) "apikeyvalue");
+        CustomAssertions.assertEquals((Object) authConfig.apiKeyLocation(), (Object) ApiKeyLocation.HEADER);
     }
 }

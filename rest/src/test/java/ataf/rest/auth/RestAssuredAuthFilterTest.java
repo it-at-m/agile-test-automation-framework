@@ -72,7 +72,7 @@ public class RestAssuredAuthFilterTest {
 
         // Assert
         verify(requestSpecification, atLeastOnce()).queryParam(eq("api_key"), eq("K123"));
-        CustomAssertions.assertEquals(nameCaptor.getAllValues(), List.of("api_key"));
-        CustomAssertions.assertEquals(valueCaptor.getAllValues(), List.of("K123"));
+        CustomAssertions.assertEquals((Object) nameCaptor.getAllValues(), (Object) List.of("api_key"));
+        CustomAssertions.assertEquals((Object) valueCaptor.getAllValues(), (Object) List.of("K123"));
     }
 }
