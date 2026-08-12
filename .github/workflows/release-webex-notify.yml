@@ -1,0 +1,69 @@
+name: 📣 Notify Webex on new release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify Webex
+        env:
+          WEBEX_BOT_TOKEN: ${{ secrets.WEBEX_BOT_TOKEN }}
+          WEBEX_ROOM_ID: ${{ secrets.WEBEX_ROOM_ID }}
+          RELEASE_NAME: ${{ github.event.release.name }}
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+          RELEASE_URL: ${{ github.event.release.html_url }}
+          RELEASE_AUTHOR: ${{ github.event.release.author.login }}
+          RELEASE_PRERELEASE: ${{ github.event.release.prerelease }}
+          RELEASE_BODY: ${{ github.event.release.body }}
+        run: |
+          set -euo pipefail
+          if [ -z "${WEBEX_BOT_TOKEN:-}" ] || [ -z "${WEBEX_ROOM_ID:-}" ]; then
+            echo "WEBEX_BOT_TOKEN and WEBEX_ROOM_ID secrets are required" >&2
+            exit 1
+          fi
+
+          # Keep the Webex message short; truncate long release notes.
+          BODY_SNIPPET="$(printf '%s' "$RELEASE_BODY" | head -c 1200)"
+          if [ "${#RELEASE_BODY}" -gt 1200 ]; then
+            BODY_SNIPPET="${BODY_SNIPPET}…"
+          fi
+
+          KIND="Release"
+          if [ "$RELEASE_PRERELEASE" = "true" ]; then
+            KIND="Pre-release"
+          fi
+
+          TITLE="${RELEASE_NAME:-$RELEASE_TAG}"
+
+          jq -n \
+            --arg roomId "$WEBEX_ROOM_ID" \
+            --arg repo "${{ github.repository }}" \
+            --arg kind "$KIND" \
+            --arg title "$TITLE" \
+            --arg tag "$RELEASE_TAG" \
+            --arg author "$RELEASE_AUTHOR" \
+            --arg body "$BODY_SNIPPET" \
+            --arg url "$RELEASE_URL" \
+            '{
+              roomId: $roomId,
+              markdown: (
+                "**New " + $kind + " published in " + $repo + "**\n\n" +
+                "**" + $title + "** (`" + $tag + "`)\n\n" +
+                "**Author:** " + $author + "\n\n" +
+                (if ($body | length) > 0 then $body + "\n\n" else "" end) +
+                "[View release](" + $url + ")"
+              )
+            }' \
+            | curl -fsS -o /dev/null -X POST \
+              -H "Authorization: Bearer $WEBEX_BOT_TOKEN" \
+              -H "Content-Type: application/json" \
+              -d @- \
+              "https://webexapis.com/v1/messages"
+
+          echo "Webex notification sent:"
+          echo "  ${KIND}: ${TITLE} (${RELEASE_TAG})"
+          echo "  Author: ${RELEASE_AUTHOR}"
+          echo "  ${RELEASE_URL}"
