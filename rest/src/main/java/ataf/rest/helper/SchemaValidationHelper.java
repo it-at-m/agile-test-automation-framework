@@ -58,7 +58,7 @@ public final class SchemaValidationHelper {
                     "JSON schema validation failed for schema [" + schemaPath + "]: " + assertionError.getMessage());
         } catch (Exception e) {
             // Any other unexpected errors
-            ExceptionManagerAPI.process(e);
+            ExceptionManagerAPI.process((Throwable) e);
             CustomAssertions.fail(
                     "Unexpected error during JSON schema validation for schema [" + schemaPath + "]: " + e.getMessage(),
                     e);
@@ -98,13 +98,13 @@ public final class SchemaValidationHelper {
 
         } catch (SAXException e) {
             // XML does not conform to schema
-            ExceptionManagerAPI.process(e);
+            ExceptionManagerAPI.process((Throwable) e);
             CustomAssertions.fail(
                     "XML schema validation failed for XSD [" + xsdPath + "]: " + e.getMessage(),
                     e);
         } catch (Exception e) {
             // I/O or other errors
-            ExceptionManagerAPI.process(e);
+            ExceptionManagerAPI.process((Throwable) e);
             CustomAssertions.fail(
                     "Unexpected error during XML schema validation for XSD [" + xsdPath + "]: " + e.getMessage(),
                     e);
