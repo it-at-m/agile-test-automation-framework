@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>de.muenchen.ataf</groupId>
     <artifactId>agile-test-automation-framework</artifactId>
-    <version>0.3.4-SNAPSHOT</version>
+    <version>0.3.4</version>
     <packaging>pom</packaging>
 
     <name>agile-test-automation-framework</name>
@@ -41,8 +39,8 @@
         <central-publishing-maven-plugin.version>0.11.0</central-publishing-maven-plugin.version>
 
         <!-- Spotless P2 Mirror configuration (aligned with other it@M projects) -->
-        <p2.username/><!-- must be empty, override via Maven settings.xml if needed -->
-        <p2.password/><!-- must be empty, override via Maven settings.xml if needed -->
+        <p2.username /><!-- must be empty, override via Maven settings.xml if needed -->
+        <p2.password /><!-- must be empty, override via Maven settings.xml if needed -->
         <p2.mirror>download.eclipse.org</p2.mirror>
     </properties>
 
@@ -56,7 +54,7 @@
         <url>https://github.com/it-at-m/agile-test-automation-framework/</url>
         <connection>scm:git:https://github.com/it-at-m/agile-test-automation-framework.git</connection>
         <developerConnection>scm:git:https://github.com/it-at-m/agile-test-automation-framework.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>0.3.4</tag>
     </scm>
 
     <developers>
@@ -249,8 +247,8 @@
                                 </p2Mirror>
                             </p2Mirrors>
                         </eclipse>
-                        <trimTrailingWhitespace/>
-                        <endWithNewline/>
+                        <trimTrailingWhitespace />
+                        <endWithNewline />
                     </java>
                 </configuration>
                 <executions>
