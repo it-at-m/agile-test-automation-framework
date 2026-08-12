@@ -2,7 +2,7 @@
 
 Add the following Maven dependencies to your project's `pom.xml` as needed.
 
-Replace `${version.ataf}` with your preferred version. Omitting the version tag will cause Maven to use the latest available version, which is **not recommended** — pin an explicit version (see [Releases](../overview/releases.md)).
+Pin an explicit version such as `0.3.4`. Omitting the version tag will cause Maven to use the latest available version, which is **not recommended** (see [Releases](../overview/releases.md)).
 
 ## Core Package
 
@@ -12,7 +12,7 @@ Required for using ATAF. Contains essential functionality for Cucumber and Jira 
 <dependency>
     <groupId>de.muenchen.ataf</groupId>
     <artifactId>core</artifactId>
-    <version>${version.ataf}</version>
+    <version>0.3.4</version>
 </dependency>
 ```
 
@@ -24,7 +24,7 @@ Contains classes for API testing.
 <dependency>
     <groupId>de.muenchen.ataf</groupId>
     <artifactId>rest</artifactId>
-    <version>${version.ataf}</version>
+    <version>0.3.4</version>
 </dependency>
 ```
 
@@ -36,7 +36,7 @@ Contains classes for browser-based tests.
 <dependency>
     <groupId>de.muenchen.ataf</groupId>
     <artifactId>web</artifactId>
-    <version>${version.ataf}</version>
+    <version>0.3.4</version>
 </dependency>
 ```
 

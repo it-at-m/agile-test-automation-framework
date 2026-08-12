@@ -15,23 +15,23 @@ After each release, consumers (such as `zmsautomation`) can depend on:
 <dependency>
     <groupId>de.muenchen.ataf</groupId>
     <artifactId>core</artifactId>
-    <version>${version.ataf}</version>
+    <version>0.3.4</version>
 </dependency>
 
 <dependency>
     <groupId>de.muenchen.ataf</groupId>
     <artifactId>rest</artifactId>
-    <version>${version.ataf}</version>
+    <version>0.3.4</version>
 </dependency>
 
 <dependency>
     <groupId>de.muenchen.ataf</groupId>
     <artifactId>web</artifactId>
-    <version>${version.ataf}</version>
+    <version>0.3.4</version>
 </dependency>
 ```
 
-Replace `${version.ataf}` with the actual version. Omitting the version tag will cause Maven to use the latest available version, which is **not recommended** — pin to an explicit version.
+Pin to an explicit version (for example `0.3.4`). Omitting the version tag will cause Maven to use the latest available version, which is **not recommended**.
 
 ## Release Process
 
@@ -43,7 +43,9 @@ The repository is configured to publish ATAF artifacts to Maven Central using a 
 To create a release:
 
 1. Open the **Actions** tab in GitHub and select **Release Maven**.
-2. Run the workflow. It will:
+2. Use `0.3.4` as the `releaseVersion` (or a higher version for future releases).
+3. Use `0.3.5-SNAPSHOT` (or the next snapshot) as the `developmentVersion`.
+4. Run the workflow. It will:
    - Use the Maven `release` profile (which skips tests during the release build).
    - Sign and deploy artifacts to Maven Central via the Sonatype Central publishing plugin.
    - Open a pull request with the updated snapshot version (when `use-pr` is enabled).

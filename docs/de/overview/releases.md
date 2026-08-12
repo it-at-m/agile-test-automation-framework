@@ -15,23 +15,23 @@ Nach jedem Release können nutzende Projekte (z. B. `zmsautomation`) wie folgt a
 <dependency>
     <groupId>de.muenchen.ataf</groupId>
     <artifactId>core</artifactId>
-    <version>${version.ataf}</version>
+    <version>0.3.4</version>
 </dependency>
 
 <dependency>
     <groupId>de.muenchen.ataf</groupId>
     <artifactId>rest</artifactId>
-    <version>${version.ataf}</version>
+    <version>0.3.4</version>
 </dependency>
 
 <dependency>
     <groupId>de.muenchen.ataf</groupId>
     <artifactId>web</artifactId>
-    <version>${version.ataf}</version>
+    <version>0.3.4</version>
 </dependency>
 ```
 
-Ersetze `${version.ataf}` durch die tatsächliche Version. Wird das Version-Tag weggelassen, verwendet Maven die jeweils neueste verfügbare Version – das ist **nicht empfohlen**, pinne stattdessen eine explizite Version.
+Pinne eine explizite Version (z. B. `0.3.4`). Wird das Version-Tag weggelassen, verwendet Maven die jeweils neueste verfügbare Version – das ist **nicht empfohlen**.
 
 ## Release-Prozess
 
@@ -43,7 +43,9 @@ Das Repository ist so eingerichtet, dass ATAF-Artefakte über einen GitHub-Actio
 So legst du ein Release an:
 
 1. Öffne in GitHub den Reiter **Actions** und wähle **Release Maven**.
-2. Starte den Workflow. Er:
+2. Verwende `0.3.4` als `releaseVersion` (oder eine höhere Version für künftige Releases).
+3. Verwende `0.3.5-SNAPSHOT` (oder den nächsten Snapshot) als `developmentVersion`.
+4. Starte den Workflow. Er:
    - verwendet das Maven-Profil `release` (Tests werden beim Release-Build übersprungen),
    - signiert und veröffentlicht Artefakte über das Sonatype-Central-Publishing-Plugin auf Maven Central,
    - öffnet einen Pull Request mit der aktualisierten Snapshot-Version (wenn `use-pr` aktiviert ist).
