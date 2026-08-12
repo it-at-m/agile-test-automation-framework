@@ -30,7 +30,8 @@ jobs:
       - id: maven-release-step
         uses: it-at-m/lhm_actions/action-templates/actions/action-maven-release@4ed8f906bab8111fbd9a7af8e3f4129f9b721757 # v1.2.3
         with:
-          app-path: "." # root pom; empty string resolves to /pom.xml in action-maven-release Java extract step
+          app-path: "" # root module: keeps -f ./pom.xml and cache path ./pom.xml (avoid ".")
+          java-version: "21" # skip pom grep; empty app-path would resolve to /pom.xml there
           releaseVersion: ${{ inputs.releaseVersion }}
           developmentVersion: ${{ inputs.developmentVersion }}
           skipDeployment: "false"
