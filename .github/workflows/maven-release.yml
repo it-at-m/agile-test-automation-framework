@@ -55,3 +55,12 @@ jobs:
             core/target/*.jar
             rest/target/*.jar
             web/target/*.jar
+
+  # GITHUB_TOKEN-created releases do not trigger workflow `release` events, so notify
+  # explicitly after the GitHub release exists.
+  notify-webex:
+    needs: create-github-release
+    uses: ./.github/workflows/release-webex-notify.yml
+    with:
+      version: ${{ inputs.releaseVersion }}
+    secrets: inherit
