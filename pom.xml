@@ -4,7 +4,7 @@
 
     <groupId>de.muenchen.ataf</groupId>
     <artifactId>agile-test-automation-framework</artifactId>
-    <version>0.3.4</version>
+    <version>0.3.5-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>agile-test-automation-framework</name>
@@ -54,7 +54,7 @@
         <url>https://github.com/it-at-m/agile-test-automation-framework/</url>
         <connection>scm:git:https://github.com/it-at-m/agile-test-automation-framework.git</connection>
         <developerConnection>scm:git:https://github.com/it-at-m/agile-test-automation-framework.git</developerConnection>
-        <tag>0.3.4</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <developers>
