@@ -120,7 +120,7 @@ public class HttpClientProxyPortTest {
         HttpClient.createForTarget("https://example.org", factory);
 
         CustomAssertions.assertTrue(factory.proxyCalled);
-        CustomAssertions.assertEquals((Object) factory.proxyHostname, "proxy.example.org");
+        CustomAssertions.assertEquals((Object) factory.proxyHostname, (Object) "proxy.example.org");
         CustomAssertions.assertEquals(factory.proxyPort, configuredPort);
         CustomAssertions.assertFalse(factory.directCalled);
     }

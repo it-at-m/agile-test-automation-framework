@@ -97,7 +97,7 @@ public class BaseRequestTest {
         baseRequest.sendRequest("/test-endpoint", Operation.GET);
 
         // Verify that sendRequest set endpoint and the response is available
-        CustomAssertions.assertEquals(fakeHelper.getLastEndpoint(), "/test-endpoint");
+        CustomAssertions.assertEquals((Object) fakeHelper.getLastEndpoint(), (Object) "/test-endpoint");
         CustomAssertions.assertEquals(baseRequest.getResponse().getStatusCode(), 200);
     }
 
@@ -186,7 +186,7 @@ public class BaseRequestTest {
         baseRequest.setResponse(response);
 
         String id = baseRequest.extractJsonPath("data.id");
-        CustomAssertions.assertEquals(id, "42");
+        CustomAssertions.assertEquals((Object) id, (Object) "42");
     }
 
     @Test
@@ -298,8 +298,8 @@ public class BaseRequestTest {
         Integer id = baseRequest.extractJsonPathAs("data.id", Integer.class);
         String name = baseRequest.extractJsonPathAs("data.name", String.class);
 
-        CustomAssertions.assertEquals(id, Integer.valueOf(42));
-        CustomAssertions.assertEquals(name, "foo");
+        CustomAssertions.assertEquals((Object) id, (Object) Integer.valueOf(42));
+        CustomAssertions.assertEquals((Object) name, (Object) "foo");
     }
 
     // -------------------------------------------------------------------------

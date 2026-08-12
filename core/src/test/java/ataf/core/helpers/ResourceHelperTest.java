@@ -40,7 +40,7 @@ public class ResourceHelperTest {
         // Voraussetzung: src/test/resources/testdata/sample.txt mit Inhalt "sample-content"
         String content = ResourceHelper.loadAsString("testdata/sample.txt");
 
-        CustomAssertions.assertEquals(content.trim(), "sample-content");
+        CustomAssertions.assertEquals((Object) content.trim(), (Object) "sample-content");
     }
 
     @Test
@@ -52,7 +52,7 @@ public class ResourceHelperTest {
 
         try (InputStream is = ResourceHelper.loadAsStream(tempFile.toString())) {
             String loaded = new String(is.readAllBytes(), StandardCharsets.UTF_8);
-            CustomAssertions.assertEquals(loaded, expected);
+            CustomAssertions.assertEquals((Object) loaded, (Object) expected);
         } finally {
             // Aufräumen (optional, aber höflich)
             Files.deleteIfExists(tempFile);

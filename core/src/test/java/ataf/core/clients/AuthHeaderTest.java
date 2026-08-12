@@ -46,8 +46,8 @@ public class AuthHeaderTest {
             when(AuthenticationHelper.getUserPassword()).thenReturn(new GuardedString("password".toCharArray()));
 
             CustomAssertions.assertEquals(
-                    jiraClient.executeHttpGetRequest(JiraClient.jiraRestApiUrl() + "myself", AuthenticationHelper.getAuthenticationMethod()),
-                    "Username must be supplied and must not be blank!", "IllegalStateException expected due to blank username");
+                    (Object) jiraClient.executeHttpGetRequest(JiraClient.jiraRestApiUrl() + "myself", AuthenticationHelper.getAuthenticationMethod()),
+                    (Object) "Username must be supplied and must not be blank!", "IllegalStateException expected due to blank username");
         }
     }
 
@@ -60,8 +60,8 @@ public class AuthHeaderTest {
             when(AuthenticationHelper.getUserPassword()).thenReturn(new GuardedString(" ".toCharArray()));
 
             CustomAssertions.assertEquals(
-                    jiraClient.executeHttpGetRequest(JiraClient.jiraRestApiUrl() + "myself", AuthenticationHelper.getAuthenticationMethod()),
-                    "Password must be supplied and must not be blank!", "IllegalStateException expected due to blank password");
+                    (Object) jiraClient.executeHttpGetRequest(JiraClient.jiraRestApiUrl() + "myself", AuthenticationHelper.getAuthenticationMethod()),
+                    (Object) "Password must be supplied and must not be blank!", "IllegalStateException expected due to blank password");
         }
     }
 
@@ -101,8 +101,8 @@ public class AuthHeaderTest {
             when(AuthenticationHelper.getAuthorizationToken()).thenReturn(new GuardedString(" ".toCharArray()));
 
             CustomAssertions.assertEquals(
-                    jiraClient.executeHttpGetRequest(JiraClient.jiraRestApiUrl() + "myself", AuthenticationHelper.getAuthenticationMethod()),
-                    "Jira authorization token must be supplied and must not be blank!", "IllegalStateException expected due to blank token");
+                    (Object) jiraClient.executeHttpGetRequest(JiraClient.jiraRestApiUrl() + "myself", AuthenticationHelper.getAuthenticationMethod()),
+                    (Object) "Jira authorization token must be supplied and must not be blank!", "IllegalStateException expected due to blank token");
         }
     }
 

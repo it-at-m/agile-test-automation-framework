@@ -76,6 +76,6 @@ public class DriverUtilTest {
     @Test(dataProvider = "versionComparisonData")
     public void testIsVersionLessOrEqual(String currentVersion, String targetVersion, boolean expected) {
         boolean result = DriverUtil.isVersionLessOrEqual(currentVersion, targetVersion);
-        CustomAssertions.assertEquals(result, expected, "Failed for: " + currentVersion + " <= " + targetVersion);
+        CustomAssertions.assertEquals((Object) result, (Object) expected, "Failed for: " + currentVersion + " <= " + targetVersion);
     }
 }
