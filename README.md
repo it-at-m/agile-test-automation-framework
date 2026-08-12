@@ -21,7 +21,16 @@
 
 - Published developer handbook (GitHub Pages root): [https://it-at-m.github.io/agile-test-automation-framework/](https://it-at-m.github.io/agile-test-automation-framework/)
 - Releases (used in place of an in-repo changelog): [github.com/it-at-m/agile-test-automation-framework/releases](https://github.com/it-at-m/agile-test-automation-framework/releases)
-- Maven coordinates: `de.muenchen.ataf:{core,rest,web}` on Maven Central
+- Maven coordinates: `de.muenchen.ataf:{core,rest,web}:0.3.4` on Maven Central (after the next release)
+
+### Creating a release
+
+1. Open the **Actions** tab and select **Release Maven**.
+2. Use `0.3.4` as the `releaseVersion`.
+3. Use `0.3.5-SNAPSHOT` as the `developmentVersion`.
+4. Run the workflow (signs and deploys to Maven Central; may open a follow-up PR for the next snapshot).
+
+Details: [Releases handbook](https://it-at-m.github.io/agile-test-automation-framework/overview/releases.html).
 
 ## About ATAF
 
@@ -95,6 +104,16 @@ ATAF wurde überwiegend von Kolleg:innen aus **digital@M** für den Einsatz bei 
 
 - Veröffentlichtes Entwicklerhandbuch (GitHub Pages, deutsche Version): [https://it-at-m.github.io/agile-test-automation-framework/de/](https://it-at-m.github.io/agile-test-automation-framework/de/)
 - Releases (ersetzt einen Changelog im Repository): [github.com/it-at-m/agile-test-automation-framework/releases](https://github.com/it-at-m/agile-test-automation-framework/releases)
+- Maven-Koordinaten: `de.muenchen.ataf:{core,rest,web}:0.3.4` auf Maven Central (nach dem nächsten Release)
+
+### Release erstellen
+
+1. In GitHub den Reiter **Actions** öffnen und **Release Maven** wählen.
+2. `0.3.4` als `releaseVersion` verwenden.
+3. `0.3.5-SNAPSHOT` als `developmentVersion` verwenden.
+4. Workflow starten (signiert und veröffentlicht auf Maven Central; ggf. Follow-up-PR für den nächsten Snapshot).
+
+Details: [Releases-Handbuch](https://it-at-m.github.io/agile-test-automation-framework/de/overview/releases.html).
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
