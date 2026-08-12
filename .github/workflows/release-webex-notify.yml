@@ -3,21 +3,84 @@ name: 📣 Notify Webex on new release
 on:
   release:
     types: [published]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Release version or tag (e.g. 0.3.4 or v0.3.4)"
+        required: true
+        type: string
+  workflow_call:
+    inputs:
+      version:
+        description: "Release version or tag (e.g. 0.3.4 or v0.3.4)"
+        required: true
+        type: string
 
 jobs:
   notify:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
-      - name: Notify Webex
+      - name: Resolve release metadata
+        id: release
         env:
-          WEBEX_BOT_TOKEN: ${{ secrets.WEBEX_BOT_TOKEN }}
-          WEBEX_ROOM_ID: ${{ secrets.WEBEX_ROOM_ID }}
+          GH_TOKEN: ${{ github.token }}
+          EVENT_NAME: ${{ github.event_name }}
+          INPUT_VERSION: ${{ inputs.version }}
           RELEASE_NAME: ${{ github.event.release.name }}
           RELEASE_TAG: ${{ github.event.release.tag_name }}
           RELEASE_URL: ${{ github.event.release.html_url }}
           RELEASE_AUTHOR: ${{ github.event.release.author.login }}
           RELEASE_PRERELEASE: ${{ github.event.release.prerelease }}
           RELEASE_BODY: ${{ github.event.release.body }}
+        run: |
+          set -euo pipefail
+
+          if [ "$EVENT_NAME" = "release" ]; then
+            echo "name=${RELEASE_NAME}" >> "$GITHUB_OUTPUT"
+            echo "tag=${RELEASE_TAG}" >> "$GITHUB_OUTPUT"
+            echo "url=${RELEASE_URL}" >> "$GITHUB_OUTPUT"
+            echo "author=${RELEASE_AUTHOR}" >> "$GITHUB_OUTPUT"
+            echo "prerelease=${RELEASE_PRERELEASE}" >> "$GITHUB_OUTPUT"
+            {
+              echo "body<<EOF"
+              printf '%s\n' "${RELEASE_BODY:-}"
+              echo "EOF"
+            } >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          VERSION="${INPUT_VERSION:-}"
+          VERSION="${VERSION#v}"
+          if [ -z "$VERSION" ]; then
+            echo "version input is required" >&2
+            exit 1
+          fi
+          TAG="v${VERSION}"
+
+          META="$(gh release view "$TAG" --repo "${{ github.repository }}" --json name,tagName,url,isPrerelease,author,body)"
+          echo "name=$(jq -r '.name // .tagName' <<<"$META")" >> "$GITHUB_OUTPUT"
+          echo "tag=$(jq -r '.tagName' <<<"$META")" >> "$GITHUB_OUTPUT"
+          echo "url=$(jq -r '.url' <<<"$META")" >> "$GITHUB_OUTPUT"
+          echo "author=$(jq -r '.author.login // "unknown"' <<<"$META")" >> "$GITHUB_OUTPUT"
+          echo "prerelease=$(jq -r '.isPrerelease' <<<"$META")" >> "$GITHUB_OUTPUT"
+          {
+            echo "body<<EOF"
+            jq -r '.body // ""' <<<"$META"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Notify Webex
+        env:
+          WEBEX_BOT_TOKEN: ${{ secrets.WEBEX_BOT_TOKEN }}
+          WEBEX_ROOM_ID: ${{ secrets.WEBEX_ROOM_ID }}
+          RELEASE_NAME: ${{ steps.release.outputs.name }}
+          RELEASE_TAG: ${{ steps.release.outputs.tag }}
+          RELEASE_URL: ${{ steps.release.outputs.url }}
+          RELEASE_AUTHOR: ${{ steps.release.outputs.author }}
+          RELEASE_PRERELEASE: ${{ steps.release.outputs.prerelease }}
+          RELEASE_BODY: ${{ steps.release.outputs.body }}
         run: |
           set -euo pipefail
           if [ -z "${WEBEX_BOT_TOKEN:-}" ] || [ -z "${WEBEX_ROOM_ID:-}" ]; then
