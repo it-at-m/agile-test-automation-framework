@@ -15,6 +15,11 @@ on:
         description: "Release version or tag (e.g. 0.3.4 or v0.3.4)"
         required: true
         type: string
+    secrets:
+      WEBEX_BOT_TOKEN:
+        required: true
+      WEBEX_ROOM_ID:
+        required: true
 
 jobs:
   notify:
@@ -38,15 +43,16 @@ jobs:
           set -euo pipefail
 
           if [ "$EVENT_NAME" = "release" ]; then
-            echo "name=${RELEASE_NAME}" >> "$GITHUB_OUTPUT"
-            echo "tag=${RELEASE_TAG}" >> "$GITHUB_OUTPUT"
-            echo "url=${RELEASE_URL}" >> "$GITHUB_OUTPUT"
-            echo "author=${RELEASE_AUTHOR}" >> "$GITHUB_OUTPUT"
-            echo "prerelease=${RELEASE_PRERELEASE}" >> "$GITHUB_OUTPUT"
+            BODY_DELIM="BODY_$(openssl rand -hex 16)"
             {
-              echo "body<<EOF"
+              echo "name=${RELEASE_NAME}"
+              echo "tag=${RELEASE_TAG}"
+              echo "url=${RELEASE_URL}"
+              echo "author=${RELEASE_AUTHOR}"
+              echo "prerelease=${RELEASE_PRERELEASE}"
+              echo "body<<${BODY_DELIM}"
               printf '%s\n' "${RELEASE_BODY:-}"
-              echo "EOF"
+              echo "${BODY_DELIM}"
             } >> "$GITHUB_OUTPUT"
             exit 0
           fi
@@ -60,15 +66,16 @@ jobs:
           TAG="v${VERSION}"
 
           META="$(gh release view "$TAG" --repo "${{ github.repository }}" --json name,tagName,url,isPrerelease,author,body)"
-          echo "name=$(jq -r '.name // .tagName' <<<"$META")" >> "$GITHUB_OUTPUT"
-          echo "tag=$(jq -r '.tagName' <<<"$META")" >> "$GITHUB_OUTPUT"
-          echo "url=$(jq -r '.url' <<<"$META")" >> "$GITHUB_OUTPUT"
-          echo "author=$(jq -r '.author.login // "unknown"' <<<"$META")" >> "$GITHUB_OUTPUT"
-          echo "prerelease=$(jq -r '.isPrerelease' <<<"$META")" >> "$GITHUB_OUTPUT"
+          BODY_DELIM="BODY_$(openssl rand -hex 16)"
           {
-            echo "body<<EOF"
+            echo "name=$(jq -r '.name // .tagName' <<<"$META")"
+            echo "tag=$(jq -r '.tagName' <<<"$META")"
+            echo "url=$(jq -r '.url' <<<"$META")"
+            echo "author=$(jq -r '.author.login // "unknown"' <<<"$META")"
+            echo "prerelease=$(jq -r '.isPrerelease' <<<"$META")"
+            echo "body<<${BODY_DELIM}"
             jq -r '.body // ""' <<<"$META"
-            echo "EOF"
+            echo "${BODY_DELIM}"
           } >> "$GITHUB_OUTPUT"
 
       - name: Notify Webex
@@ -120,7 +127,7 @@ jobs:
                 "[View release](" + $url + ")"
               )
             }' \
-            | curl -fsS -o /dev/null -X POST \
+            | curl -fsS --connect-timeout 10 --max-time 30 -o /dev/null -X POST \
               -H "Authorization: Bearer $WEBEX_BOT_TOKEN" \
               -H "Content-Type: application/json" \
               -d @- \

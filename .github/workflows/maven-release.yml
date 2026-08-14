@@ -63,4 +63,6 @@ jobs:
     uses: ./.github/workflows/release-webex-notify.yml
     with:
       version: ${{ inputs.releaseVersion }}
-    secrets: inherit
+    secrets:
+      WEBEX_BOT_TOKEN: ${{ secrets.WEBEX_BOT_TOKEN }}
+      WEBEX_ROOM_ID: ${{ secrets.WEBEX_ROOM_ID }}
