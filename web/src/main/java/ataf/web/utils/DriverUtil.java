@@ -17,15 +17,16 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxDriverLogLevel;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.firefox.HasExtensions;
 import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.LoggingPreferences;
+import org.openqa.selenium.remote.Augmenter;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.LocalFileDetector;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -37,8 +38,10 @@ import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.time.Duration;
-import java.util.Locale;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
@@ -186,6 +189,7 @@ public final class DriverUtil {
                     firefoxProfile = new FirefoxProfile();
                 }
 
+                final List<Path> FIREFOX_EXTENSION_PATHS = new ArrayList<>();
                 final Path EXTENSION_DIRECTORY = Paths.get(
                         TestProperties.getProperty("firefoxExtensionDirectory", true, DefaultValues.FIREFOX_EXTENSION_DIRECTORY)
                                 .orElse(DefaultValues.FIREFOX_EXTENSION_DIRECTORY));
@@ -196,7 +200,7 @@ public final class DriverUtil {
                             public @NotNull
                             FileVisitResult visitFile(@NotNull Path file, @NotNull BasicFileAttributes attrs) {
                                 if (file.toString().endsWith(".xpi")) {
-                                    firefoxProfile.addExtension(new File(file.toAbsolutePath().normalize().toString()));
+                                    FIREFOX_EXTENSION_PATHS.add(file.toAbsolutePath().normalize());
                                 }
                                 return FileVisitResult.CONTINUE;
                             }
@@ -261,6 +265,9 @@ public final class DriverUtil {
                                 "Given value of {} could not be parsed as a URI reference. Check your property if it is a correct URL!", SELENIUM_GRID_URL);
                         CustomAssertions.fail(e.getMessage(), e);
                     }
+                }
+                if (driver != null) {
+                    installFirefoxExtensions(driver, FIREFOX_EXTENSION_PATHS);
                 }
                 break;
             case "edge":
@@ -466,6 +473,41 @@ public final class DriverUtil {
             proxy.setSslProxy(proxyAddress + ":" + proxyPort);
         }
         return proxy;
+    }
+
+    /**
+     * Installs {@code .xpi} add-ons via {@link HasExtensions} after the Firefox session has started.
+     * Selenium deprecated {@code FirefoxProfile.addExtension}; local {@link FirefoxDriver} implements
+     * the interface directly, and grid sessions are wrapped with {@link Augmenter}.
+     *
+     * @param driver the Firefox session that should receive the extensions
+     * @param extensionPaths absolute paths of {@code .xpi} files to install; ignored when empty
+     */
+    private static void installFirefoxExtensions(RemoteWebDriver driver, List<Path> extensionPaths) {
+        if (extensionPaths.isEmpty()) {
+            return;
+        }
+
+        HasExtensions extensions;
+        try {
+            if (driver instanceof HasExtensions hasExtensions) {
+                extensions = hasExtensions;
+            } else {
+                extensions = (HasExtensions) new Augmenter().augment(driver);
+            }
+        } catch (ClassCastException e) {
+            ScenarioLogManager.getLogger().error("Firefox extension installation is not available on this WebDriver session.", e);
+            return;
+        }
+
+        for (Path extensionPath : extensionPaths) {
+            try {
+                extensions.installExtension(extensionPath);
+                ScenarioLogManager.getLogger().debug("Installed Firefox extension [{}]", extensionPath);
+            } catch (RuntimeException e) {
+                ScenarioLogManager.getLogger().error("Failed to install Firefox extension: {}", extensionPath, e);
+            }
+        }
     }
 
     /**
