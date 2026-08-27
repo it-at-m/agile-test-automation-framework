@@ -33,10 +33,10 @@ jobs:
       python: ${{ steps.filter.outputs.python }}
     steps:
       - name: Checkout repository
-        uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@1f4370c5e243b96e9a90d7569b20b535e24e7c17 # v1.5.1
+        uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@54b32c7d11363cad45838c9a3d8a8560b93f0e8c # v1.5.4
       - name: Path Filter
         id: filter
-        uses: it-at-m/lhm_actions/action-templates/actions/action-filter@1f4370c5e243b96e9a90d7569b20b535e24e7c17 # v1.5.1
+        uses: it-at-m/lhm_actions/action-templates/actions/action-filter@54b32c7d11363cad45838c9a3d8a8560b93f0e8c # v1.5.4
 
   codeql-java:
     name: Analyze Java source files
@@ -47,7 +47,7 @@ jobs:
       matrix:
         build-path: ["./"]
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@1f4370c5e243b96e9a90d7569b20b535e24e7c17 # v1.5.1
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@54b32c7d11363cad45838c9a3d8a8560b93f0e8c # v1.5.4
         if: ${{ env.analyze-java == 'true' && (github.ref_name == 'main' || needs.check-changes.outputs.java == 'true') }}
         with:
           codeql-language: java-kotlin
