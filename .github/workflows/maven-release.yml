@@ -28,7 +28,7 @@ jobs:
       ARTIFACT_NAME: ${{ steps.maven-release-step.outputs.artifact-name }}
     steps:
       - id: maven-release-step
-        uses: it-at-m/lhm_actions/action-templates/actions/action-maven-release@1f4370c5e243b96e9a90d7569b20b535e24e7c17 # v1.5.1
+        uses: it-at-m/lhm_actions/action-templates/actions/action-maven-release@54b32c7d11363cad45838c9a3d8a8560b93f0e8c # v1.5.4
         with:
           app-path: "" # root module: keeps -f ./pom.xml and cache path ./pom.xml (avoid ".")
           java-version: "21" # skip pom grep; empty app-path would resolve to /pom.xml there
@@ -47,7 +47,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-create-github-release@1f4370c5e243b96e9a90d7569b20b535e24e7c17 # v1.5.1
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-create-github-release@54b32c7d11363cad45838c9a3d8a8560b93f0e8c # v1.5.4
         with:
           artifact-name: ${{ needs.release-maven.outputs.ARTIFACT_NAME }}
           tag-name: v${{ inputs.releaseVersion }}
