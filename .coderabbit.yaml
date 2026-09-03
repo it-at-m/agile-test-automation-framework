@@ -1,7 +1,16 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+language: "en-US"
+early_access: false
+tone_instructions: "Friendly, thankful and supportive."
 reviews:
-  review_status: true
+  profile: "chill"
+  request_changes_workflow: true
+  high_level_summary: true
+  poem: true
+  review_status: false # dont comment that auto reviews are enabled, this bloats PRs
+  collapse_walkthrough: false
   auto_review:
     enabled: true
-    base_branches:
-      - main
-    drafts: true
+    drafts: false
+chat:
+  auto_reply: true
