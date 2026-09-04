@@ -6,11 +6,11 @@
   "automergeSchedule": ["* * * * *"],
   "packageRules": [
     {
-      "description": "Automerge non-major updates once CI is green (Renovate-side; platform automerge is unsafe without required status checks on dev)",
+      "description": "Automerge non-major updates via GitHub when required checks pass",
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
       "automerge": true,
       "automergeType": "pr",
-      "platformAutomerge": false
+      "platformAutomerge": true
     }
   ]
 }
