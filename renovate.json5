@@ -3,6 +3,7 @@
   "extends": [
     "github>it-at-m/.github//renovate-configs/renovate-config.json5"
   ],
+  "automergeSchedule": ["* * * * *"],
   "packageRules": [
     {
       "description": "Automerge non-major updates once CI is green (Renovate-side; platform automerge is unsafe without required status checks on dev)",
