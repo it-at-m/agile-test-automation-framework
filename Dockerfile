@@ -3,6 +3,6 @@
 # please see https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/html/red_hat_java_s2i_for_openshift/
 # All other variations must be approved by KM8
 
-FROM registry.access.redhat.com/ubi9/openjdk-17-runtime:latest@sha256:2494f9c9bf0497d177c4b54e9f1101380fcd4ee227b1d473ce574b05a6868517
+FROM registry.access.redhat.com/ubi9/openjdk-17-runtime:latest@sha256:5db930442757ef371837b40e9d90c4b6d4afd07c54ff3957afadb09ebb68c82c
 
 COPY target/*.jar /deployments/application.jar
