@@ -1,5 +1,7 @@
 package ataf.web.steps;
 
+import ataf.core.assertions.CustomAssertions;
+import ataf.core.assertions.strategy.impl.TestNGAssertionStrategy;
 import ataf.core.helpers.TestDataHelper;
 import ataf.core.utils.CryptoUtils;
 import ataf.web.model.LocatorType;
@@ -28,6 +30,7 @@ public class BaseStepsSsoConfigurationTest {
 
     @BeforeClass
     public void initializeEncryption() {
+        CustomAssertions.setStrategy(new TestNGAssertionStrategy());
         originalEncryptionSecret = getCryptoUtilsSecret();
         CryptoUtils.setSecret(TEST_DATA_ENCRYPTION_PASSWORD.clone());
     }
