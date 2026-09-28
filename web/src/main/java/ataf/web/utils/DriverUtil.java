@@ -9,6 +9,7 @@ import org.openqa.selenium.NoSuchSessionException;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.SessionNotCreatedException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -488,15 +489,17 @@ public final class DriverUtil {
             return;
         }
 
-        HasExtensions extensions;
-        try {
-            if (driver instanceof HasExtensions hasExtensions) {
-                extensions = hasExtensions;
-            } else {
-                extensions = (HasExtensions) new Augmenter().augment(driver);
+        WebDriver session = driver;
+        if (!(driver instanceof HasExtensions)) {
+            try {
+                session = new Augmenter().augment(driver);
+            } catch (RuntimeException e) {
+                ScenarioLogManager.getLogger().error("Firefox extension installation is not available on this WebDriver session.", e);
+                return;
             }
-        } catch (ClassCastException e) {
-            ScenarioLogManager.getLogger().error("Firefox extension installation is not available on this WebDriver session.", e);
+        }
+        if (!(session instanceof HasExtensions extensions)) {
+            ScenarioLogManager.getLogger().error("Firefox extension installation is not available on this WebDriver session.");
             return;
         }
 
