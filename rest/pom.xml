@@ -29,7 +29,7 @@
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>json-schema-validator</artifactId>
-            <version>6.2.0</version> <!-- gleiche Version wie rest-assured -->
+            <version>6.3.0</version> <!-- gleiche Version wie rest-assured -->
         </dependency>
 
         <!-- Source: https://mvnrepository.com/artifact/org.mockito/mockito-core -->
