@@ -162,8 +162,7 @@ public class MobileDriverUtilTest {
     @Test
     public void shouldRejectConcurrentSessionFromAnotherThread() throws Exception {
         MobileDriverUtil.initDriver(CONFIG);
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        try {
+        try (ExecutorService executor = Executors.newSingleThreadExecutor()) {
             Future<Throwable> result = executor.submit(() -> {
                 try {
                     MobileDriverUtil.initDriver(CONFIG);
@@ -177,8 +176,6 @@ public class MobileDriverUtilTest {
             Assert.assertTrue(failure instanceof MobileDriverInitializationException, String.valueOf(failure));
             Assert.assertTrue(failure.getMessage().contains("one device and one session at a time"), failure.getMessage());
             Assert.assertEquals(createdDrivers.size(), 1, "No second session may be started");
-        } finally {
-            executor.shutdownNow();
         }
     }
 

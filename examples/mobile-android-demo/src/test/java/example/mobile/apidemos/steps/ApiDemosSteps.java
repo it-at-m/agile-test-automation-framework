@@ -31,6 +31,6 @@ public class ApiDemosSteps {
 
     @Then("the text field contains {string}")
     public void theTextFieldContains(String expectedText) {
-        CustomAssertions.assertEquals((Object) new ControlsPage().getText(), (Object) expectedText, "Unexpected content of the text field");
+        CustomAssertions.assertEquals(new ControlsPage().getText(), (Object) expectedText, "Unexpected content of the text field");
     }
 }
