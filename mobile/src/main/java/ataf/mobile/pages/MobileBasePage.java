@@ -223,6 +223,32 @@ public class MobileBasePage {
     }
 
     /**
+     * Scrolls the first scrollable container of the screen, for example a list, until an element
+     * with the given accessibility id is displayed. Android only includes the visible rows of a
+     * list in the UI hierarchy, so entries further down can't be found without scrolling. Uses
+     * UiAutomator's {@code UiScrollable}, which requires the UiAutomator2 driver.
+     *
+     * @param accessibilityId the accessibility id (content description) of the element.
+     * @return the displayed element.
+     * @throws TimeoutException if no such element is displayed within the default explicit wait
+     *             timeout.
+     */
+    public WebElement scrollToAccessibilityId(@NotNull String accessibilityId) {
+        ScenarioLogManager.getLogger().debug("Scroll to element with accessibility id [{}]", accessibilityId);
+        return waitForElementVisible(scrollIntoViewLocator(accessibilityId));
+    }
+
+    /**
+     * Creates the UiAutomator locator that scrolls the first scrollable container until an element
+     * with the given content description is visible.
+     */
+    static By scrollIntoViewLocator(String accessibilityId) {
+        String description = accessibilityId.replace("\\", "\\\\").replace("\"", "\\\"");
+        return AppiumBy.androidUIAutomator(
+                "new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().description(\"" + description + "\"))");
+    }
+
+    /**
      * Captures a screenshot of the device screen.
      *
      * @return the screenshot as PNG bytes.

@@ -5,14 +5,15 @@ import org.openqa.selenium.TimeoutException;
 
 /**
  * The list screens of ApiDemos, such as the start screen, "Views" and "Views/Controls". Every list
- * entry carries its label as content description, so it is located by accessibility id.
+ * entry carries its label as content description, so it is located by accessibility id. Entries
+ * below the visible part of a list, such as "Views" on the start screen, are scrolled into view.
  */
 public class ApiDemosListPage extends MobileBasePage {
 
     /**
      * Checks whether a list entry is displayed, waiting up to the configured explicit wait timeout.
      *
-     * @param label the label of the entry, for example {@code Views}.
+     * @param label the label of a visible entry, for example {@code App}.
      * @return {@code true} if the entry is displayed.
      */
     public boolean isEntryDisplayed(String label) {
@@ -32,7 +33,7 @@ public class ApiDemosListPage extends MobileBasePage {
      */
     public void navigateTo(String path) {
         for (String label : path.split("/")) {
-            tapOnElement(accessibilityId(label.trim()));
+            scrollToAccessibilityId(label.trim()).click();
         }
     }
 }

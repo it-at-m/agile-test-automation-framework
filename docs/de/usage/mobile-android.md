@@ -203,6 +203,7 @@ public class LoginPage extends MobileBasePage {
 
 - **Locator:** Bevorzuge `accessibilityId(...)` (die Android-Content-Description) und `resourceId(...)`. XPath ist auf Mobilgeräten langsam und bricht leicht.
 - **Waits:** `waitForElementVisible`, `waitForElementClickable` und alle Interaktionen warten explizit. `isElementVisible` und `isElementPresent` prüfen sofort. Es gibt keine festen Sleeps und keine impliziten Waits.
+- **Listen:** Android nimmt nur die Zeilen einer Liste in die UI-Hierarchie auf, die gerade auf dem Bildschirm sind; ein Eintrag weiter unten ist daher noch nicht auffindbar. `scrollToAccessibilityId(...)` scrollt den ersten scrollbaren Container, bis der Eintrag angezeigt wird, und gibt ihn zurück.
 - **Appium-Befehle:** `MobileDriverUtil.getDriver()` liefert den `AndroidDriver` für alles Weitere, zum Beispiel `getCurrentPackage()` oder `mobile:`-Extension-Befehle.
 - **Runner:** Erbe von `BasicTestNGRunner`, nicht von `ParallelTestNGRunner`. Wie jeder ATAF-Runner braucht er `cucumber.features` und ein `json:`-Plugin in `cucumber.properties` sowie `taf.testDataEncryptionPassword` (siehe [Laufzeit-Zugangsdaten](../configuration/credentials.md)).
 

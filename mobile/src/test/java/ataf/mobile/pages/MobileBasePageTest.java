@@ -20,6 +20,7 @@ import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 
+import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
@@ -170,6 +171,29 @@ public class MobileBasePageTest {
 
         when(driver.findElements(LOCATOR)).thenReturn(List.of());
         Assert.assertFalse(page.isElementPresent(LOCATOR));
+    }
+
+    @Test
+    public void shouldScrollToElementByAccessibilityId() {
+        when(driver.findElement(argThat(locator -> locator.toString().contains("UiScrollable")))).thenReturn(element);
+        when(element.isDisplayed()).thenReturn(true);
+
+        Assert.assertSame(page.scrollToAccessibilityId("Views"), element);
+    }
+
+    @Test
+    public void shouldScrollIntoViewByContentDescription() {
+        String locator = MobileBasePage.scrollIntoViewLocator("Views").toString();
+
+        Assert.assertTrue(locator.contains("new UiScrollable(new UiSelector().scrollable(true))"), locator);
+        Assert.assertTrue(locator.contains(".scrollIntoView(new UiSelector().description(\"Views\"))"), locator);
+    }
+
+    @Test
+    public void shouldEscapeQuotesInScrollLocator() {
+        String locator = MobileBasePage.scrollIntoViewLocator("Say \"hi\" \\ bye").toString();
+
+        Assert.assertTrue(locator.contains("description(\"Say \\\"hi\\\" \\\\ bye\")"), locator);
     }
 
     @Test

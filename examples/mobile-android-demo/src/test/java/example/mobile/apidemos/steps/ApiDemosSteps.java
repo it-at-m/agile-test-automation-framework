@@ -16,7 +16,7 @@ public class ApiDemosSteps {
 
     @Given("the ApiDemos app is open")
     public void theApiDemosAppIsOpen() {
-        CustomAssertions.assertTrue(new ApiDemosListPage().isEntryDisplayed("Views"), "The start screen of ApiDemos is not displayed");
+        CustomAssertions.assertTrue(new ApiDemosListPage().isEntryDisplayed("App"), "The start screen of ApiDemos is not displayed");
     }
 
     @When("the user navigates to {string}")
