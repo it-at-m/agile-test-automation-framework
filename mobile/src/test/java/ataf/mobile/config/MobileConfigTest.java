@@ -325,10 +325,21 @@ public class MobileConfigTest {
 
         Assert.assertEquals(config.appPackage(), TestProperties.getProperty(PROPERTY_APP_PACKAGE).orElseThrow());
         Assert.assertEquals(config.appActivity(), TestProperties.getProperty(PROPERTY_APP_ACTIVITY).orElseThrow());
-        Assert.assertEquals(config.explicitWaitTimeout().toSeconds(),
-                Long.parseLong(TestProperties.getProperty(PROPERTY_EXPLICIT_WAIT_SECONDS).orElseThrow().toString()));
-        Assert.assertEquals(config.newCommandTimeout().toSeconds(),
-                Long.parseLong(TestProperties.getProperty(PROPERTY_NEW_COMMAND_TIMEOUT_SECONDS).orElseThrow().toString()));
+
+        long expectedExplicitWaitSeconds;
+        long expectedNewCommandTimeoutSeconds;
+        try {
+            expectedExplicitWaitSeconds = Long.parseLong(
+                    TestProperties.getProperty(PROPERTY_EXPLICIT_WAIT_SECONDS).orElseThrow().toString());
+            expectedNewCommandTimeoutSeconds = Long.parseLong(
+                    TestProperties.getProperty(PROPERTY_NEW_COMMAND_TIMEOUT_SECONDS).orElseThrow().toString());
+        } catch (NumberFormatException e) {
+            Assert.fail("Invalid numeric mobile timeout property value", e);
+            return;
+        }
+
+        Assert.assertEquals(config.explicitWaitTimeout().toSeconds(), expectedExplicitWaitSeconds);
+        Assert.assertEquals(config.newCommandTimeout().toSeconds(), expectedNewCommandTimeoutSeconds);
         Assert.assertFalse(config.additionalCapabilities().isEmpty(), "src/test/resources/testautomation.properties defines additional capabilities");
     }
 
