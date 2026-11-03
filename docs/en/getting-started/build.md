@@ -28,4 +28,18 @@ mvn clean install
 mvn clean install -Dataf.it.jira.enabled=true
 ```
 
+## Android Device Tests
+
+Tests of the `mobile` module that need a real Android device are **disabled by default** as well, so regular builds and pull-request checks run without hardware:
+
+- `-Dataf.it.mobile.enabled=true` enables the device smoke test of the `mobile` module.
+- The Maven profile `android-device` runs the Cucumber scenarios of `examples/mobile-android-demo`.
+
+```bash
+# Device smoke test (requires a running Appium server and a connected device)
+mvn -pl mobile -am test -Dataf.it.mobile.enabled=true -Dtestautomation.mobile.udid=<adb serial>
+```
+
+Host setup and the other commands are described in [Mobile App Testing (Android)](../usage/mobile-android.md).
+
 For full Jira configuration including the runtime credentials passed to ATAF at execution time, see [Property Files](../configuration/properties.md) and [Runtime Credentials](../configuration/credentials.md).

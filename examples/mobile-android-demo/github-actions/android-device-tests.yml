@@ -1,0 +1,85 @@
+# Example workflow for the ATAF mobile proof of concept. It is a template and inactive here.
+#
+# Copy it to .github/workflows/ of the repository that owns the device runner, typically the test
+# repository that AppTest executes. GitHub-hosted runners cannot reach a USB-connected device, so the
+# job needs a self-hosted runner on the Linux host of the Android device (labels: self-hosted, linux,
+# android) with JDK 21, Maven, Node.js, the Android platform tools (adb) and a running Appium 3 server
+# with the UiAutomator2 driver. Don't attach self-hosted runners to public repositories: workflows
+# from forks could run on them.
+#
+# The job fails when a scenario fails (Maven exit code), and the reports are uploaded either way.
+name: Android device tests (ATAF mobile PoC)
+
+on:
+  workflow_dispatch:
+    inputs:
+      udid:
+        description: "Device serial as listed by 'adb devices' (empty: repository variable ANDROID_UDID)"
+        required: false
+        default: ""
+      appium-server-url:
+        description: "Appium server URL incl. base path (empty: variable APPIUM_SERVER_URL or http://127.0.0.1:4723)"
+        required: false
+        default: ""
+      cucumber-tags:
+        description: "Cucumber tag expression"
+        required: false
+        default: "@mobile"
+
+permissions:
+  contents: read
+
+jobs:
+  android-device-tests:
+    runs-on: [self-hosted, linux, android]
+    timeout-minutes: 30
+    # One device runs one session at a time
+    concurrency:
+      group: android-device-${{ inputs.udid || vars.ANDROID_UDID }}
+      cancel-in-progress: false
+    env:
+      ANDROID_UDID: ${{ inputs.udid || vars.ANDROID_UDID }}
+      APPIUM_SERVER_URL: ${{ inputs.appium-server-url || vars.APPIUM_SERVER_URL || 'http://127.0.0.1:4723' }}
+      CUCUMBER_TAGS: ${{ inputs.cucumber-tags }}
+      DEMO_MODULE: examples/mobile-android-demo
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6.1.0
+        with:
+          distribution: temurin
+          java-version: "21"
+          cache: maven
+
+      - name: Check device and Appium server
+        run: |
+          adb devices -l
+          if [ -n "$ANDROID_UDID" ]; then
+            test "$(adb -s "$ANDROID_UDID" get-state)" = "device"
+          fi
+          curl --fail --silent --show-error "$APPIUM_SERVER_URL/status"
+
+      - name: Download the ApiDemos demo app
+        run: |
+          npm pack android-apidemos@5.0.0 --pack-destination "$RUNNER_TEMP"
+          tar -xzf "$RUNNER_TEMP/android-apidemos-5.0.0.tgz" -C "$RUNNER_TEMP" package/apks/ApiDemos-debug.apk
+          echo "APIDEMOS_APK=$RUNNER_TEMP/package/apks/ApiDemos-debug.apk" >> "$GITHUB_ENV"
+
+      - name: Run Android tests
+        run: >
+          mvn -B -ntp -pl "$DEMO_MODULE" -am verify -Pandroid-device
+          -Dtestautomation.mobile.udid="$ANDROID_UDID"
+          -Dtestautomation.mobile.appiumServerUrl="$APPIUM_SERVER_URL"
+          -Dtestautomation.mobile.app="$APIDEMOS_APK"
+          -Dcucumber.filter.tags="$CUCUMBER_TAGS"
+
+      - name: Upload test reports
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: android-test-reports
+          path: |
+            ${{ env.DEMO_MODULE }}/target/cucumber-reports/
+            ${{ env.DEMO_MODULE }}/target/surefire-reports/
+            ${{ env.DEMO_MODULE }}/logs/
+          if-no-files-found: warn

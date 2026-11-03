@@ -14,6 +14,8 @@ When using Cucumber with the default plugin configuration shown in [Property Fil
 - `target/cucumber.json` — JSON report (machine-readable; ingest into other tooling).
 - `target/site/cucumber-pretty` — HTML report.
 
+Add Cucumber's `junit:` plugin (for example `junit:target/cucumber-reports/cucumber.xml`) to get a JUnit XML file with one test case per scenario in addition to the Surefire reports. The mobile example writes its JSON, JUnit XML and HTML reports to `target/cucumber-reports/`; see [Mobile App Testing (Android)](./usage/mobile-android.md#reports).
+
 ## CI Integration
 
 JUnit XML output makes the reports compatible with most CI dashboards out of the box:

@@ -193,4 +193,8 @@ Safari is not available on `Windows amd64`/`Windows arm64` or on `amd64`/`arm64`
 - Route the Safari runs through a cloud-based cross-browser testing service from your GitHub Actions workflow.
   :::
 
+### Mobile Properties
+
+The `mobile` module reads its settings from `testautomation.properties` as well, using the prefix `testautomation.mobile.` (Appium server URL, device UDID, app package and activity or APK, timeouts, additional capabilities). See [Mobile App Testing (Android)](../usage/mobile-android.md#configuration) for the full list.
+
 For credentials that must not be committed alongside these property files, see [Runtime Credentials](./credentials.md).

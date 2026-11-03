@@ -4,7 +4,7 @@ This handbook is the main entry point on [GitHub Pages](https://it-at-m.github.i
 
 - **GitHub Repository**: [https://github.com/it-at-m/agile-test-automation-framework/](https://github.com/it-at-m/agile-test-automation-framework/)
 - **Latest releases**: [github.com/it-at-m/agile-test-automation-framework/releases](https://github.com/it-at-m/agile-test-automation-framework/releases) (used in place of an in-repo changelog)
-- **Maven coordinates**: `de.muenchen.ataf:{core,rest,web}` on Maven Central
+- **Maven coordinates**: `de.muenchen.ataf:{core,rest,web}` on Maven Central (`mobile` from the next release)
 
 ## Quick Links
 
@@ -17,6 +17,7 @@ This handbook is the main entry point on [GitHub Pages](https://it-at-m.github.i
 - [Runners and Running Tests](./usage/runners.md)
 - [Environments and Systems](./usage/environments.md)
 - [Standalone Usage (No Jira, Local Keycloak)](./usage/standalone-without-jira.md) — feature files in Git, local Keycloak instead of corporate SSO
+- [Mobile App Testing (Android)](./usage/mobile-android.md) — native Android apps with Appium on a physical device (proof of concept)
 - [Property Files](./configuration/properties.md)
 - [Runtime Credentials](./configuration/credentials.md)
 - [Reporting](./reporting.md)
@@ -38,11 +39,12 @@ ATAF is designed for agile projects: fast setup, maintainable test automation, a
 
 ### Module Layout
 
-ATAF is split into three artifacts under the `de.muenchen.ataf` Maven group:
+ATAF is split into four artifacts under the `de.muenchen.ataf` Maven group:
 
 - `core` — required. Cucumber and Jira integration, test data helpers, properties utilities.
 - `rest` — optional. Classes for API testing.
 - `web` — optional. Classes for browser-based tests.
+- `mobile` — optional. Classes for native Android app tests with Appium (proof of concept, published from the next release).
 
 See [Installation](./getting-started/installation.md) for the exact Maven coordinates and snippets.
 
@@ -56,6 +58,7 @@ This project is built with technologies commonly used in modern Java-based test 
 - [TestNG](https://testng.org/)
 - [JUnit 5](https://junit.org/junit5/)
 - [Selenium](https://www.selenium.dev/)
+- [Appium](https://appium.io/)
 - [Log4j 2](https://logging.apache.org/log4j/2.x/)
 - Jira REST API
 - Xray REST API

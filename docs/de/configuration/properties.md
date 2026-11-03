@@ -193,4 +193,8 @@ Safari steht nicht für `Windows amd64`/`Windows arm64` oder `amd64`-/`arm64`-Li
 - die Safari-Läufe aus dem GitHub-Actions-Workflow heraus an einen Cloud-basierten Cross-Browser-Testing-Dienst delegieren.
   :::
 
+### Mobile Properties
+
+Auch das Modul `mobile` liest seine Einstellungen aus `testautomation.properties`, mit dem Präfix `testautomation.mobile.` (Appium-Server-URL, Geräte-UDID, App-Package und Activity oder APK, Timeouts, zusätzliche Capabilities). Die vollständige Liste steht unter [Mobile-App-Tests (Android)](../usage/mobile-android.md#konfiguration).
+
 Zugangsdaten, die nicht zusammen mit diesen Property-Dateien eingecheckt werden dürfen, siehe [Laufzeit-Zugangsdaten](./credentials.md).

@@ -33,3 +33,11 @@ updates:
       time: "04:00"
       timezone: "Europe/Berlin"
     target-branch: "main"
+  - package-ecosystem: "maven"
+    directory: "/mobile"          # where your pom.xml lives (root here)
+    schedule:
+      interval: "weekly"
+      day: "tuesday"
+      time: "04:00"
+      timezone: "Europe/Berlin"
+    target-branch: "main"

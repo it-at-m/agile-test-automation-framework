@@ -21,7 +21,7 @@
 
 - Published developer handbook (GitHub Pages root): [https://it-at-m.github.io/agile-test-automation-framework/](https://it-at-m.github.io/agile-test-automation-framework/)
 - Releases (used in place of an in-repo changelog): [github.com/it-at-m/agile-test-automation-framework/releases](https://github.com/it-at-m/agile-test-automation-framework/releases)
-- Maven coordinates: `de.muenchen.ataf:{core,rest,web}:0.3.4` on Maven Central (after the next release)
+- Maven coordinates: `de.muenchen.ataf:{core,rest,web}:0.3.4` on Maven Central (after the next release); the new `mobile` module (Android app tests with Appium) is published with the next release
 
 ### Creating a release
 
@@ -46,6 +46,7 @@ It provides:
 - Seamless integration with popular testing libraries
 - Easy-to-configure runners for TestNG and JUnit
 - Integration with Jira and Xray using their existing REST APIs for test management
+- Native Android app tests with Appium and UiAutomator2 (`mobile` module, proof of concept)
 
 For prerequisites, installation, writing and running tests, property files, supported webdrivers, reporting, and the full project history see the [handbook](https://it-at-m.github.io/agile-test-automation-framework/).
 
@@ -81,6 +82,7 @@ Es bietet:
 - Nahtlose Integration in verbreitete Test-Bibliotheken
 - Einfach konfigurierbare Runner für TestNG und JUnit
 - Anbindung an Jira und Xray über deren REST-APIs für das Testmanagement
+- Tests nativer Android-Apps mit Appium und UiAutomator2 (Modul `mobile`, Proof of Concept)
 
 Voraussetzungen, Installation, Tests schreiben und ausführen, Property-Dateien, unterstützte Webdriver, Reporting und die vollständige Projektgeschichte stehen im [Handbuch](https://it-at-m.github.io/agile-test-automation-framework/de/).
 
@@ -104,7 +106,7 @@ ATAF wurde überwiegend von Kolleg:innen aus **digital@M** für den Einsatz bei 
 
 - Veröffentlichtes Entwicklerhandbuch (GitHub Pages, deutsche Version): [https://it-at-m.github.io/agile-test-automation-framework/de/](https://it-at-m.github.io/agile-test-automation-framework/de/)
 - Releases (ersetzt einen Changelog im Repository): [github.com/it-at-m/agile-test-automation-framework/releases](https://github.com/it-at-m/agile-test-automation-framework/releases)
-- Maven-Koordinaten: `de.muenchen.ataf:{core,rest,web}:0.3.4` auf Maven Central (nach dem nächsten Release)
+- Maven-Koordinaten: `de.muenchen.ataf:{core,rest,web}:0.3.4` auf Maven Central (nach dem nächsten Release); das neue Modul `mobile` (Android-App-Tests mit Appium) wird mit dem nächsten Release veröffentlicht
 
 ### Release erstellen
 
