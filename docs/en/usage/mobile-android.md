@@ -3,7 +3,7 @@
 The `mobile` module automates native Android apps with [Appium](https://appium.io/) and the UiAutomator2 driver. It plugs into the same Cucumber lifecycle as the `web` and `rest` modules: tag a scenario with `@mobile`, and ATAF starts an Appium session on the configured device before the scenario and closes it afterwards.
 
 ::: warning Proof of concept (ATAF-26)
-The module is a first, deliberately small implementation: Android only, one device per host, scenarios run one after another. All behaviour that doesn't need hardware is covered by automated tests. A run against a physical device has **not been verified yet**.
+The module is a first, deliberately small implementation: Android only, one device per host, scenarios run one after another. All behaviour that doesn't need hardware is covered by automated tests. The device smoke test and the demo scenario have passed on a **Sony Xperia XZ Premium (Android 9)** connected to a Windows 11 PC, with Appium 3.9.0 and UiAutomator2 8.7.3. The Linux test host and runs through a GitHub self-hosted runner haven't been tested yet.
 :::
 
 ## Scope
@@ -280,7 +280,7 @@ Don't register the device runner for a public repository: pull requests from for
 - One device and one session at a time. A second, parallel session is rejected.
 - APK paths must exist on the machine that runs the tests; in the proof of concept Appium runs on the same machine.
 - Android only; no iOS support.
-- The run on a physical device has not been verified yet.
+- Verified on one device so far (Sony Xperia XZ Premium, Android 9, on Windows 11). The Linux test host and the GitHub self-hosted runner haven't been tested yet.
 - `java-client` 11 was released in October 2026 and replaced Selenium's HTTP layer, so there is little field experience with it so far.
 
 ## Remaining integration work
