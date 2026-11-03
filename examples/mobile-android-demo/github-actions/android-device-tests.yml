@@ -65,9 +65,13 @@ jobs:
           tar -xzf "$RUNNER_TEMP/android-apidemos-5.0.0.tgz" -C "$RUNNER_TEMP" package/apks/ApiDemos-debug.apk
           echo "APIDEMOS_APK=$RUNNER_TEMP/package/apks/ApiDemos-debug.apk" >> "$GITHUB_ENV"
 
+      # Installed first so the device settings below only reach the demo module, not the unit tests
+      - name: Install the framework modules
+        run: mvn -B -ntp install -DskipTests
+
       - name: Run Android tests
         run: >
-          mvn -B -ntp -pl "$DEMO_MODULE" -am verify -Pandroid-device
+          mvn -B -ntp -pl "$DEMO_MODULE" verify -Pandroid-device
           -Dtestautomation.mobile.udid="$ANDROID_UDID"
           -Dtestautomation.mobile.appiumServerUrl="$APPIUM_SERVER_URL"
           -Dtestautomation.mobile.app="$APIDEMOS_APK"

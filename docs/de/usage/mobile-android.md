@@ -210,18 +210,34 @@ Das Modul [`examples/mobile-android-demo`](https://github.com/it-at-m/agile-test
 
 ## Tests ausführen
 
-| Zweck                                                 | Befehl                                                                                                                                                             |
-| ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Unit-Tests des Moduls (ohne Gerät)                    | `mvn -pl mobile -am test`                                                                                                                                          |
-| Smoke-Test auf einem Gerät (öffnet die Einstellungen) | `mvn -pl mobile -am test -Dataf.it.mobile.enabled=true -Dtestautomation.mobile.udid=<serial>`                                                                      |
-| Demo-Szenario auf einem Gerät                         | `mvn -pl examples/mobile-android-demo -am verify -Pandroid-device -Dtestautomation.mobile.udid=<serial> -Dtestautomation.mobile.app=<Pfad zur ApiDemos-debug.apk>` |
-| Nur bestimmte Szenarien (Consumer-Projekte und Demo)  | zusätzlich `-Dcucumber.filter.tags="@mobile and @smoke"`                                                                                                           |
+| Zweck                                                 | Befehl                                                                                        |
+| ----------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| Unit-Tests des Moduls (ohne Gerät)                    | `mvn -pl mobile -am test`                                                                     |
+| Smoke-Test auf einem Gerät (öffnet die Einstellungen) | `mvn -pl mobile -am test -Dataf.it.mobile.enabled=true -Dtestautomation.mobile.udid=<serial>` |
+| Demo-Szenario auf einem Gerät                         | zwei Schritte, siehe [Demo-Szenario](#demo-szenario) weiter unten                             |
+| Nur bestimmte Szenarien (Consumer-Projekte und Demo)  | zusätzlich `-Dcucumber.filter.tags="@mobile and @smoke"`                                      |
 
-Die Demo-APK holst du dir von npm:
+### Demo-Szenario
+
+Lade die Demo-APK in einen Ordner außerhalb des Repositorys herunter, damit sie nicht versehentlich eingecheckt wird:
 
 ```bash
 npm pack android-apidemos@5.0.0 && tar -xzf android-apidemos-5.0.0.tgz package/apks/ApiDemos-debug.apk
 ```
+
+Installiere die Framework-Module einmal und erneut, nachdem du Framework-Code geändert hast:
+
+```bash
+mvn install -DskipTests
+```
+
+Führe danach nur das Demo-Modul aus:
+
+```bash
+mvn -pl examples/mobile-android-demo verify -Pandroid-device -Dtestautomation.mobile.udid=<serial> -Dtestautomation.mobile.app=<absoluter Pfad zur ApiDemos-debug.apk>
+```
+
+Ergänze hier kein `-am`: `-D`-Werte gelten für jedes Modul im Build, die Geräteeinstellungen würden also auch die Unit-Tests von `core` und `mobile` erreichen. Gib die APK als absoluten Pfad an, denn die Maven-Run-Configurations von IntelliJ lösen Shell-Variablen wie `$PWD` nicht auf. In PowerShell setzt du jedes `-D`-Argument in Anführungszeichen, zum Beispiel `"-Dtestautomation.mobile.udid=<serial>"`.
 
 Gerätetests laufen nur auf ausdrücklichen Wunsch: Der Smoke-Test wird ohne `-Dataf.it.mobile.enabled=true` übersprungen, und das Demo-Szenario läuft nur mit dem Profil `android-device`. Normale Builds und Pull-Request-Checks brauchen kein Gerät.
 
