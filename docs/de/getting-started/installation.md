@@ -40,4 +40,16 @@ Enthält Klassen für Browser-basierte Tests.
 </dependency>
 ```
 
+## Mobile-Paket (optional)
+
+Enthält Klassen für Tests nativer Android-Apps mit Appium und UiAutomator2. Das Modul ist neu und wird mit dem nächsten Release veröffentlicht; bis dahin baust du es lokal mit `mvn install` und verwendest `0.3.5-SNAPSHOT`. Siehe [Mobile-App-Tests (Android)](../usage/mobile-android.md).
+
+```xml
+<dependency>
+    <groupId>de.muenchen.ataf</groupId>
+    <artifactId>mobile</artifactId>
+    <version>0.3.5-SNAPSHOT</version>
+</dependency>
+```
+
 Nach der Konfiguration der Abhängigkeiten geht es weiter mit [Build und Integrationstests](./build.md).

@@ -24,3 +24,7 @@
 "Web":
   - changed-files:
     - any-glob-to-any-file: ['web/**']
+
+"Mobile":
+  - changed-files:
+    - any-glob-to-any-file: ['mobile/**', 'examples/mobile-android-demo/**']

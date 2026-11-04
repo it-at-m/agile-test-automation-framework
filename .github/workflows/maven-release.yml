@@ -55,6 +55,7 @@ jobs:
             core/target/*.jar
             rest/target/*.jar
             web/target/*.jar
+            mobile/target/*.jar
 
   # GITHUB_TOKEN-created releases do not trigger workflow `release` events, so notify
   # explicitly after the GitHub release exists.
