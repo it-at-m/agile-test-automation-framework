@@ -19,7 +19,7 @@
     "vitepress": "1.6.4"
   },
   "overrides": {
-    "vite": "8.3.5",
+    "vite": "8.3.6",
     "dompurify": "3.4.17",
     "katex": "0.19.0",
     "postcss": "8.5.31",
