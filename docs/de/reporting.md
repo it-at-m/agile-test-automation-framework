@@ -14,6 +14,8 @@ Mit der Default-Plugin-Konfiguration aus [Property-Dateien → `cucumber.propert
 - `target/cucumber.json` – JSON-Report (maschinenlesbar; lässt sich an weitere Tools weiterreichen).
 - `target/site/cucumber-pretty` – HTML-Report.
 
+Mit Cucumbers `junit:`-Plugin (zum Beispiel `junit:target/cucumber-reports/cucumber.xml`) entsteht zusätzlich zu den Surefire-Reports eine JUnit-XML-Datei mit einem Testfall pro Szenario. Das Mobile-Beispiel schreibt seine JSON-, JUnit-XML- und HTML-Reports nach `target/cucumber-reports/`; siehe [Mobile-App-Tests (Android)](./usage/mobile-android.md#reports).
+
 ## CI-Integration
 
 Die JUnit-XML-Ausgabe macht die Reports out of the box mit den meisten CI-Dashboards kompatibel:

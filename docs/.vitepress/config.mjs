@@ -85,6 +85,7 @@ const sidebarLabels = {
     runners: "Runners and Running Tests",
     environments: "Environments and Systems",
     standaloneWithoutJira: "Standalone (No Jira, Local Keycloak)",
+    mobileAndroid: "Mobile App Testing (Android)",
     configuration: "Configuration",
     properties: "Property Files and Supported Webdrivers",
     credentials: "Runtime Credentials",
@@ -110,6 +111,7 @@ const sidebarLabels = {
     runners: "Runner und Testausführung",
     environments: "Umgebungen und Systeme",
     standaloneWithoutJira: "Standalone (ohne Jira, lokales Keycloak)",
+    mobileAndroid: "Mobile-App-Tests (Android)",
     configuration: "Konfiguration",
     properties: "Property-Dateien und unterstützte Webdriver",
     credentials: "Laufzeit-Zugangsdaten",
@@ -172,6 +174,10 @@ const buildSidebar = (prefix, lang) => {
         {
           text: t.standaloneWithoutJira,
           link: `${prefix}/usage/standalone-without-jira`,
+        },
+        {
+          text: t.mobileAndroid,
+          link: `${prefix}/usage/mobile-android`,
         },
       ],
     },

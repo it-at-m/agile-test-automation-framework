@@ -1,0 +1,64 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>de.muenchen.ataf</groupId>
+        <artifactId>agile-test-automation-framework</artifactId>
+        <version>0.3.5-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>mobile-android-demo</artifactId>
+    <name>Agile Test Automation Framework - Mobile Android Demo</name>
+    <description>Example consumer project for the ATAF mobile module (Appium ApiDemos on a physical Android device). Not published.</description>
+    <packaging>jar</packaging>
+
+    <properties>
+        <!-- Example project: it is compiled in every build but never deployed or published. -->
+        <maven.deploy.skip>true</maven.deploy.skip>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>de.muenchen.ataf</groupId>
+            <artifactId>mobile</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+        <!-- Runs the Cucumber scenarios against a real device: mvn verify -Pandroid-device -Dtestautomation.mobile.udid=<serial> -->
+        <profile>
+            <id>android-device</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <includes>
+                                <include>**/*Runner.java</include>
+                            </includes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- Keeps the example out of Maven Central when the parent's release profile is active. -->
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <configuration>
+                            <skipPublishing>true</skipPublishing>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>

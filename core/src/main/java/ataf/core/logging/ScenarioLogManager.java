@@ -138,13 +138,15 @@ public class ScenarioLogManager {
         long threadId = Thread.currentThread().threadId();
         Class<?> callerClass = StackLocatorUtil.getCallerClass(2);
 
-        return LOGGER_MAP.compute(threadId, (id, existingLogger) -> {
+        Logger logger = LOGGER_MAP.compute(threadId, (id, existingLogger) -> {
             if (existingLogger == null || !existingLogger.getName().equals(callerClass.getName())) {
                 existingLogger = LogManager.getLogger(callerClass);
             }
-            updateAppender(threadId);
             return existingLogger;
         });
+
+        updateAppender(threadId);
+        return logger;
     }
 
     /**
