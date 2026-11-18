@@ -1,0 +1,5 @@
+# CVE-2026-112366 (HIGH): picomatch 4.0.7
+# Transitive development dependency used by the VitePress documentation build.
+# Temporary exception, pending risk assessment and an upstream patched release.
+# Review by 2026-12-18.
+CVE-2026-112366
