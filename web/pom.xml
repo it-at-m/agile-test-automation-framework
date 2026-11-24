@@ -24,5 +24,11 @@
             <artifactId>selenium-java</artifactId>
             <version>4.53.0</version>
         </dependency>
+
+        <!-- Parses the axe-core JSON result in AxeCoreRunner (version managed by the parent pom) -->
+        <dependency>
+            <groupId>tools.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
     </dependencies>
 </project>
