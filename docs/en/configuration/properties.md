@@ -165,6 +165,32 @@ testautomation.jiraRestApiUrl=https://jira.example.com/rest/api/2/
 testautomation.jiraXrayRestApiUrl=https://jira.example.com/rest/raven/1.0/
 ```
 
+### Checking accessibility (axe-core)
+
+The `web` module can check the currently open page with [axe-core](https://github.com/dequelabs/axe-core) for automatically detectable accessibility problems (such as missing labels, contrast problems, or incorrect roles). axe-core is injected into the page from the classpath, so no runtime download or build step is needed. It does not replace a real screen reader.
+
+```gherkin
+@web @a11y @smoke
+Szenario: Startseite ohne kritische Barrieren
+  Wenn Sie die URL "https://example.muenchen.de" aufrufen.
+  Dann sollte die Seite keine Accessibility-Verletzungen mit Impact "critical" haben.
+```
+
+The step fails as soon as axe-core finds violations at or above the given impact (`minor` < `moderate` < `serious` < `critical`). The full summary (rule, impact, affected elements, help link) is attached to the Cucumber report as `axe-violations.txt`, including on green runs.
+
+Configuration via `testautomation.properties`:
+
+```properties
+# Disable the check (default: true)
+testautomation.a11y.enabled=true
+
+# Optional: restrict the run to WCAG tags, e.g. wcag2a,wcag2aa (default: the axe rule set)
+testautomation.a11y.tags=
+
+# Optional: disable individual axe rules, comma separated
+testautomation.a11y.disabled.rules=
+```
+
 ### Safari Support
 
 Since [ATAF 0.3.3](https://github.com/it-at-m/agile-test-automation-framework/pull/13), the WebDriver layer in `ataf-web` can drive Safari via `SafariDriver`/`SafariOptions`, both locally and through a Selenium Grid. This enables tests on:
